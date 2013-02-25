@@ -1,0 +1,70 @@
+% latex article template
+
+% cheat sheet(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/latexsheet.pdf
+% cheat sheet2(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/LaTeX-cheat-sheet.pdf
+% reference manual(eng): http://ctan.uib.no/info/latex2e-help-texinfo/latex2e.html
+
+% The document class defines the type of document. Presentation, article, letter, etc. 
+\documentclass[12pt, a4paper]{article}
+
+% packages to be used. needed to use images and such things. 
+\usepackage[pdfborder=0 0 0]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+
+% hides the section numbering. 
+\setcounter{secnumdepth}{-1}
+
+% Graphics/image lications and extensions. 
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .jpeg}
+\graphicspath{{./images/}}
+
+% Title or header for the document. 
+\title{Document Title}
+% Author
+\author{
+        Magnus L Kirø \\
+		representing ThisOrThat organization % in what capacity are you presenting this document? as yourself, the sales manager, ceo, etc? 
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+\section{front page}
+group name
+group members
+chosen cots / android
+primary + secondary quality attribute.
+
+\section{introduction}
+* description of the project and the phase (requirement)
+* of game project: description of game concept should be sufficiently described and explained here. 
+* structure of the document. 
+
+\section{Functional requirements}
+*A complete list of functionality requirements you have to fulfill in order to complete the task. Each requirement must have a unique ID. Can also be decomposed into sub-requirements. 
+
+\section{quality requirements(scenarioes)}
+* Write at leat scenarios for the most relevant quality attributes (modifiability, testability, safety, usability, etc) 
+* Use (textual/table) scenarios of the type used in chapter 4 of the book.
+* Make the quality requirements measurable/testable with some values that can e checked later. Make estimates for the response mearsure. 
+* Tables are recommended to specify quality requirements.
+* every quality requirement mus have an ID.
+
+\section{COTS components and technical constraints}
+describe the constraints  your architecture has due to your choice of COTS(android), If you have some other constraints relevant for your project, it should be stated here. 
+
+\section{references}
+list references. 
+
+\section{issues}
+optional point of issues you faced working with this of the project and the document. 
+
+\section{changes}
+to be described carried out with this document from first draft until final delivary including all improvements based on feedback from course staff and others. 
+
+\end{document}
