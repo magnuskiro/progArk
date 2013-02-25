@@ -1,0 +1,84 @@
+% latex article template
+
+% cheat sheet(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/latexsheet.pdf
+% cheat sheet2(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/LaTeX-cheat-sheet.pdf
+% reference manual(eng): http://ctan.uib.no/info/latex2e-help-texinfo/latex2e.html
+
+% The document class defines the type of document. Presentation, article, letter, etc. 
+\documentclass[12pt, a4paper]{article}
+
+% packages to be used. needed to use images and such things. 
+\usepackage[pdfborder=0 0 0]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+
+% hides the section numbering. 
+\setcounter{secnumdepth}{-1}
+
+% Graphics/image lications and extensions. 
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .jpeg}
+\graphicspath{{./images/}}
+
+% Title or header for the document. 
+\title{Document Title}
+% Author
+\author{
+        Magnus L Kirø \\
+		representing ThisOrThat organization % in what capacity are you presenting this document? as yourself, the sales manager, ceo, etc? 
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+\section{front page}
+group name
+group members
+chosen cots / android
+primary + secondary quality attribute. 
+
+\section{introduction}
+Project description
+document structure and phase (requirement)
+
+game description
+
+\section{Architectural drivers / architectural significant requirements (asr)}
+the main drivers(functional, quality and business requirements) that affect the architecture the most 
+
+\section{Stakeholders and concerns}
+the stakeholders and their concerns. 
+
+\section{Selection of Architectural views (viewpoint)}
+* a list of views that you will use in the architectural design, their purpose, target audience(which stakeholders are you addressing), and what notation will be used for each view. 
+
+* all groups need  to choose at least a logical view, a process view and a development view or similar. 
+
+\section{architectual tactics}
+describe the tactics for architecture to meet the quality requirements. 
+
+\section{Architectural and design pattern}
+selection of arcitectural/design patterns to be used in your architectue..
+
+\section{views}
+document architecture using your selected views (at least logical, process and development) through diagrams and supporting/explaining text.
+
+\section{consistency among views}
+descripion inconsistencies among the vieas in your architecture.
+
+\section{architectural rationale}
+hehe you will explain why you have chosen the architecture will work and fulfill the quality, business and the functional requirements.
+
+\section{issues}
+describe issues you faced working with and describing the architecture.
+
+\section{references}
+A list of any references books, articles, web-pages, documents etc, that you have used. 
+
+\section{changes}
+to be describes changes carried out with this document from first draft until final delivery including all improvements based on feedack from course staff and others. 
+
+\end{document}
