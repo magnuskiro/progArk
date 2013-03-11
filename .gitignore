@@ -21,6 +21,10 @@ local.properties
 
 # Latex files
 *.log
+*.out
+*.aux
+*.toc
+*.synctex.gz
 
 # vim swap files
 *.swp
