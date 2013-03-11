@@ -1,0 +1,88 @@
+% latex article template
+
+% cheat sheet(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/latexsheet.pdf
+% cheat sheet2(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/LaTeX-cheat-sheet.pdf
+% reference manual(eng): http://ctan.uib.no/info/latex2e-help-texinfo/latex2e.html
+
+% The document class defines the type of document. Presentation, article, letter, etc. 
+\documentclass[12pt, a4paper]{article}
+
+% packages to be used. needed to use images and such things. 
+\usepackage[pdfborder=0 0 0]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+
+% hides the section numbering. 
+\setcounter{secnumdepth}{-1}
+
+% Graphics/image lications and extensions. 
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .jpeg}
+\graphicspath{{./images/}}
+
+
+\title{
+	ATAM Document \\
+    TDT4240 - Group A14 \\
+	\\
+	}
+}
+\author{
+	\underline{Group members:} \\
+    Bremnes, Jan A. S.\\
+    Johanessen, Stig Tore\\
+	Hesselberg, Håkon \\
+    Kirø, Magnus L.\\
+	Randby, Simon \\
+    Tørresen, Håvard\\
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+\tableofcontents
+
+\section{Introduction}
+Evaluating group A13. 
+
+The attribute focus of the other group. 
+
+\section{Attribute utility tree}
+create tree after session. 
+
+\section{Analysis of Architectural Approach}
+\begin{itemize}
+	\item \textbf{Senario \#:}  
+	\item \textbf{Scenario:} 
+	\item \textbf{Attribute(s):}  
+	\item \textbf{Environment:}
+	\item \textbf{Stimulus:}
+	\item \textbf{Response:}
+\end{itemize}
+
+\subsection{Architectural Decisions}
+
+\begin{tabular}{ c c c c c }
+  Architectural Decisions & Sensitivity & Tradeoff & Risk & NonRisk \\
+  4 & 5 & 6 & 2 & 7 \\
+  7 & 8 & 9 & 6 & 9 \\
+\end{tabular}
+
+\subsection{Reasoning:}
+
+\subsection{Architectural Diagram:}
+
+
+\section{Sensitivity Points} 
+\section{Tradeoff Points} 
+\section{Risks and non-risks} 
+\section{Own Experiences from using ATAM} 
+\section{Problems and issues} 
+\section{Change log} 
+none
+
+\end{document}
