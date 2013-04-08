@@ -19,24 +19,8 @@ public class GameInitTask extends AsyncTask<Void, Integer, Void>
     @Override
     protected void onPreExecute()
     {
-        //Create a new progress dialog
-        progressDialog = new ProgressDialog(context);
-        //Set the progress dialog to display a horizontal progress bar
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        //Set the dialog title to 'Loading...'
-        progressDialog.setTitle("Loading...");
-        //Set the dialog message to 'Loading application View, please wait...'
-        progressDialog.setMessage("Initialising game, please wait...");
-        //This dialog can't be canceled by pressing the back key
-        progressDialog.setCancelable(false);
-        //This dialog isn't indeterminate
-        progressDialog.setIndeterminate(false);
-        //The maximum number of items is 100
-        progressDialog.setMax(100);
-        //Set the current progress to zero
-        progressDialog.setProgress(0);
-        //Display the progress dialog
-        progressDialog.show();
+        progressDialog = ProgressDialog.show(context,"Loading...",
+                "Initialising game, please wait...", false, false);
     }
 
     //The code to be executed in a background thread.
@@ -105,8 +89,5 @@ public class GameInitTask extends AsyncTask<Void, Integer, Void>
     {
         //close the progress dialog
         progressDialog.dismiss();
-
-        //initialize the View
-        //setContentView(R.layout.main);
     }
 }
