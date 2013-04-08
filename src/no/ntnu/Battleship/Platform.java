@@ -1,5 +1,5 @@
 package no.ntnu.Battleship;
 
-public class Platform {
+public interface Platform {
 
 }
