@@ -15,10 +15,14 @@ public class Game {
 		listeners = new ArrayList<GameListener>();
 	}
 	
+	/**
+	 * Set the current player to the next turn and get the board.
+	 * @return
+	 */
 	public Board getAndSwitchActive() {
 		p1Turn = !p1Turn;
-		if (p1Turn) return player1Board;
-		return player2Board;
+		if (p1Turn) return player2Board;
+		return player1Board;
 	}
 	
 	public void addListener(GameListener listener) {
