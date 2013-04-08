@@ -37,7 +37,6 @@ public class GameModeSelectViewTask extends AsyncTask<Void, Integer, Void>
 			 */
 
         try {
-            synchronized(this);
             while(!finish){
 
                 this.wait(100);
