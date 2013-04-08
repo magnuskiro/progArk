@@ -1,12 +1,12 @@
 package no.ntnu.Battleship;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import no.ntnu.Battleship.Tasks.GameInitTask;
 
 public class BattleShip extends Activity {
 
-    ProgressDialog progressDialog;
+     // factories ++
 
     /**
      * Called when the activity is first created.
@@ -14,14 +14,13 @@ public class BattleShip extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // game init
+        new GameInitTask(this).execute();
+
         setContentView(R.layout.main);
-        init();
-    }
-
-    // setup stuffs.
-    private void init(){
-        progressDialog = new p
 
     }
+
 
 }
