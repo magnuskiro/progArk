@@ -59,18 +59,16 @@ public class GameInitTask extends AsyncTask<Void, Integer, Void>
 
         // TODO
 
-        // start screen view
-
-        // choose game type
-
         //  create new abstract factories
 
         // create board p1
-        // populate with factories
+            // populate with factories
         // create p2 board
-        // populate
+            // populate
 
         // create game(b1, b2)
+
+        // context.set(game)
 
         return null;
     }
