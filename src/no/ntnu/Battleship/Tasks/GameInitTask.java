@@ -3,7 +3,6 @@ package no.ntnu.Battleship.Tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import no.ntnu.Battleship.R;
 
 //To use the AsyncTask, it must be subclassed
 public class GameInitTask extends AsyncTask<Void, Integer, Void>
