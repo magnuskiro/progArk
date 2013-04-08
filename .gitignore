@@ -28,3 +28,8 @@ local.properties
 
 # vim swap files
 *.swp
+
+# idea files
+.idea/
+*.iml
+adt-bundle-linux-x86_64-20130219/
