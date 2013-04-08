@@ -1,8 +1,10 @@
 package no.ntnu.Battleship;
 
-import android.app.Activity;
-import android.os.Bundle;
 import no.ntnu.Battleship.Tasks.GameInitTask;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 public class BattleShip extends Activity {
 
@@ -22,5 +24,9 @@ public class BattleShip extends Activity {
 
     }
 
+    public void playBattleShips(View view) {
+    	Intent intent = new Intent(this, ViewBoard.class);
+    	startActivity(intent);
+    }
 
 }
