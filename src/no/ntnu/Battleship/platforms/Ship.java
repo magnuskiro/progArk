@@ -11,10 +11,11 @@ public class Ship implements Platform{
 	private boolean[]	hits;//which parts of the ship has been hit
 
 	@Override
-	public void attack() {
+	public void attack(int[] coordinates) {
 		// TODO Auto-generated method stub
-
+		
 	}
+	
 
 	@Override
 	public void chooseWeapon() {
@@ -43,5 +44,6 @@ public class Ship implements Platform{
 	public int getlength() {
 		return length;
 	}
+
 
 }

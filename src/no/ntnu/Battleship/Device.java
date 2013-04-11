@@ -1,6 +1,12 @@
 package no.ntnu.Battleship;
 
+/**
+ * All platforms are equipped with one ore more device, depending on platform size.
+ * @author Håvard
+ *
+ */
 public interface Device {
+	
 	
 	/**
 	 * Returns the damage-radius of each projectile
