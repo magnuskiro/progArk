@@ -22,7 +22,7 @@ public class BattleShip extends Activity {
         // select game type
             // start screen view
             // choose game type
-        new GameModeSelectViewTask(this).execute();
+//        new GameModeSelectViewTask(this).execute();
 
         // initialize the game.
         new GameInitTask(this).execute();
