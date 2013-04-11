@@ -12,5 +12,7 @@ public interface Platform {
 	
 	int[] getCoordinates();
 	
+	int getlength();
+	
 	
 }
