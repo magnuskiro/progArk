@@ -2,6 +2,7 @@ package no.ntnu.Battleship;
 
 public interface Platform {
 
+	
 	void attack();
 	
 	void chooseWeapon();
