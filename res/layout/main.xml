@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+    android:gravity="center_vertical"
+    android:padding="30dp">
+    
+    <TextView
+       android:text="@string/main_title"
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:layout_marginBottom="25dp"
+       android:textSize="25sp" />
+    <Button 
+        android:id="@+id/continue_button"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-    </LinearLayout>
-
+        android:text="@string/continue_label" />
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:id="@+id/new_game_button"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="playBattleShips"
-        android:text="Play BATTLESHIPS" />
-
+        android:text="@string/new_game_label" />
+    <Button
+        android:id="@+id/about_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_label" />
+    <Button 
+        android:id="@+id/exit_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_label" />
 </LinearLayout>
 
