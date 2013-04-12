@@ -35,4 +35,7 @@
     <string name="medium_label">15x15</string>
     <string name="large_label">20x20</string>
     
+    <!-- Game screen -->
+    <string name="game_title">BattleShip</string>
+    
 </resources>

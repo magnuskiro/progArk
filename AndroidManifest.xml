@@ -36,6 +36,12 @@
             android:name="no.ntnu.Battleship.Prefs"
             android:label="@string/settings_title">
         </activity>
+        
+        <activity
+            android:name=".Game"
+            android:label="@string/game_title"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
     </application>
 
 </manifest>

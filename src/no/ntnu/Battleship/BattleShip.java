@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 
 public class BattleShip extends Activity implements OnClickListener {
 
+	private static final String TAG = "BattleShip"; // used for logging
      // factories ++
 
     /**
@@ -86,7 +87,11 @@ public class BattleShip extends Activity implements OnClickListener {
 		}
 	}
 	
-	private static final String TAG = "BattleShip";
+	
+	/*
+	 * Creates a new dialog with the elements of the size-array and adds
+	 * OnClickListeners to them, allowing the user to choose board size
+	 */
 	private void openNewGameDialog() {
 		new AlertDialog.Builder(this).setTitle(R.string.new_game_title)
 			.setItems(R.array.size, new DialogInterface.OnClickListener() {
@@ -97,8 +102,14 @@ public class BattleShip extends Activity implements OnClickListener {
 			.show();
 	}
 
+	/**
+	 * 
+	 * @param i the index of the board size selected from the list
+	 */
 	private void startGame(int i) {
 		Log.d(TAG, "clicked on " + i);
-		//  Start game here...
+		Intent intent = new Intent(this, Game.class);
+		intent.putExtra(Game.KEY_SIZE, i);
+		startActivity(intent);
 	}
 }
