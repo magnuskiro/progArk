@@ -3,7 +3,7 @@ package no.ntnu.Battleship;
 /**
  * Each unit on the board is represented by a platform. Each platform has one or more devices,
  * depending on its size. 
- * @author Håvard
+ * @author HÃ¥vard
  *
  */
 public interface Platform {

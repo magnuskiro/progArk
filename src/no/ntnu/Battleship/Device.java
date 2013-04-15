@@ -2,7 +2,7 @@ package no.ntnu.Battleship;
 
 /**
  * All platforms are equipped with one ore more device, depending on platform size.
- * @author Håvard
+ * @author HÃ¥vard
  *
  */
 public interface Device {
