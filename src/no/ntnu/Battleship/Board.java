@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 
 public class Board extends View {
 	private static final String TAG = "Battleship";
@@ -45,7 +47,7 @@ public class Board extends View {
 	protected void onDraw(Canvas canvas) {
 		// Draw the background...
 		Paint background = new Paint();
-		background.setColor(android.graphics.Color.BLUE);
+		background.setColor(getResources().getColor(R.color.ocean_blue));
 		canvas.drawRect(0, 0, getWidth(), getHeight(), background);
 		
 		// Draw the board...
@@ -60,7 +62,34 @@ public class Board extends View {
 		
 		// Draw some text...
 		canvas.drawText("hahaha", getWidth() / 2, getHeight() - 30, dark);
+		
+		// Draw the selection...
+		Log.d(TAG, "selRect = " + selRect);
+		Paint selected = new Paint();
+		selected.setColor(getResources().getColor(R.color.square_selected));
+		canvas.drawRect(selRect, selected);
 	}
+	
+	
+	private void select(int x, int y) {
+		invalidate(selRect);
+		selX = Math.min(Math.max(x, 0), size - 1);
+		selY = Math.min(Math.max(y, 0), size - 1);
+		getRect(selX, selY, selRect);
+		invalidate(selRect);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() != MotionEvent.ACTION_DOWN)
+			return super.onTouchEvent(event);
+		
+		select((int) (event.getX() / width), (int) (event.getY() / height));
+		Log.d(TAG, "onTouchEvent: x = " + event.getX() + " y = " + event.getY());
+		return true;
+	}
+	
+	
 }
 
 
