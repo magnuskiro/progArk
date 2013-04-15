@@ -45,5 +45,20 @@ public interface Platform {
 	 */
 	int getlength();
 	
+	/**
+	 * Adds a device to the platform if there is room.
+	 * if the platform is full, nothing happens. 
+	 * @param device
+	 * @return whether or not the device was added
+	 */
+	boolean addDevice(Device device);
+	
+	/**
+	 * removes the first device matching the provided type
+	 * 
+	 * @param device
+	 * @return whether or not the device was removed
+	 */
+	boolean removeDevice(Device device);
 	
 }
