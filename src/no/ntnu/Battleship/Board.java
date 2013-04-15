@@ -53,10 +53,13 @@ public class Board extends View {
 		dark.setColor(android.graphics.Color.BLACK);
 		
 		// Draw the grid lines
-		for (int i = 0; i < size; i++) {
-			canvas.drawLine(0, i * height, getWidth(), i * height, dark);
-			canvas.drawLine(i * width, 0, i * width, getHeight(), dark);
+		for (int i = 0; i <= size; i++) {
+			canvas.drawLine(0, i * width, getWidth(), i * width, dark);
+			canvas.drawLine(i * width, 0, i * width, getWidth(), dark);
 		}
+		
+		// Draw some text...
+		canvas.drawText("hahaha", getWidth() / 2, getHeight() - 30, dark);
 	}
 }
 
