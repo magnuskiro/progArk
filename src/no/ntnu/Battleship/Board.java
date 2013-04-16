@@ -1,5 +1,7 @@
 package no.ntnu.Battleship;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+/*
 public class Board extends View {
 	private static final String TAG = "Battleship";
 	private final Game myGame;
@@ -91,32 +94,27 @@ public class Board extends View {
 	
 	
 }
+*/
 
-
-
-
-
-
-
-
-/*
 public class Board {
+	
 	private final int sizex = 10;
 	private final int sizey = 10;
 	
 	private boolean[][] isShot;
-	private boolean[][] isPlatform;
+	private Platform[][] platformGrid;
 	private ArrayList<Platform> platforms;
 	Game myGame;
 	
 	public Board(Game thisGame) {
 		isShot = new boolean[sizex][sizey];
-		isPlatform = new boolean[sizex][sizey];
+		platformGrid = new Platform[sizex][sizey];
 		platforms = new ArrayList<Platform>();
 		this.myGame = thisGame;
 	}
 	
 	public void populate(ArrayList<Platform> newPlatforms) {
+		//populate platformGrid!
 		this.platforms = newPlatforms;
 	}
 	
@@ -126,5 +124,25 @@ public class Board {
 		myGame.gameChanged();
 	}
 	
+	public TileNum[][] getTiles() {
+		TileNum[][] ret = new TileNum[sizex][sizey];
+		for (int i = 0; i<sizex; i++) {
+			for (int j = 0; j<sizey; j++) {
+				if(!isShot[i][j]) {
+					ret[i][j] = TileNum.EMPTY;
+				} else if(platformGrid[i][j] == null) {
+					ret[i][j] = TileNum.MISS;
+				} else { //Platform is HIT!
+					if(platformGrid[i][j].isDestroyed()) {
+						ret[i][j] = TileNum.DESTROYED;
+					} else {
+						ret[i][j] = TileNum.HIT;
+					}
+				}
+			}
+		}
+		return ret;
+	}
+	
 }
-*/
+
