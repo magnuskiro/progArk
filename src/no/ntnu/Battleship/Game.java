@@ -43,60 +43,63 @@ public class Game extends Activity {
 		
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
+	
+//		TODO: activate a board viewer
+//		setContentView(player1Board);
+//		player1Board.requestFocus();
+	}
+	
+
+	
+	public Game(){
 		
-		setContentView(player1Board);
-		player1Board.requestFocus();
+	};
+	
+	public Game(Board p1, Board p2, int p1InitShots, int p2InitShots) {
+		this.player1Board = p1;
+		this.player2Board = p2;
+		p1Shots = p1InitShots;
+		p2Shots = p2InitShots;
+		p1Turn = false;
+		listeners = new ArrayList<GameListener>();
+	}
+	
+	/**
+	 * Set the current player to the next turn and get the board.
+	 * @return
+	 */
+	public Board getAndSwitchActive() {
+		p1Turn = !p1Turn;
+		if (p1Turn) return player2Board;
+		return player1Board;
+	}
+	
+	public int getShots() {
+		if (p1Turn) return p1Shots;
+		return p2Shots;
+	}
+	
+	public void updateShots(int newCount) {
+		if (p1Turn) {
+			p2Shots = newCount;
+		} else {
+			p1Shots = newCount;
+		}
+	}
+	
+	public void addListener(GameListener listener) {
+		this.listeners.add(listener);
+	}
+	
+	public void removeListener(GameListener listener) {
+		this.listeners.remove(listener);
+	}
+	
+	public void gameChanged() {
+		for (GameListener listener:listeners) {
+			listener.fireGameChangedEvent();
+		}
 	}
 	
 }
-	
-	
-//	
-//	public Game(Board p1, Board p2, int p1InitShots, int p2InitShots) {
-//		this.player1Board = p1;
-//		this.player2Board = p2;
-//		p1Shots = p1InitShots;
-//		p2Shots = p2InitShots;
-//		p1Turn = false;
-//		listeners = new ArrayList<GameListener>();
-//	}
-//	
-//	/**
-//	 * Set the current player to the next turn and get the board.
-//	 * @return
-//	 */
-//	public Board getAndSwitchActive() {
-//		p1Turn = !p1Turn;
-//		if (p1Turn) return player2Board;
-//		return player1Board;
-//	}
-//	
-//	public int getShots() {
-//		if (p1Turn) return p1Shots;
-//		return p2Shots;
-//	}
-//	
-//	public void updateShots(int newCount) {
-//		if (p1Turn) {
-//			p2Shots = newCount;
-//		} else {
-//			p1Shots = newCount;
-//		}
-//	}
-//	
-//	public void addListener(GameListener listener) {
-//		this.listeners.add(listener);
-//	}
-//	
-//	public void removeListener(GameListener listener) {
-//		this.listeners.remove(listener);
-//	}
-//	
-//	public void gameChanged() {
-//		for (GameListener listener:listeners) {
-//			listener.fireGameChangedEvent();
-//		}
-//	}
-//	
-//}
-//*/
+

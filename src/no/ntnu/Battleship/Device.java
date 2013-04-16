@@ -7,12 +7,18 @@ package no.ntnu.Battleship;
  */
 public class Device {
 	
+	private int type;
+	private int aoe;
+	private int projectiles;
+	private int spread;
+	private int spreadType;
+	
 	/**
 	 * 
 	 * @param type - type, as defined in settings
 	 */
 	public Device(int type) {
-		// TODO Auto-generated constructor stub
+		this.type = type;
 	}
 
 	/**
@@ -20,7 +26,7 @@ public class Device {
 	 * @return
 	 */
 	public int getAoE() {
-		return 0;
+		return aoe;
 	}
 	
 	/**
@@ -28,7 +34,7 @@ public class Device {
 	 * @return
 	 */
 	public int getProjectiles() {
-		return 0;
+		return projectiles;
 	}
 	
 	/**
@@ -36,7 +42,7 @@ public class Device {
 	 * @return
 	 */
 	public int getSpread() {
-		return 0;
+		return spread;
 	}
 	
 	/**
@@ -44,7 +50,11 @@ public class Device {
 	 * @return
 	 */
 	public int getSpreadType() {
-		return 0;
+		return spreadType;
+	}
+	
+	public int getType(){
+		return type;
 	}
 
 }

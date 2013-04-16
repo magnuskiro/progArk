@@ -62,10 +62,24 @@ public class Platform {
 	public int[][] getPosition() {
 		return coordinates;
 	}
-	
-	
-	public void setPosition(){
-		
+
+	/**
+	 * Set the position of the platform, will calculate based on whether or not
+	 * it is horizontal
+	 * @param pos - position of ass
+	 */
+	public void setPosition(int[] pos){
+		coordinates[0][0] = pos[0];
+		coordinates[0][1] = pos[1];
+		for (int i = 1; i < length; i++){
+			if(isHorizontal){
+				coordinates[i][0] = pos[0] + i;
+				coordinates[i][1] = pos[1];
+			}else{
+				coordinates[i][0] = pos[0];
+				coordinates[i][1] = pos[1] - i;
+			}
+		}
 	}
 
 	/**
@@ -124,7 +138,7 @@ public class Platform {
 	 * @param isHorizontal
 	 */
 	public void setOrientation(boolean isHorizontal) {
-			this.isHorizontal = isHorizontal;
+		this.isHorizontal = isHorizontal;
 	}
 
 	/**
@@ -138,21 +152,21 @@ public class Platform {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Checks whether the platform is still alive
 	 * @return
 	 */
 	public boolean isDestroyed(){
 		boolean d = true;
-		
+
 		for (int i = 0; i <  hits.length; i++){
 			if(!hits[i]){
 				d = false;
 			}
 		}
-		
+
 		return d;
 	}
 }
