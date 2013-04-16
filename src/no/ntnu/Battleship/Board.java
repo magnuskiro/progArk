@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Board {
 	
-	private final int sizex;
-	private final int sizey;
+	private final int boardSize;
 	
 	private boolean[][] isShot;
 	private Platform[][] platformGrid;
@@ -13,10 +12,9 @@ public class Board {
 	Game myGame;
 	
 	public Board(Game thisGame, int size) {
-		sizex = size;
-		sizey = size;
-		isShot = new boolean[sizex][sizey];
-		platformGrid = new Platform[sizex][sizey];
+		boardSize = size;
+		isShot = new boolean[boardSize][boardSize];
+		platformGrid = new Platform[boardSize][boardSize];
 		platforms = new ArrayList<Platform>();
 		this.myGame = thisGame;
 	}
@@ -52,9 +50,9 @@ public class Board {
 	}
 	
 	public TileNum[][] getTiles() {
-		TileNum[][] ret = new TileNum[sizex][sizey];
-		for (int i = 0; i<sizex; i++) {
-			for (int j = 0; j<sizey; j++) {
+		TileNum[][] ret = new TileNum[boardSize][boardSize];
+		for (int i = 0; i<boardSize; i++) {
+			for (int j = 0; j<boardSize; j++) {
 				if(!isShot[i][j]) {
 					ret[i][j] = TileNum.EMPTY;
 				} else if(platformGrid[i][j] == null) {
@@ -69,6 +67,10 @@ public class Board {
 			}
 		}
 		return ret;
+	}
+	
+	public int getBoardSize() {
+		return boardSize;
 	}
 	
 }
