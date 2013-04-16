@@ -24,6 +24,7 @@ public class Game extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Log.d(TAG, "onCreate");
 		
 		int size = 0;
