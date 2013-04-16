@@ -9,11 +9,11 @@ package no.ntnu.Battleship;
 public class Platform {
 
 	private int			length;
-	private int[]		coordinates;
-	private int			orientation; //nesw-1234
+	private int[][]		coordinates;
+	private boolean		isHorizontal;
 	private int 		numberOfDevices; //how many devices are currently attached
 	private Device[]	devices; //what weapon is at what position (index)
-	private boolean[]	hits; //which parts of the ship has been hit
+	private boolean[]	hits; //which parts of the ship has been hit, true=hit
 
 
 	public Platform(int length){
@@ -24,14 +24,15 @@ public class Platform {
 	 * Tells the platform to fire at the specified location
 	 * @param coordinates
 	 */
-	void attack(int[] coordinates){
-
+	public void attack(int[] coordinates){
+		//TODO
 	}
 
 	/**
 	 * Lets user select which weapon the platform will use, if such a mode is used. 
 	 */
-	void chooseWeapon() {
+	public void chooseWeapon() {
+		//TODO
 	}
 
 	/**
@@ -39,7 +40,8 @@ public class Platform {
 	 * may be merged with getShots()
 	 * @return
 	 */
-	int getWeaponShots() {
+	public int getWeaponShots() {
+		//TODO
 		return 0;
 	}
 
@@ -48,7 +50,8 @@ public class Platform {
 	 * may be merged with getWeaponShots()
 	 * @return
 	 */
-	int getShots() {
+	public int getShots() {
+		//TODO
 		return 0;
 	}
 
@@ -56,15 +59,20 @@ public class Platform {
 	 * Returns the position of the front-part of the platform
 	 * @return
 	 */
-	int[] getCoordinates() {
+	public int[][] getPosition() {
 		return coordinates;
+	}
+	
+	
+	public void setPosition(){
+		
 	}
 
 	/**
 	 * Returns the length of the platform
 	 * @return
 	 */
-	int getlength() {
+	public int getlength() {
 		return length;
 	}
 
@@ -74,7 +82,7 @@ public class Platform {
 	 * @param device
 	 * @return whether or not the device was added
 	 */
-	boolean addDevice(Device device) {
+	public boolean addDevice(Device device) {
 		boolean added = false;
 		if(numberOfDevices < length){
 			for(int i = 0; i < devices.length && !added; i++){
@@ -93,7 +101,7 @@ public class Platform {
 	 * @param device
 	 * @return whether or not the device was removed
 	 */
-	boolean removeDevice(Device device) {
+	public boolean removeDevice(Device device) {
 		boolean removed = false;
 		for(int i = 0; i < devices.length && !removed; i++){
 			if( devices[i] == device){
@@ -106,21 +114,45 @@ public class Platform {
 
 
 	/**
-	 * nesw-1234
 	 * @return
 	 */
-	public int getOrientation() {
-		return orientation;
+	public boolean isHorizontal() {
+		return isHorizontal;
 	}
 
 	/**
-	 * nesw-1234
-	 * @param orientation
+	 * @param isHorizontal
 	 */
-	public void setOrientation(int orientation) {
-		if(orientation <5 && 0 < orientation){
-			this.orientation = orientation;
-		}
+	public void setOrientation(boolean isHorizontal) {
+			this.isHorizontal = isHorizontal;
 	}
 
+	/**
+	 * tells the platform that it has been hit at the provided coordinate
+	 * @param position
+	 */
+	public void hit(int[] position){
+		for (int i = 0; i < length; i++){
+			if(position[0] == coordinates[i][0] && position[1] == coordinates[i][1]){
+				hits[i] = true;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Checks whether the platform is still alive
+	 * @return
+	 */
+	public boolean isDestroyed(){
+		boolean d = true;
+		
+		for (int i = 0; i <  hits.length; i++){
+			if(!hits[i]){
+				d = false;
+			}
+		}
+		
+		return d;
+	}
 }
