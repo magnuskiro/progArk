@@ -2,11 +2,10 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
-import no.ntnu.Battleship.platforms.Ship;
 
 /**
  * Used to easily create a set of platforms
- * @author Håvard
+ * @author HÃ¥vard
  *
  */
 public class PlatformFactory {
@@ -24,11 +23,11 @@ public class PlatformFactory {
 		
 //		TODO: use  settings to affect creation
 		
-		platforms.add(new Ship(5));
-		platforms.add(new Ship(4));
-		platforms.add(new Ship(3));
-		platforms.add(new Ship(3));
-		platforms.add(new Ship(2));
+		platforms.add(new Platform(5));
+		platforms.add(new Platform(4));
+		platforms.add(new Platform(3));
+		platforms.add(new Platform(3));
+		platforms.add(new Platform(2));
 		
 		return platforms;
 	}
