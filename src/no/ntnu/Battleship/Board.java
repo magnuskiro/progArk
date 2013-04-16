@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class Board {
 	
-	private final int sizex = 10;
-	private final int sizey = 10;
+	private final int sizex;
+	private final int sizey;
 	
 	private boolean[][] isShot;
 	private Platform[][] platformGrid;
 	private ArrayList<Platform> platforms;
 	Game myGame;
 	
-	public Board(Game thisGame) {
+	public Board(Game thisGame, int size) {
+		sizex = size;
+		sizey = size;
 		isShot = new boolean[sizex][sizey];
 		platformGrid = new Platform[sizex][sizey];
 		platforms = new ArrayList<Platform>();
