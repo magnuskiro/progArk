@@ -71,15 +71,7 @@ public class Platform {
 	public void setPosition(int[] pos){
 		coordinates[0][0] = pos[0];
 		coordinates[0][1] = pos[1];
-		for (int i = 1; i < length; i++){
-			if(isHorizontal){
-				coordinates[i][0] = pos[0] + i;
-				coordinates[i][1] = pos[1];
-			}else{
-				coordinates[i][0] = pos[0];
-				coordinates[i][1] = pos[1] - i;
-			}
-		}
+		updateCoordinates();
 	}
 
 	/**
@@ -139,6 +131,22 @@ public class Platform {
 	 */
 	public void setOrientation(boolean isHorizontal) {
 		this.isHorizontal = isHorizontal;
+		updateCoordinates();
+	}
+
+	/**
+	 * shared functionality used when updating position or orientation.
+	 */
+	private void updateCoordinates() {
+		for (int i = 1; i < length; i++){
+			if(isHorizontal){
+				coordinates[i][0] = coordinates[0][0] + i;
+				coordinates[i][1] = coordinates[0][1];
+			}else{
+				coordinates[i][0] = coordinates[0][0];
+				coordinates[i][1] = coordinates[0][1] - i;
+			}
+		}
 	}
 
 	/**
