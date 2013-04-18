@@ -1,5 +1,6 @@
 package no.ntnu.Battleship.graphics;
 
+import no.ntnu.Battleship.PlatformFactory;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -15,10 +17,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 	private static final String TAG = GamePanel.class.getSimpleName();
 
+	private int boardSize;
+	
 	private int screenWidth;
 	private int screenHeight;
 
 	private BoardGraphics boardGraphics;
+	private PlatformAddingGraphics platformAddingGraphics;
 
 	private GameThread gameThread;
 
@@ -33,8 +38,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 		// create the game loop thread
 		gameThread = new GameThread(getHolder(), this);
-
-		boardGraphics = new BoardGraphics(20, screenWidth, screenHeight);
+		
+		boardSize = 20;
+		boardGraphics = new BoardGraphics(boardSize, screenWidth, screenHeight);
+		platformAddingGraphics = new PlatformAddingGraphics(boardSize, screenWidth, screenHeight, new PlatformFactory().createPlatforms());
 
 		// make the gamePanel focusable so it can handle events
 		setFocusable(true);
@@ -82,11 +89,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		Log.d(TAG, "Thread was shut down cleanly");
 	}
-
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			platformAddingGraphics.handleClicked((int) event.getX(), (int) event.getY());
+		}
+		if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			platformAddingGraphics.handleMove((int) event.getX(), (int) event.getY());
+		}
+		
+		return true;
+	}
+	
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
 		boardGraphics.drawBoard(canvas);
 		boardGraphics.drawIndexes(canvas);
+		platformAddingGraphics.drawPlatforms(canvas);
 		// Rect r = new Rect(10, 10, 100, 100);
 
 	}
