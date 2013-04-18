@@ -83,34 +83,34 @@ public class PlatformAddingGraphics {
 
 
 	public void handleClicked(int x, int y) {
-//		// TODO Auto-generated method stub
-//		for (ArrayList<Rect> platform: platformTiles) {
-//			for (Rect tile : platform) {
-//				//Sjekker om trykket er innenfor en platform
-//				if(tile.contains(x, y)){
-//					//Hvis platformen er horisontal
-//					if(platform.get(0).top == platform.get(1).top){
-//						for (int i = 0; i < platform.size(); i++) {
-//							platform.get(i).left += i * tileSize;
-//							platform.get(i).top += i * tileSize;
-//							platform.get(i).right += i * tileSize;
-//							platform.get(i).bottom += i * tileSize;
-//						}						
-//					}
-//					//Ellers hvis platformen er vertikal
-//					else{
-//						for (int i = 0; i < platform.size(); i++) {
-//							platform.get(i).left -= i * tileSize;
-//							platform.get(i).top -= i * tileSize;
-//							platform.get(i).right -= i * tileSize;
-//							platform.get(i).bottom -= i * tileSize;
-//						}	
-//					}
-//					//Vi har snudd, avbryt all videre sjekking
-//					return;
-//				}
-//			}
-//		}
+		// TODO Auto-generated method stub
+		for (ArrayList<Rect> platform: platformTiles) {
+			for (Rect tile : platform) {
+				//Sjekker om trykket er innenfor en platform
+				if(tile.contains(x, y)){
+					//Hvis platformen er horisontal
+					if(platform.get(0).top == platform.get(1).top){
+						for (int i = 0; i < platform.size(); i++) {
+							platform.get(i).left += i * tileSize;
+							platform.get(i).top += i * tileSize;
+							platform.get(i).right += i * tileSize;
+							platform.get(i).bottom += i * tileSize;
+						}						
+					}
+					//Ellers hvis platformen er vertikal
+					else{
+						for (int i = 0; i < platform.size(); i++) {
+							platform.get(i).left -= i * tileSize;
+							platform.get(i).top -= i * tileSize;
+							platform.get(i).right -= i * tileSize;
+							platform.get(i).bottom -= i * tileSize;
+						}	
+					}
+					//Vi har snudd, avbryt all videre sjekking
+					return;
+				}
+			}
+		}
 	}
 
 

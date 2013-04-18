@@ -94,6 +94,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 	public boolean onTouchEvent(MotionEvent event) {
 		
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//			platformAddingGraphics.handleClicked((int) event.getX(), (int) event.getY());
+		}
+		if (event.getAction() == MotionEvent.ACTION_UP && event.getDownTime() < 100){
 			platformAddingGraphics.handleClicked((int) event.getX(), (int) event.getY());
 		}
 		if (event.getAction() == MotionEvent.ACTION_MOVE) {
