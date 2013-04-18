@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <array name="size" >
-        <item>@string/small_label</item>
-        <item>@string/medium_label</item>
-        <item>@string/large_label</item>
-    </array>
-</resources>
