@@ -23,6 +23,8 @@ import android.view.View;
 public class BoardGraphics extends View implements GameListener{
 
 	private Paint paint;
+	Paint background;
+	Paint dark;
 
 	private float tileSize;
 	private int boardSize;
@@ -51,6 +53,10 @@ public class BoardGraphics extends View implements GameListener{
 		game.addListener(this);
 
 		paint = new Paint();
+		background = new Paint();
+		background.setColor(android.graphics.Color.BLUE);
+		dark = new Paint();
+		dark.setColor(android.graphics.Color.BLACK);
 		
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96),
 				(int)tileSize, (int)tileSize, false);
@@ -137,17 +143,7 @@ public class BoardGraphics extends View implements GameListener{
 
 		for (int i = 0; i < boardSize; i++) {
 
-			// //rad
-			// left = (int) (i*tileSize + tileSize);
-			// top = displacementFromTop;
-			// right = (int) (left + tileSize);
-			// bot = (int) (top + tileSize);
-			// drawWithin.set(left, top, right, bot);
-			// paint.setColor(Color.GREEN);
-			// canvas.drawRect(drawWithin, paint);
-			// paint.setColor(Color.RED);
-			// canvas.drawText("" + i, drawWithin.left, drawWithin.top, paint);
-
+			
 			// Koordinatene for bokstaver (rad)
 			topX = (int) (i * tileSize + tileSize) + displacementFromEdge;
 			topY = displacementFromTop + displacementFromEdge;
@@ -163,26 +159,6 @@ public class BoardGraphics extends View implements GameListener{
 		}
 	}
 
-	/*
-	 * int positionInRow = i % boardSize;
-	 * 
-	 * // Finner raden til tilen, aka topstreken, ikke midten eller under int
-	 * row = (int) (Math.floor(i / boardSize));
-	 * 
-	 * int displacementFromTop = screenHeight - screenWidth + (int)tileSize;
-	 * 
-	 * int left = (int) (positionInRow + positionInRow * tileSize); int top =
-	 * (int) (row + row * tileSize); int right = (int) (positionInRow +
-	 * positionInRow * tileSize + tileSize); int bot = (int) (row + row *
-	 * tileSize + tileSize);
-	 * 
-	 * 
-	 * 
-	 * paint.setColor(Color.RED); paint.setTextSize(10); c.drawText("Score: " +
-	 * topScore, topBarRect.left + 1, topBarRect.bottom - 1, paint);
-	 * c.drawText("Score: " + botScore, botBarRect.left + 1, botBarRect.bottom -
-	 * 1, paint);
-	 */
 
 	/**
 	 * Lager en arraylist med tiles
@@ -241,14 +217,10 @@ public class BoardGraphics extends View implements GameListener{
 	
 	@Override
 	protected void onDraw(Canvas canvas){
-//		drawBoard(canvas);
-		Paint background = new Paint();
-		background.setColor(android.graphics.Color.BLUE);
-		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
 		
 		// Draw the board...
-		Paint dark = new Paint();
-		dark.setColor(android.graphics.Color.BLACK);
+		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
+		
 		
 		// Draw the grid lines
 		for (int i = 0; i <= boardSize; i++) {
