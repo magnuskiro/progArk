@@ -66,7 +66,7 @@ public class Game extends Activity {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
-		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext());
+		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
 
 		// TODO: activate a board viewer
 		 setContentView(boardViewer);

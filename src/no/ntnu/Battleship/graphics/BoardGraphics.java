@@ -2,7 +2,10 @@ package no.ntnu.Battleship.graphics;
 
 import java.util.ArrayList;
 
+import no.ntnu.Battleship.Board;
+import no.ntnu.Battleship.Game;
 import no.ntnu.Battleship.GameListener;
+import no.ntnu.Battleship.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -23,19 +26,26 @@ public class BoardGraphics extends View implements GameListener{
 
 	private ArrayList<Rect> boardTiles;
 
+	Board activeBoard;
+	Game game;
 	
 	
-	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context) {
+	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
 		super(context);
 		// this.tileSize = Math.floor(screenWidth / (boardSize + 2));
 		this.tileSize = screenWidth / (boardSize + 2);
 		this.boardSize = boardSize;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
+		this.game = game;
+		
+		game.addListener(this);
 
 		paint = new Paint();
 
 		boardTiles = createBoardTiles(boardSize, tileSize);
+		
+		activeBoard = game.getAndSwitchActive();
 	}
 
 	public void drawBoard(Canvas canvas) {
@@ -56,9 +66,9 @@ public class BoardGraphics extends View implements GameListener{
 		for (Rect tile : boardTiles) {
 			// Mer annenhver stuff
 			if (evenOrOdd) {
-				paint.setColor(Color.GRAY);
+				paint.setColor(getResources().getColor(R.color.blue_wave));
 			} else {
-				paint.setColor(Color.DKGRAY);
+				paint.setColor(getResources().getColor(R.color.ocean_blue));
 			}
 			// Tilen tegnes
 			canvas.drawRect(tile, paint);
@@ -183,7 +193,7 @@ public class BoardGraphics extends View implements GameListener{
 		// Matrisen med alle tilsene som vi returnerer
 		ArrayList<Rect> tiles = new ArrayList<Rect>();
 
-		int displacementFromTop = screenHeight - screenWidth + (int) tileSize;
+		int displacementFromTop = (int) tileSize;
 
 		// Fyllingen av tiles
 		for (int i = 0; i < boardSize * boardSize; i++) {
@@ -191,7 +201,7 @@ public class BoardGraphics extends View implements GameListener{
 			Rect tile = new Rect();
 
 			// Finner posisjonen til tilen i raden, aka kolonnen dens (til
-			// venstre side, ikke midten eller h�yre)
+			// venstre side, ikke midten eller høyre)
 			int positionInRow = i % boardSize;
 
 			// Finner raden til tilen, aka topstreken, ikke midten eller under
@@ -202,7 +212,7 @@ public class BoardGraphics extends View implements GameListener{
 			int right = (int) (/* positionInRow + */left + tileSize);
 			int bot = (int) (/* row + */top + tileSize);
 
-			// Forskyver tiles s� brettet kommer nederst p� skjermen
+			// Forskyver tiles så brettet kommer nederst på skjermen
 			left += tileSize;
 			top += displacementFromTop;
 			right += tileSize;

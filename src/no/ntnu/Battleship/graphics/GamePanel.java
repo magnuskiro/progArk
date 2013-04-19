@@ -1,5 +1,6 @@
 package no.ntnu.Battleship.graphics;
 
+import no.ntnu.Battleship.Game;
 import no.ntnu.Battleship.PlatformFactory;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -40,7 +41,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 		gameThread = new GameThread(getHolder(), this);
 		
 		boardSize = 20;
-		boardGraphics = new BoardGraphics(boardSize, screenWidth, screenHeight, context);
+		boardGraphics = new BoardGraphics(boardSize, screenWidth, screenHeight, context, new Game());
 		platformAddingGraphics = new PlatformAddingGraphics(boardSize, screenWidth, screenHeight, new PlatformFactory().createPlatforms());
 
 		// make the gamePanel focusable so it can handle events

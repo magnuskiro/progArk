@@ -3,6 +3,7 @@
     <color name="black_overlay">#66000000</color>
     
     <color name="ocean_blue">#ff002174</color>
+    <color name="blue_wave">#ff01499a</color>
     <color name="square_selected">#990cff00</color>
 
 </resources>
