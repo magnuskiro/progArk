@@ -40,8 +40,8 @@ public class BoardGraphics extends View implements GameListener{
 	Bitmap miss;
 	Bitmap hit;
 	Bitmap destroyed;
-	
-	
+
+
 	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
@@ -49,7 +49,7 @@ public class BoardGraphics extends View implements GameListener{
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		this.game = game;
-		
+
 		game.addListener(this);
 
 		paint = new Paint();
@@ -57,7 +57,7 @@ public class BoardGraphics extends View implements GameListener{
 		background.setColor(android.graphics.Color.BLUE);
 		dark = new Paint();
 		dark.setColor(android.graphics.Color.BLACK);
-		
+
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96),
 				(int)tileSize, (int)tileSize, false);
 		hit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96),
@@ -66,9 +66,9 @@ public class BoardGraphics extends View implements GameListener{
 				(int)tileSize, (int)tileSize, false);
 
 		boardTiles = createBoardTiles(boardSize, tileSize);
-		
+
 		activeBoard = game.getAndSwitchActive();
-		
+
 		p1Platforms = game.getPlatformFactory().createPlatforms();
 		p2Platforms = game.getPlatformFactory().createPlatforms();
 	}
@@ -84,7 +84,7 @@ public class BoardGraphics extends View implements GameListener{
 		}
 
 		TileNum[][] tileNum = activeBoard.getTiles();
-		
+
 		// Holder orden på at annenhver tile er grå/mørkegrå
 		boolean evenOrOdd = true;
 		// Setter paintstylen til fill
@@ -120,7 +120,7 @@ public class BoardGraphics extends View implements GameListener{
 		}
 	}
 
-	
+
 
 	public void drawIndexes(Canvas canvas) {
 		paint.setStyle(Style.FILL);
@@ -143,7 +143,7 @@ public class BoardGraphics extends View implements GameListener{
 
 		for (int i = 0; i < boardSize; i++) {
 
-			
+
 			// Koordinatene for bokstaver (rad)
 			topX = (int) (i * tileSize + tileSize) + displacementFromEdge;
 			topY = displacementFromTop + displacementFromEdge;
@@ -212,41 +212,46 @@ public class BoardGraphics extends View implements GameListener{
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
-		
+
 	}
-	
+
 	@Override
 	protected void onDraw(Canvas canvas){
-		
+		Log.d("drawing", "drawing");
 		// Draw the board...
 		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
-		
-		
+
+
 		// Draw the grid lines
 		for (int i = 0; i <= boardSize; i++) {
 			canvas.drawLine(0f,(float)( i * tileSize), (float)getWidth(), (float)( i * tileSize), dark);
 			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
 		}
-		
+
 		TileNum[][] tileNum = activeBoard.getTiles();
-		
-		//add bitmaps to tiles
-		for (int i = 0; i<tileNum.length; i++){
-			for (int j = 0; j<tileNum[i].length; j++){
-				if(tileNum[i][j] == TileNum.EMPTY){
-					//nothing to do
-				}else if(tileNum[i][j] == TileNum.MISS){
-					canvas.drawBitmap(miss, i*tileSize, j*tileSize, null);
-				}else if(tileNum[i][j] == TileNum.HIT){
-					canvas.drawBitmap(hit, i*tileSize, j*tileSize, null);
-				}else {
-					canvas.drawBitmap(destroyed, i*tileSize, j*tileSize, null);
+
+		boolean[] placedplats = game.getPlacedPlatforms(); 
+		if(placedplats[0] && placedplats[1]){
+			Log.d("drawing", "both placed");
+			//only after both  players have placed their platforms
+			//add bitmaps to tiles
+			for (int i = 0; i<tileNum.length; i++){
+				for (int j = 0; j<tileNum[i].length; j++){
+					if(tileNum[i][j] == TileNum.EMPTY){
+						//nothing to do
+					}else if(tileNum[i][j] == TileNum.MISS){
+						canvas.drawBitmap(miss, i*tileSize, j*tileSize, null);
+					}else if(tileNum[i][j] == TileNum.HIT){
+						canvas.drawBitmap(hit, i*tileSize, j*tileSize, null);
+					}else {
+						canvas.drawBitmap(destroyed, i*tileSize, j*tileSize, null);
+					}
 				}
 			}
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 }

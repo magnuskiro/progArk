@@ -22,6 +22,7 @@ public class Game extends Activity {
 	int p1Shots;
 	int p2Shots;
 	boolean p1Turn;
+	private boolean[] placedPlatforms;
 
 	// ######################
 	PlatformFactory platformFactory = new PlatformFactory();
@@ -59,6 +60,8 @@ public class Game extends Activity {
 
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
+		
+		placedPlatforms = new boolean[2];
 		
 		
 		DisplayMetrics dm = new DisplayMetrics();
@@ -142,5 +145,26 @@ public class Game extends Activity {
 	
 	public DeviceFactory getdDeviceFactory(){
 		return deviceFactory;
+	}
+	
+	public boolean isPlayer1turn(){
+		return p1Turn;
+	}
+	
+	
+	/**
+	 * get which players have placed their platforms
+	 * @return the placedPlatforms index 0:p1, 1:p2
+	 */
+	public boolean[] getPlacedPlatforms() {
+		return placedPlatforms;
+	}
+
+	/**
+	 * set which players have placed their platforms
+	 * @param placedPlatforms index 0:p1, 1:p2
+	 */
+	public void setPlacedPlatforms(boolean[] placedPlatforms) {
+		this.placedPlatforms = placedPlatforms;
 	}
 }
