@@ -235,7 +235,7 @@ public class BoardGraphics extends View implements GameListener{
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
-		refreshDrawableState();
+		
 	}
 	
 	@Override
@@ -260,12 +260,12 @@ public class BoardGraphics extends View implements GameListener{
 		//add bitmaps to tiles
 		for (int i = 0; i<tileNum.length; i++){
 			for (int j = 0; j<tileNum[i].length; j++){
-				if(tileNum[i%boardSize][i/boardSize] == TileNum.EMPTY){
+				if(tileNum[i][j] == TileNum.EMPTY){
 					//nothing to do
-				}else if(tileNum[i%boardSize][i/boardSize] == TileNum.MISS){
+				}else if(tileNum[i][j] == TileNum.MISS){
 					Log.d("drawing", "drawing miss");
 					canvas.drawBitmap(miss, i*tileSize, j*tileSize, dark);
-				}else if(tileNum[i%boardSize][i/boardSize] == TileNum.HIT){
+				}else if(tileNum[i][j] == TileNum.HIT){
 				}else {
 				}
 			}
