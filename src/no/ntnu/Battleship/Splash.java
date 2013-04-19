@@ -9,7 +9,7 @@ import no.ntnu.Battleship.R;
 
 public class Splash extends Activity {
 
-	// Bruker fuglekvitring som temporary lyd for å se at ting funker
+	// Bruker fuglekvitring som temporary lyd for Ã¥ se at ting funker
 	MediaPlayer splashSound;
 
 	protected void onCreate(Bundle savedInstanceState) {

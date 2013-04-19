@@ -36,17 +36,6 @@ public class BattleShip extends Activity implements OnClickListener {
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
         
-
-        // select game type
-            // start screen view
-            // choose game type
-//        new GameModeSelectViewTask(this).execute();
-
-        // initialize the game.
-//        new GameInitTask(this).execute();
-
-        // player interaction
-
     }
 
     // Create the settings menu
