@@ -18,6 +18,10 @@ public class Platform {
 
 	public Platform(int length){
 		this.length = length;
+		coordinates = new int[length][2];
+		setPosition(new int[] {0, 5});
+		isHorizontal = false;
+		hits = new boolean[length];
 	}
 
 	/**

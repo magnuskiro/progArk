@@ -50,6 +50,9 @@ public class Game extends Activity {
 
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
+		
+		player1Board.populate(platformFactory.createPlatforms());
+		player2Board.populate(platformFactory.createPlatforms());
 
 		// TODO: activate a board viewer
 		// setContentView(player1Board);
