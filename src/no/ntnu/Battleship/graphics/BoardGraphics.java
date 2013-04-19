@@ -31,7 +31,7 @@ public class BoardGraphics extends View implements GameListener{
 	private int screenWidth;
 	private int screenHeight;
 
-	private ArrayList<Rect> boardTiles;
+//	private ArrayList<Rect> boardTiles;
 	ArrayList<Platform> p1Platforms;
 	ArrayList<Platform> p2Platforms;
 
@@ -40,6 +40,11 @@ public class BoardGraphics extends View implements GameListener{
 	Bitmap miss;
 	Bitmap hit;
 	Bitmap destroyed;
+	Bitmap ship2;
+	Bitmap ship3;
+	Bitmap ship4;
+	Bitmap ship5;
+	
 
 
 	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
@@ -58,14 +63,24 @@ public class BoardGraphics extends View implements GameListener{
 		dark = new Paint();
 		dark.setColor(android.graphics.Color.BLACK);
 
+		//loading and scaling the bitmaps
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96),
 				(int)tileSize, (int)tileSize, false);
 		hit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96),
 				(int)tileSize, (int)tileSize, false);
 		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wreck_96),
 				(int)tileSize, (int)tileSize, false);
+		ship2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship2_96),
+				(int)tileSize, (int)tileSize, false);
+		ship3 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship3_96),
+				(int)tileSize, (int)tileSize, false);
+		ship4 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship4_96),
+				(int)tileSize, (int)tileSize, false);
+		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship5_96),
+				(int)tileSize, (int)tileSize, false);
+		
 
-		boardTiles = createBoardTiles(boardSize, tileSize);
+//		boardTiles = createBoardTiles(boardSize, tileSize);
 
 		activeBoard = game.getAndSwitchActive();
 
@@ -73,6 +88,8 @@ public class BoardGraphics extends View implements GameListener{
 		p2Platforms = game.getPlatformFactory().createPlatforms();
 	}
 
+	
+	/*
 	public void drawBoard(Canvas canvas) {
 
 		// Hvis partall kolonner må første tile i hver rad ha samme farge som
@@ -158,6 +175,7 @@ public class BoardGraphics extends View implements GameListener{
 			canvas.drawText("" + (i + 1), topX, topY, paint);
 		}
 	}
+	*/
 
 
 	/**
@@ -209,6 +227,7 @@ public class BoardGraphics extends View implements GameListener{
 		return tiles;
 	}
 
+	
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
@@ -248,6 +267,10 @@ public class BoardGraphics extends View implements GameListener{
 					}
 				}
 			}
+		}else if(!placedplats[0]){//player one placing mode
+//			TODO: display p1 platforms
+		}else{//player two placing mode
+//			TODO: display p2 patforms
 		}
 	}
 
