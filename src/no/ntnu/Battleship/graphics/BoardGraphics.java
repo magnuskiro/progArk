@@ -2,13 +2,15 @@ package no.ntnu.Battleship.graphics;
 
 import java.util.ArrayList;
 
+import no.ntnu.Battleship.GameListener;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
 
-public class BoardGraphics {
+public class BoardGraphics implements GameListener{
 
 	private Paint paint;
 
@@ -34,7 +36,7 @@ public class BoardGraphics {
 
 	public void drawBoard(Canvas canvas) {
 
-		// Hvis partall kolonner må første tile i hver rad ha samme farge som
+		// Hvis partall kolonner mÃ¥ fÃ¸rste tile i hver rad ha samme farge som
 		// siste tile i forrige rad
 		boolean evenNumberOfRows = false;
 		int columnCounter = 0;
@@ -42,7 +44,7 @@ public class BoardGraphics {
 			evenNumberOfRows = true;
 		}
 
-		// Holder orden på at annenhver tile er grå/mørkegrå
+		// Holder orden pÃ¥ at annenhver tile er grÃ¥/mÃ¸rkegrÃ¥
 		boolean evenOrOdd = true;
 		// Setter paintstylen til fill
 		paint.setStyle(Style.FILL);
@@ -166,10 +168,10 @@ public class BoardGraphics {
 	 * Lager en arraylist med tiles
 	 * 
 	 * @param boardSize
-	 *            Størrelsen på brettet, viktig for å vite plasseringer i rader
+	 *            StÃ¸rrelsen pÃ¥ brettet, viktig for Ã¥ vite plasseringer i rader
 	 *            og kolonner
 	 * @param tileSize
-	 *            Størrelsen på siden til hver enkelt tile (de er firkantede)
+	 *            StÃ¸rrelsen pÃ¥ siden til hver enkelt tile (de er firkantede)
 	 * @return En ny arraylist med tilse som rectangles, alle med hver sin x1,
 	 *         y1, x2, y2 kordinat ferdig sat
 	 */
@@ -185,7 +187,7 @@ public class BoardGraphics {
 			Rect tile = new Rect();
 
 			// Finner posisjonen til tilen i raden, aka kolonnen dens (til
-			// venstre side, ikke midten eller høyre)
+			// venstre side, ikke midten eller hï¿½yre)
 			int positionInRow = i % boardSize;
 
 			// Finner raden til tilen, aka topstreken, ikke midten eller under
@@ -196,7 +198,7 @@ public class BoardGraphics {
 			int right = (int) (/* positionInRow + */left + tileSize);
 			int bot = (int) (/* row + */top + tileSize);
 
-			// Forskyver tiles så brettet kommer nederst på skjermen
+			// Forskyver tiles sï¿½ brettet kommer nederst pï¿½ skjermen
 			left += tileSize;
 			top += displacementFromTop;
 			right += tileSize;
@@ -209,5 +211,11 @@ public class BoardGraphics {
 			tiles.add(tile);
 		}
 		return tiles;
+	}
+
+	@Override
+	public void gameChanged() {
+		// TODO Auto-generated method stub
+		
 	}
 }

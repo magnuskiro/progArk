@@ -57,15 +57,22 @@ public class Game extends Activity {
 		player2Board.populate(platformFactory.createPlatforms());
 
 		// TODO: activate a board viewer
-		// setContentView(player1Board);
-		// player1Board.requestFocus();
+		// setContentView(boardViewer);
+		// boardViewer.requestFocus();
 
 	}
 
 	public Game() {
 
 	};
-
+	
+	/**
+	 * this constructor is never called due to how android launches activities
+	 * @param p1
+	 * @param p2
+	 * @param p1InitShots
+	 * @param p2InitShots
+	 */
 	public Game(Board p1, Board p2, int p1InitShots, int p2InitShots) {
 		this.player1Board = p1;
 		this.player2Board = p2;
