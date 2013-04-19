@@ -40,7 +40,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 		gameThread = new GameThread(getHolder(), this);
 		
 		boardSize = 20;
-		boardGraphics = new BoardGraphics(boardSize, screenWidth, screenHeight);
+		boardGraphics = new BoardGraphics(boardSize, screenWidth, screenHeight, context);
 		platformAddingGraphics = new PlatformAddingGraphics(boardSize, screenWidth, screenHeight, new PlatformFactory().createPlatforms());
 
 		// make the gamePanel focusable so it can handle events

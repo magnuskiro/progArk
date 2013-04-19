@@ -2,8 +2,11 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
+import no.ntnu.Battleship.graphics.BoardGraphics;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class Game extends Activity {
@@ -26,6 +29,8 @@ public class Game extends Activity {
 	// ######################
 
 	ArrayList<GameListener> listeners;
+	
+	BoardGraphics boardViewer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class Game extends Activity {
 			break;
 		}
 
+		
+		
 		listeners = new ArrayList<GameListener>();
 
 		player1Board = new Board(this, size);
@@ -55,10 +62,15 @@ public class Game extends Activity {
 		
 		player1Board.populate(platformFactory.createPlatforms());
 		player2Board.populate(platformFactory.createPlatforms());
+		
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		
+		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext());
 
 		// TODO: activate a board viewer
-		// setContentView(boardViewer);
-		// boardViewer.requestFocus();
+		 setContentView(boardViewer);
+		 boardViewer.requestFocus();
 
 	}
 

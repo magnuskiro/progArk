@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import no.ntnu.Battleship.GameListener;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.view.View;
 
-public class BoardGraphics implements GameListener{
+public class BoardGraphics extends View implements GameListener{
 
 	private Paint paint;
 
@@ -21,8 +23,10 @@ public class BoardGraphics implements GameListener{
 
 	private ArrayList<Rect> boardTiles;
 
-	public BoardGraphics(int boardSize, int screenWidth, int screenHeight) {
-
+	
+	
+	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context) {
+		super(context);
 		// this.tileSize = Math.floor(screenWidth / (boardSize + 2));
 		this.tileSize = screenWidth / (boardSize + 2);
 		this.boardSize = boardSize;
@@ -215,7 +219,14 @@ public class BoardGraphics implements GameListener{
 
 	@Override
 	public void gameChanged() {
-		// TODO Auto-generated method stub
+		// TODO react to changes
 		
 	}
+	
+	@Override
+	protected void onDraw(Canvas canvas){
+		drawBoard(canvas);
+	}
+	
+	
 }
