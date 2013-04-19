@@ -48,6 +48,8 @@ public class Game extends Activity {
 			break;
 		}
 
+		listeners = new ArrayList<GameListener>();
+
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
 		
@@ -70,7 +72,6 @@ public class Game extends Activity {
 		p1Shots = p1InitShots;
 		p2Shots = p2InitShots;
 		p1Turn = false;
-		listeners = new ArrayList<GameListener>();
 
 		// ######################
 		player1Board.populate(platformFactory.createPlatforms());
@@ -112,9 +113,9 @@ public class Game extends Activity {
 		this.listeners.remove(listener);
 	}
 
-	public void gameChanged() {
+	public void fireGameChanged() {
 		for (GameListener listener : listeners) {
-			listener.fireGameChangedEvent();
+			listener.gameChanged();
 		}
 	}
 

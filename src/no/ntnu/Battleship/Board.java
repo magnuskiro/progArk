@@ -38,7 +38,7 @@ public class Board {
 				platformGrid[shots[i][0]][shots[i][1]].attack(shots[i]);
 			}
 		}
-		myGame.gameChanged();
+		myGame.fireGameChanged();
 	}
 	
 	public int getShots() {
