@@ -6,20 +6,24 @@ import no.ntnu.Battleship.Board;
 import no.ntnu.Battleship.Game;
 import no.ntnu.Battleship.GameListener;
 import no.ntnu.Battleship.R;
+import no.ntnu.Battleship.TileNum;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.util.Log;
 import android.view.View;
 
 public class BoardGraphics extends View implements GameListener{
 
 	private Paint paint;
 
-	private double tileSize;
+	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
 	private int screenHeight;
@@ -28,12 +32,14 @@ public class BoardGraphics extends View implements GameListener{
 
 	Board activeBoard;
 	Game game;
+	Bitmap miss;
+	Bitmap hit;
+	Bitmap destroyed;
 	
 	
 	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
 		super(context);
-		// this.tileSize = Math.floor(screenWidth / (boardSize + 2));
-		this.tileSize = screenWidth / (boardSize + 2);
+		this.tileSize = screenWidth / boardSize;
 		this.boardSize = boardSize;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
@@ -42,10 +48,22 @@ public class BoardGraphics extends View implements GameListener{
 		game.addListener(this);
 
 		paint = new Paint();
+		
+		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96),
+				(int)tileSize, (int)tileSize, false);
+		hit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96),
+				(int)tileSize, (int)tileSize, false);
+		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wreck_96),
+				(int)tileSize, (int)tileSize, false);
 
 		boardTiles = createBoardTiles(boardSize, tileSize);
 		
 		activeBoard = game.getAndSwitchActive();
+		
+		int[][] shots = new int[1][2];
+		shots[0][0] = 3;
+		shots[0][1] = 3;
+		activeBoard.attack(shots);
 	}
 
 	public void drawBoard(Canvas canvas) {
@@ -58,20 +76,32 @@ public class BoardGraphics extends View implements GameListener{
 			evenNumberOfRows = true;
 		}
 
+		TileNum[][] tileNum = activeBoard.getTiles();
+		
 		// Holder orden på at annenhver tile er grå/mørkegrå
 		boolean evenOrOdd = true;
 		// Setter paintstylen til fill
 		paint.setStyle(Style.FILL);
 		// Tegner hver tile
+		int i = 0;
 		for (Rect tile : boardTiles) {
-			// Mer annenhver stuff
 			if (evenOrOdd) {
 				paint.setColor(getResources().getColor(R.color.blue_wave));
 			} else {
 				paint.setColor(getResources().getColor(R.color.ocean_blue));
 			}
-			// Tilen tegnes
-			canvas.drawRect(tile, paint);
+			if(tileNum[i%boardSize][i/boardSize] == TileNum.EMPTY){
+
+				// Mer annenhver stuff
+				// Tilen tegnes
+				canvas.drawRect(tile, paint);
+			}else if(tileNum[i%boardSize][i/boardSize] == TileNum.MISS){
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96), null, tile, paint);
+			}else if(tileNum[i%boardSize][i/boardSize] == TileNum.HIT){
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96), null, tile, paint);
+			}else {
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wreck_96), null, tile, paint);
+			}
 			// Annenhvertelleren oppdateres
 			if (evenNumberOfRows && columnCounter == boardSize - 1) {
 				columnCounter = 0;
@@ -79,36 +109,11 @@ public class BoardGraphics extends View implements GameListener{
 				evenOrOdd = !evenOrOdd;
 				columnCounter++;
 			}
+			i++;
 		}
 	}
 
-	// public void drawIndexes(Canvas canvas) {
-	// paint.setStyle(Style.FILL);
-	// paint.setColor(Color.GRAY);
-	//
-	// int displacementFromTop = screenHeight - screenWidth + (int) tileSize;
-	//
-	// int displacementFromEdge = (int) (0);
-	//
-	// paint.setTextSize((float) tileSize-2);
-	//
-	// int topX;
-	// int topY;
-	//
-	// for (int i = 0; i < boardSize; i++) {
-	// // Koordinatene for bokstaver (rad)
-	// topX = (int) (i * tileSize + tileSize) + displacementFromEdge;
-	// topY = displacementFromTop + displacementFromEdge;
-	// // bruk charcode
-	// canvas.drawText("" + i, topX, topY, paint);
-	//
-	// // Koordinatene for siffer (kolonne)
-	// topX = 0 + displacementFromEdge;
-	// topY = (int) (i * tileSize + tileSize + displacementFromTop) +
-	// displacementFromEdge;
-	// canvas.drawText("" + i, topX, topY, paint);
-	// }
-	// }
+	
 
 	public void drawIndexes(Canvas canvas) {
 		paint.setStyle(Style.FILL);
@@ -235,7 +240,38 @@ public class BoardGraphics extends View implements GameListener{
 	
 	@Override
 	protected void onDraw(Canvas canvas){
-		drawBoard(canvas);
+//		drawBoard(canvas);
+		Paint background = new Paint();
+		background.setColor(android.graphics.Color.BLUE);
+		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
+		
+		// Draw the board...
+		Paint dark = new Paint();
+		dark.setColor(android.graphics.Color.BLACK);
+		
+		// Draw the grid lines
+		for (int i = 0; i <= boardSize; i++) {
+			canvas.drawLine(0f,(float)( i * tileSize), (float)getWidth(), (float)( i * tileSize), dark);
+			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
+		}
+		
+		TileNum[][] tileNum = activeBoard.getTiles();
+		
+		//add bitmaps to tiles
+		for (int i = 0; i<tileNum.length; i++){
+			for (int j = 0; j<tileNum[i].length; j++){
+				if(tileNum[i][j] == TileNum.EMPTY){
+					//nothing to do
+				}else if(tileNum[i][j] == TileNum.MISS){
+					Log.d("drawing", "drawing miss");
+					canvas.drawBitmap(miss, i*tileSize, j*tileSize, null);
+				}else if(tileNum[i][j] == TileNum.HIT){
+					canvas.drawBitmap(hit, i*tileSize, j*tileSize, null);
+				}else {
+					canvas.drawBitmap(destroyed, i*tileSize, j*tileSize, null);
+				}
+			}
+		}
 	}
 	
 	
