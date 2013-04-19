@@ -264,9 +264,11 @@ public class BoardGraphics extends View implements GameListener{
 					//nothing to do
 				}else if(tileNum[i][j] == TileNum.MISS){
 					Log.d("drawing", "drawing miss");
-					canvas.drawBitmap(miss, i*tileSize, j*tileSize, dark);
+					canvas.drawBitmap(miss, i*tileSize, j*tileSize, null);
 				}else if(tileNum[i][j] == TileNum.HIT){
+					canvas.drawBitmap(hit, i*tileSize, j*tileSize, null);
 				}else {
+					canvas.drawBitmap(destroyed, i*tileSize, j*tileSize, null);
 				}
 			}
 		}
