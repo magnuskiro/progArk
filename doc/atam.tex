@@ -1,0 +1,174 @@
+% latex article template
+
+% cheat sheet(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/latexsheet.pdf
+% cheat sheet2(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/LaTeX-cheat-sheet.pdf
+% reference manual(eng): http://ctan.uib.no/info/latex2e-help-texinfo/latex2e.html
+
+% The document class defines the type of document. Presentation, article, letter, etc. 
+\documentclass[12pt, a4paper]{article}
+
+% packages to be used. needed to use images and such things. 
+\usepackage[pdfborder=0 0 0]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+
+% hides the section numbering. 
+\setcounter{secnumdepth}{-1}
+
+% Graphics/image lications and extensions. 
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .jpeg}
+\graphicspath{{./images/}}
+
+
+\title{
+	ATAM Document \\
+    TDT4240 - Group A14 \\
+	\\
+	}
+}
+\author{
+	\underline{Group members:} \\
+    Bremnes, Jan A. S.\\
+    Johanessen, Stig Tore\\
+	Hesselberg, Håkon \\
+    Kirø, Magnus L.\\
+	Randby, Simon \\
+    Tørresen, Håvard\\
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+\pagenumbering{arabic}
+
+\tableofcontents
+
+\section{Introduction}
+The evaluated group of this report is: A13. 
+Group A13 have decided to focus their project on modifiability and testability. 
+
+\section{Attribute utility tree}
+\begin{tabular}{ p{.2\textwidth} p{.3\textwidth} p{.1\textwidth}
+p{.4\textwidth} }
+Attribute & Scenario & Priority & Details \\
+Testability & T1 & H & - \\
+Modifiability & M1 & L & - \\
+Modifiability & M2 & H & - \\
+Modifiability & Change COTS & (M,L) & Semantic coherence and decoupling.
+Decoupling is good and it’s easily combined with modularity, but keep in mind that it’s not the same thing. \\
+Testability & The verification of working game features & (M,L) & Limited Structural complexity might not improve the testability of the program. \\
+\end{tabular}
+
+\section{Analysis of Architectural Approach}
+
+\subsection{Scenario}
+\begin{itemize}
+	\item Scenario #: M1
+	\item Scenario name: Add game mode
+	\item Attribute(s): Modifiability
+	\item Environment: Build time
+	\item Stimulus: Add game mode
+	\item Response: Modification is made
+\end{itemize}
+
+\subsubsection{Architectural Decisions}
+\begin{tabular}{ p{.2\textwidth} p{.2\textwidth} p{.2\textwidth}
+p{.2\textwidth} p{.2\textwidth} }
+Architectural Decisions & Sensitivity & Tradeoff & Risk & NonRisk \\
+ & & & & \\
+Modifiability by being able to add diverse content & Could possibly interfere
+with the environment & Tradeoff with single, unifying, marketable, game mode
+& Reduce game functionality and richness & N1\\
+Reduce coupling & S1, S3 & T1 & -  & N1 \\
+Keep semantic coherence & S1, S2 & T2 & - &  N1 \\
+Limit structural complexity & S1, S3 & T3 & - &  N1 \\
+\end{tabular}
+
+\subsubsection{Reasoning:}
+Because of the importance of game modes this is choosen as a scenario. 
+
+\subsection{Scenario}
+\begin{itemize}
+    \item Scenario #: M2
+    \item Scenario name: Add landscape generator
+    \item Attribute(s): Modifiability
+    \item Environment: Build time
+    \item Stimulus: Add landscape generator
+    \item Response: Modification is made
+\end{itemize}
+
+\subsubsection{Architectural Decisions}
+\begin{tabular}{ p{.2\textwidth} p{.2\textwidth} p{.2\textwidth}
+p{.2\textwidth} p{.2\textwidth} }
+Architectural Decisions & Sensitivity & Tradeoff & Risk & NonRisk \\
+Expandability, Diversity, Choice & Changes to how the game reads landscapes &
+Will be hard to change the way terrains are implemented later & Won’t require
+rewriting when adding more terrains later. & N1 \\
+\end{tabular}
+
+\subsubsection{Reasoning:}
+Users should be able to choose which generator to use, so it should be easy for
+the developer to add new ones.
+
+\subsection{Scenario}
+\begin{itemize}
+	\item Scenario #: T1
+    \item Scenario name: Immediate effects of game settings change
+    \item Attribute(s): Testability
+    \item Environment: Run-time
+    \item Stimulus: Changing game settings
+    \item Response: Gameplay is adjusted to changes
+\end{itemize}
+
+\subsubsection{Architectural Decisions}
+\begin{tabular}{ p{.2\textwidth} p{.2\textwidth} p{.2\textwidth}
+p{.2\textwidth} p{.2\textwidth} }
+Architectural Decisions & Sensitivity & Tradeoff & Risk & NonRisk \\
+Use libGDX & S1, S2 & T1 & R1 & N1 \\
+\end{tabular}
+
+\subsubsection{Reasoning:} 
+Tests are good because knowledge of the program is needed for a productive
+development. The risk is that the test might crash things if not done properly,
+and that is very bad if it happens at run-time. Tradeoff is that testing
+consumes time that could have been spent on development. A NonRisk is that it
+will most likely not hurt the tester, developers, or other stakeholders.
+
+\section{Sensitivity Points} 
+(how architectural decisions affects either modifiability or testability)
+\begin{itemize}
+    \item S1: affects testability positively. 
+    \item S2: affects modifiability negatively.
+    \item S3: affects modifiability positively. 
+    \item S4: affect testability negatively. 
+\end{itemize}
+
+\section{Tradeoff Points}
+\begin{itemize}
+    \item T1: No apparent trade off. 
+    \item T2: trades code readability for implementation time. 
+    \item T3: trades functionality for modifiability. 
+\end{itemize}
+
+\section{Risks and non-risks}
+\begin{itemize}
+    \item R1: libGDX turns out to be hard to use properly
+    \item N1: No apparent risks. 
+\end{itemize}
+
+\section{Own Experiences from using ATAM}
+We were reminded about some functional requirements that we had not included in
+our own design, mainly because of the fact that we did not create an exhaustive
+list of requirements. 
+
+\section{Problems and issues}
+The low level of detail in the architecture and requirements documents, made it
+difficult to write a comprehensive report. 
+
+\section{Change log}
+none
+
+\end{document}

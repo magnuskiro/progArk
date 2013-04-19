@@ -1,0 +1,102 @@
+% latex article template
+
+% cheat sheet(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/latexsheet.pdf
+% cheat sheet2(eng): http://www.pvv.ntnu.no/~walle/latex/dokumentasjon/LaTeX-cheat-sheet.pdf
+% reference manual(eng): http://ctan.uib.no/info/latex2e-help-texinfo/latex2e.html
+
+% The document class defines the type of document. Presentation, article, letter, etc. 
+\documentclass[12pt, a4paper]{article}
+
+% packages to be used. needed to use images and such things. 
+\usepackage[pdfborder=0 0 0]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+
+% hides the section numbering. 
+\setcounter{secnumdepth}{-1}
+
+% Graphics/image lications and extensions. 
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .jpeg}
+\graphicspath{{./images/}}
+
+\title{
+	Project Implementation \\
+    TDT4240 - Group A14 \\
+	\\
+}
+\author{
+	\underline{Group members:} \\
+    Bremnes, Jan A. S.\\
+    Johanessen, Stig Tore\\
+	Hesselberg, Håkon \\
+    Kirø, Magnus L.\\
+	Randby, Simon \\
+    Tørresen, Håvard\\
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+\paragraph{Chosen COTS:} Andoid
+\paragraph{Primary quality attribute:} Modifiability
+\paragraph{Secondary quality attribute:} Testability \\
+
+\pagenumbering{arabic}
+
+\begin{abstract}
+This is the paper's abstract \ldots
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+What, why, where.
+\subsection{Test phase description}
+\subsection{Implementation phase description}
+\subsection{Game consept description}
+\subsection{Document Structure}
+
+\section{Design/Implementation details}
+\subsection{Program design}
+\subsection{Diagrams}
+\subsection{Class descriptions}
+
+\section{User Manual}
+\subsection{Installation}
+Description of how to install, compile and run the game/robot.
+\subsection{Gameplay}
+description of how to play the game. 
+\subsection{Screenshots}
+Screenshots from the game
+
+\section{Test report}
+\subsection{Funtional requirements}
+The report should contain test reports for both functional requirements and 
+\subsection{Quality requirements}
+quality requirements (quality scenarios).
+\subsection{Test reports}
+-Test reports must include requirement ID (e.g. F1, F2, A2, A3..), 
+-description of requirement, who did the test, date for test, time used, 
+-evaluation (failure/success) and comment (discussion/comment about the result). 
+\subsection{Quality requirements}
+Quality requirement tests must in addition include stimuli, expected 
+response measure, and observed response measure. 
+
+\section{Architecture Relationship}
+\subsection{Implementation deviations}
+-This section should list the inconsistencies between your architecture and 
+the implementation. Give the reasons for these inconsistencies. 
+-Discuss whether they could have been discovered at an earlier point, for
+instance during the ATAM evaluation.
+
+\section{Problems}
+\section{Future work}
+\section{Discussion}
+
+
+\end{document}
