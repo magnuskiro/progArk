@@ -48,6 +48,8 @@ public class BoardGraphics extends View implements GameListener{
 	Bitmap ship3;
 	Bitmap ship4;
 	Bitmap ship5;
+	
+	ArrayList<PlatformView> platformViews;
 
 
 
@@ -93,6 +95,13 @@ public class BoardGraphics extends View implements GameListener{
 
 		p1Platforms = game.getPlatformFactory().createPlatforms();
 		p2Platforms = game.getPlatformFactory().createPlatforms();
+		
+		platformViews = new ArrayList<PlatformView>();
+		for (Platform plat:p1Platforms){
+			platformViews.add(new PlatformView(context, plat, res, tileSize));
+			
+		}
+		
 	}
 
 

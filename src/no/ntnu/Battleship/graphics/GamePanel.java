@@ -110,8 +110,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 	public void onDraw(Canvas canvas) {
 		if(canvas != null){
 			canvas.drawColor(Color.WHITE);
-			boardGraphics.drawBoard(canvas);
-			boardGraphics.drawIndexes(canvas);
+//			boardGraphics.drawBoard(canvas);
+//			boardGraphics.drawIndexes(canvas);
 			platformAddingGraphics.drawPlatforms(canvas);
 			// Rect r = new Rect(10, 10, 100, 100);
 		}
