@@ -8,30 +8,34 @@ import no.ntnu.Battleship.GameListener;
 import no.ntnu.Battleship.Platform;
 import no.ntnu.Battleship.R;
 import no.ntnu.Battleship.TileNum;
-
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Paint.Style;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class BoardGraphics extends View implements GameListener{
 
+	Resources res;
 	private Paint paint;
 	Paint background;
 	Paint dark;
+	Paint selected;
 
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
 	private int screenHeight;
+	private int selX;		// X index of selected square
+	private int selY;		// Y index of selected square
+	private final Rect selRect = new Rect();
 
-//	private ArrayList<Rect> boardTiles;
+	//	private ArrayList<Rect> boardTiles;
 	ArrayList<Platform> p1Platforms;
 	ArrayList<Platform> p2Platforms;
 
@@ -44,7 +48,7 @@ public class BoardGraphics extends View implements GameListener{
 	Bitmap ship3;
 	Bitmap ship4;
 	Bitmap ship5;
-	
+
 
 
 	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
@@ -54,33 +58,36 @@ public class BoardGraphics extends View implements GameListener{
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		this.game = game;
+		this.res = getResources();
 
 		game.addListener(this);
 
 		paint = new Paint();
 		background = new Paint();
-		background.setColor(android.graphics.Color.BLUE);
+		background.setColor(res.getColor(R.color.ocean_blue));
 		dark = new Paint();
 		dark.setColor(android.graphics.Color.BLACK);
+		selected = new Paint();
+		selected.setColor(getResources().getColor(R.color.square_selected));
 
 		//loading and scaling the bitmaps
-		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96),
+		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_miss_96),
 				(int)tileSize, (int)tileSize, false);
-		hit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96),
+		hit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_hit_96),
 				(int)tileSize, (int)tileSize, false);
-		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wreck_96),
+		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.wreck_96),
 				(int)tileSize, (int)tileSize, false);
-		ship2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship2_96),
-				(int)tileSize, (int)tileSize, false);
-		ship3 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship3_96),
-				(int)tileSize, (int)tileSize, false);
-		ship4 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship4_96),
-				(int)tileSize, (int)tileSize, false);
-		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship5_96),
-				(int)tileSize, (int)tileSize, false);
-		
+		ship2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship2_96),
+				(int)tileSize, (int)tileSize * 2, false);
+		ship3 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship3_96),
+				(int)tileSize, (int)tileSize * 3, false);
+		ship4 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship4_96),
+				(int)tileSize, (int)tileSize * 4, false);
+		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship5_96),
+				(int)tileSize, (int)tileSize * 5, false);
 
-//		boardTiles = createBoardTiles(boardSize, tileSize);
+
+		//		boardTiles = createBoardTiles(boardSize, tileSize);
 
 		activeBoard = game.getAndSwitchActive();
 
@@ -88,7 +95,7 @@ public class BoardGraphics extends View implements GameListener{
 		p2Platforms = game.getPlatformFactory().createPlatforms();
 	}
 
-	
+
 	/*
 	public void drawBoard(Canvas canvas) {
 
@@ -175,7 +182,7 @@ public class BoardGraphics extends View implements GameListener{
 			canvas.drawText("" + (i + 1), topX, topY, paint);
 		}
 	}
-	*/
+	 */
 
 
 	/**
@@ -227,7 +234,7 @@ public class BoardGraphics extends View implements GameListener{
 		return tiles;
 	}
 
-	
+
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
@@ -237,9 +244,10 @@ public class BoardGraphics extends View implements GameListener{
 	@Override
 	protected void onDraw(Canvas canvas){
 		Log.d("drawing", "drawing");
+		
 		// Draw the board...
 		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
-
+		
 
 		// Draw the grid lines
 		for (int i = 0; i <= boardSize; i++) {
@@ -248,6 +256,9 @@ public class BoardGraphics extends View implements GameListener{
 		}
 
 		TileNum[][] tileNum = activeBoard.getTiles();
+		
+		// Draw the selection...
+		canvas.drawRect(selRect, selected);
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
@@ -268,13 +279,42 @@ public class BoardGraphics extends View implements GameListener{
 				}
 			}
 		}else if(!placedplats[0]){//player one placing mode
-//			TODO: display p1 platforms
+			//			TODO: display p1 platforms
 		}else{//player two placing mode
-//			TODO: display p2 patforms
+			//			TODO: display p2 patforms
 		}
 	}
+	
+	
+	private void getRect(int x, int y, Rect rect) {
+		rect.set((int) (x * tileSize), (int) (y * tileSize), 
+				(int) (x * tileSize + tileSize), (int) (y * tileSize + tileSize));
+	}
+	
+	private void select(int x, int y) {
+		invalidate(selRect);
+		selX = Math.min(Math.max(x, 0), boardSize - 1);
+		selY = Math.min(Math.max(y, 0), boardSize - 1);
+		getRect(selX, selY, selRect);
+		invalidate(selRect);
+	}
 
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() != MotionEvent.ACTION_DOWN)
+			return super.onTouchEvent(event);
+		
+		select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
+		return true;
+	}
 
+	/**
+	 *  Set the size of the view
+	 */
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		setMeasuredDimension(screenWidth, screenWidth);
+	}
 
 
 }

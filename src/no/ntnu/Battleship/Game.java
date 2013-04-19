@@ -3,11 +3,14 @@ package no.ntnu.Battleship;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.graphics.BoardGraphics;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 
 public class Game extends Activity {
 	private static final String TAG = "Battleship";
@@ -68,9 +71,19 @@ public class Game extends Activity {
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
 		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
+		
+		// Define a linearlayout and add boardViewer and buttons to it
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		layout.addView(boardViewer);
+		LinearLayout row = new LinearLayout(this);
+		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		row.setGravity(Gravity.CENTER_HORIZONTAL);
+		row.addView((LinearLayout) View.inflate(this, R.layout.buttons, null));
+		layout.addView(row);
 
 		// TODO: activate a board viewer
-		 setContentView(boardViewer);
+		 setContentView(layout);
 		 boardViewer.requestFocus();
 
 	}
