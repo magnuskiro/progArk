@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import no.ntnu.Battleship.Board;
 import no.ntnu.Battleship.Game;
 import no.ntnu.Battleship.GameListener;
+import no.ntnu.Battleship.Platform;
 import no.ntnu.Battleship.R;
 import no.ntnu.Battleship.TileNum;
 
@@ -29,6 +30,8 @@ public class BoardGraphics extends View implements GameListener{
 	private int screenHeight;
 
 	private ArrayList<Rect> boardTiles;
+	ArrayList<Platform> p1Platforms;
+	ArrayList<Platform> p2Platforms;
 
 	Board activeBoard;
 	Game game;
@@ -60,10 +63,8 @@ public class BoardGraphics extends View implements GameListener{
 		
 		activeBoard = game.getAndSwitchActive();
 		
-		int[][] shots = new int[1][2];
-		shots[0][0] = 3;
-		shots[0][1] = 3;
-		activeBoard.attack(shots);
+		p1Platforms = game.getPlatformFactory().createPlatforms();
+		p2Platforms = game.getPlatformFactory().createPlatforms();
 	}
 
 	public void drawBoard(Canvas canvas) {
@@ -263,7 +264,6 @@ public class BoardGraphics extends View implements GameListener{
 				if(tileNum[i][j] == TileNum.EMPTY){
 					//nothing to do
 				}else if(tileNum[i][j] == TileNum.MISS){
-					Log.d("drawing", "drawing miss");
 					canvas.drawBitmap(miss, i*tileSize, j*tileSize, null);
 				}else if(tileNum[i][j] == TileNum.HIT){
 					canvas.drawBitmap(hit, i*tileSize, j*tileSize, null);
@@ -273,6 +273,8 @@ public class BoardGraphics extends View implements GameListener{
 			}
 		}
 	}
+	
+	
 	
 	
 }

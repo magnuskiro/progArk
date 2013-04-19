@@ -60,8 +60,6 @@ public class Game extends Activity {
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
 		
-		player1Board.populate(platformFactory.createPlatforms());
-		player2Board.populate(platformFactory.createPlatforms());
 		
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -138,4 +136,11 @@ public class Game extends Activity {
 		}
 	}
 
+	public  PlatformFactory  getPlatformFactory(){
+		return platformFactory;
+	}
+	
+	public DeviceFactory getdDeviceFactory(){
+		return deviceFactory;
+	}
 }
