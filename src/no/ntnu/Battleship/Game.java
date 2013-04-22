@@ -203,7 +203,6 @@ public class Game extends Activity implements OnClickListener {
 		case R.id.button_confirm_placement:
 			openConfirmDialog();
 			break;
-		// More buttons here 
 		}
 	}
 	
@@ -215,5 +214,12 @@ public class Game extends Activity implements OnClickListener {
 			}
 		})
 		.show();
+	}
+	
+	
+	
+	private void switchView() {
+		Board switchTo = getAndSwitchActive();
+//		boardViewer.setActivateBoard(switchTo);
 	}
 }
