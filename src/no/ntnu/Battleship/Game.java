@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import no.ntnu.Battleship.graphics.BoardGraphics;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class Game extends Activity {
+public class Game extends Activity implements OnClickListener {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -88,12 +91,15 @@ public class Game extends Activity {
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setGravity(Gravity.CENTER_HORIZONTAL);
-		row.addView((LinearLayout) View.inflate(this, R.layout.buttons, null));
+		row.addView((LinearLayout) View.inflate(this, R.layout.placement_buttons, null));
 		layout.addView(row);
 
 		// TODO: activate a board viewer
 		 setContentView(layout);
 		 boardViewer.requestFocus();
+		 
+		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
+		 confirmPlacementButton.setOnClickListener(this);
 
 	}
 
@@ -188,5 +194,26 @@ public class Game extends Activity {
 	 */
 	public void setPlacedPlatforms(boolean[] placedPlatforms) {
 		this.placedPlatforms = placedPlatforms;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// Figure out which button was clicked
+		switch (v.getId()) {
+		case R.id.button_confirm_placement:
+			openConfirmDialog();
+			break;
+		// More buttons here 
+		}
+	}
+	
+	private void openConfirmDialog() {
+		new AlertDialog.Builder(this).setTitle(R.string.confirm_placement_title)
+		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialoginterface, int i) {
+				return;
+			}
+		})
+		.show();
 	}
 }
