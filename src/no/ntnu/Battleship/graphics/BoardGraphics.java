@@ -105,7 +105,7 @@ public class BoardGraphics extends View implements GameListener{
 			platformViews.add(pView);
 
 		}
-		
+
 		setOnDragListener(new MyDragListener());
 
 	}
@@ -220,9 +220,14 @@ public class BoardGraphics extends View implements GameListener{
 				return false;
 			}
 		}
-		
+
 	}
-	
+
+	/**
+	 * only add this listener to views that only have  platformviews as children.
+	 * @author Håvard
+	 *
+	 */
 	class MyDragListener implements OnDragListener {
 		Drawable enterShape = getResources().getDrawable(R.drawable.shape_droptarget);
 		Drawable normalShape = getResources().getDrawable(R.drawable.shape);
@@ -230,9 +235,9 @@ public class BoardGraphics extends View implements GameListener{
 		@Override
 		public boolean onDrag(View v, DragEvent event) {
 			int action = event.getAction();
-			View view = (View) event.getLocalState();
+			PlatformView view = (PlatformView) event.getLocalState();
 			ViewGroup owner = (ViewGroup) view.getParent();
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)tileSize*3);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)tileSize*view.getPlatform().getlength());
 
 			switch (action) {
 			case DragEvent.ACTION_DRAG_STARTED:
@@ -250,7 +255,7 @@ public class BoardGraphics extends View implements GameListener{
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
 				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), 10*tileSize - view.getHeight());
+				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - view.getHeight());
 
 				Log.d("movement",""+params.leftMargin);
 				Log.d("movement",""+params.topMargin);
@@ -262,8 +267,12 @@ public class BoardGraphics extends View implements GameListener{
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
-				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), 10*tileSize - view.getHeight());
+				if (view.getRotation() == 0){
+					params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
+					params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - view.getHeight());
+				} else{
+
+				}
 
 				Log.d("movement",""+params.leftMargin);
 				Log.d("movement",""+params.topMargin);
@@ -273,6 +282,9 @@ public class BoardGraphics extends View implements GameListener{
 			case DragEvent.ACTION_DRAG_ENDED:
 				if(view.getDrawingTime() - time < 200){
 					Log.d("movement","eventtime minus drawingtime: " +(view.getDrawingTime() - time));
+
+
+
 					if(view.getRotation() == 0){
 						view.setRotation(90);
 					}else{

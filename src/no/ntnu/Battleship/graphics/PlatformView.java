@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -38,10 +39,10 @@ public class PlatformView extends ImageView{
 			this.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship5_96),
 					(int)tileSize, (int)tileSize * 5, false));
 			break;
-		
-			
 		}
-		
+		setPivotX(tileSize/2);
+		setPivotY(plat.getlength()*tileSize - tileSize/2);
+		Log.d("movement", "pivX: " + tileSize/2 + " pivY: " +  ((plat.getlength()*tileSize) -(tileSize/2)));
 	}
 
 	/**
