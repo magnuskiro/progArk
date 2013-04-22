@@ -15,17 +15,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 public class BoardGraphics extends View implements GameListener{
@@ -241,7 +238,6 @@ public class BoardGraphics extends View implements GameListener{
 		public boolean onDrag(View v, DragEvent event) {
 			int action = event.getAction();
 			PlatformView view = (PlatformView) event.getLocalState();
-			ViewGroup owner = (ViewGroup) view.getParent();
 			float platLength = view.getPlatform().getlength() * tileSize;
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)platLength);
 
@@ -251,11 +247,11 @@ public class BoardGraphics extends View implements GameListener{
 				break;
 			case DragEvent.ACTION_DRAG_ENTERED:
 				Log.d("movement", "drag entered");
-				v.setBackgroundDrawable(enterShape);
+				v.setBackground(enterShape);
 				break;
 			case DragEvent.ACTION_DRAG_EXITED:
 				Log.d("movement", "drag exited");
-				v.setBackgroundDrawable(normalShape);
+				v.setBackground(normalShape);
 
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
@@ -299,7 +295,7 @@ public class BoardGraphics extends View implements GameListener{
 					}
 				}
 
-				v.setBackgroundDrawable(normalShape);
+				v.setBackground(normalShape);
 				Log.d("movement", "drag ended");
 			default:
 				break;
