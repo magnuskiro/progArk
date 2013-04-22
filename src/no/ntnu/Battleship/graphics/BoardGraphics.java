@@ -27,7 +27,6 @@ import android.widget.RelativeLayout;
 public class BoardGraphics extends View implements GameListener{
 
 	Resources res;
-	private Paint paint;
 	Paint background;
 	Paint dark;
 	Paint selected;
@@ -40,7 +39,6 @@ public class BoardGraphics extends View implements GameListener{
 	private int selY;		// Y index of selected square
 	private final Rect selRect = new Rect();
 
-	//	private ArrayList<Rect> boardTiles;
 	ArrayList<Platform> p1Platforms;
 	ArrayList<Platform> p2Platforms;
 
@@ -70,7 +68,6 @@ public class BoardGraphics extends View implements GameListener{
 
 		game.addListener(this);
 
-		paint = new Paint();
 		background = new Paint();
 		background.setColor(res.getColor(R.color.ocean_blue));
 		dark = new Paint();
@@ -95,7 +92,6 @@ public class BoardGraphics extends View implements GameListener{
 				(int)tileSize, (int)tileSize * 5, false);
 
 
-		//		boardTiles = createBoardTiles(boardSize, tileSize);
 
 		activeBoard = game.getAndSwitchActive();
 
@@ -112,145 +108,6 @@ public class BoardGraphics extends View implements GameListener{
 		
 		setOnDragListener(new MyDragListener());
 
-	}
-
-
-	/*
-	public void drawBoard(Canvas canvas) {
-
-		// Hvis partall kolonner må første tile i hver rad ha samme farge som
-		// siste tile i forrige rad
-		boolean evenNumberOfRows = false;
-		int columnCounter = 0;
-		if (boardSize % 2 == 0) {
-			evenNumberOfRows = true;
-		}
-
-		TileNum[][] tileNum = activeBoard.getTiles();
-
-		// Holder orden på at annenhver tile er grå/mørkegrå
-		boolean evenOrOdd = true;
-		// Setter paintstylen til fill
-		paint.setStyle(Style.FILL);
-		// Tegner hver tile
-		int i = 0;
-		for (Rect tile : boardTiles) {
-			if (evenOrOdd) {
-				paint.setColor(getResources().getColor(R.color.blue_wave));
-			} else {
-				paint.setColor(getResources().getColor(R.color.ocean_blue));
-			}
-			if(tileNum[i%boardSize][i/boardSize] == TileNum.EMPTY){
-
-				// Mer annenhver stuff
-				// Tilen tegnes
-				canvas.drawRect(tile, paint);
-			}else if(tileNum[i%boardSize][i/boardSize] == TileNum.MISS){
-				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_miss_96), null, tile, paint);
-			}else if(tileNum[i%boardSize][i/boardSize] == TileNum.HIT){
-				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ship_hit_96), null, tile, paint);
-			}else {
-				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wreck_96), null, tile, paint);
-			}
-			// Annenhvertelleren oppdateres
-			if (evenNumberOfRows && columnCounter == boardSize - 1) {
-				columnCounter = 0;
-			} else {
-				evenOrOdd = !evenOrOdd;
-				columnCounter++;
-			}
-			i++;
-		}
-	}
-
-
-
-	public void drawIndexes(Canvas canvas) {
-		paint.setStyle(Style.FILL);
-		paint.setColor(Color.RED);
-
-		int displacementFromTop = screenHeight - screenWidth + (int) tileSize;
-
-		int displacementFromEdge = (int) (0);
-
-		paint.setTextSize((float) tileSize - 2);
-
-		int topX;
-		int topY;
-		int left;
-		int top;
-		int right;
-		int bot;
-
-		Rect drawWithin = new Rect();
-
-		for (int i = 0; i < boardSize; i++) {
-
-
-			// Koordinatene for bokstaver (rad)
-			topX = (int) (i * tileSize + tileSize) + displacementFromEdge;
-			topY = displacementFromTop + displacementFromEdge;
-			// bruk charcode
-			canvas.drawText("" + Character.valueOf((char) ('A' + i)), topX,
-					topY, paint);
-
-			// Koordinatene for siffer (kolonne)
-			topX = 0 + displacementFromEdge;
-			topY = (int) (i * tileSize + tileSize + displacementFromTop)
-					+ displacementFromEdge;
-			canvas.drawText("" + (i + 1), topX, topY, paint);
-		}
-	}
-	 */
-
-
-	/**
-	 * Lager en arraylist med tiles
-	 * 
-	 * @param boardSize
-	 *            Størrelsen på brettet, viktig for å vite plasseringer i rader
-	 *            og kolonner
-	 * @param tileSize
-	 *            Størrelsen på siden til hver enkelt tile (de er firkantede)
-	 * @return En ny arraylist med tilse som rectangles, alle med hver sin x1,
-	 *         y1, x2, y2 kordinat ferdig sat
-	 */
-	private ArrayList<Rect> createBoardTiles(int boardSize, double tileSize) {
-		// Matrisen med alle tilsene som vi returnerer
-		ArrayList<Rect> tiles = new ArrayList<Rect>();
-
-		int displacementFromTop = (int) tileSize;
-
-		// Fyllingen av tiles
-		for (int i = 0; i < boardSize * boardSize; i++) {
-			// Lager ett nytt rect
-			Rect tile = new Rect();
-
-			// Finner posisjonen til tilen i raden, aka kolonnen dens (til
-			// venstre side, ikke midten eller høyre)
-			int positionInRow = i % boardSize;
-
-			// Finner raden til tilen, aka topstreken, ikke midten eller under
-			int row = (int) (Math.floor(i / boardSize));
-
-			int left = (int) (/* positionInRow + */positionInRow * tileSize);
-			int top = (int) (/* row + */row * tileSize);
-			int right = (int) (/* positionInRow + */left + tileSize);
-			int bot = (int) (/* row + */top + tileSize);
-
-			// Forskyver tiles så brettet kommer nederst på skjermen
-			left += tileSize;
-			top += displacementFromTop;
-			right += tileSize;
-			bot += displacementFromTop;
-
-			// Setter left, top, right, bottom
-			tile.set(left, top, right, bot);
-
-			// Legger tilen til arraylisten som returneres
-			tiles.add(tile);
-		}
-		return tiles;
 	}
 
 
@@ -351,7 +208,6 @@ public class BoardGraphics extends View implements GameListener{
 				ClipData data = ClipData.newPlainText("", "");
 				DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
 				v.startDrag(data, shadowBuilder, v, 0);
-//				view.setVisibility(View.INVISIBLE);
 				return true;
 			} else {
 				return false;
@@ -370,7 +226,7 @@ public class BoardGraphics extends View implements GameListener{
 			View view = (View) event.getLocalState();
 			ViewGroup owner = (ViewGroup) view.getParent();
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)tileSize*3);
-//			RelativeLayout container = (RelativeLayout) v;
+
 			switch (action) {
 			case DragEvent.ACTION_DRAG_STARTED:
 				// Do nothing
@@ -382,7 +238,6 @@ public class BoardGraphics extends View implements GameListener{
 			case DragEvent.ACTION_DRAG_EXITED:
 				Log.d("movement", "drag exited");
 				v.setBackgroundDrawable(normalShape);
-//				owner.removeView(view);
 
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
@@ -394,12 +249,8 @@ public class BoardGraphics extends View implements GameListener{
 				Log.d("movement",""+params.topMargin);
 
 				view.setLayoutParams(params);
-//				container.addView(view, params);
-//				view.setVisibility(View.VISIBLE);
 				break;
 			case DragEvent.ACTION_DROP:
-				// Dropped, reassign View to ViewGroup
-//				owner.removeView(view);
 
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
@@ -411,8 +262,6 @@ public class BoardGraphics extends View implements GameListener{
 				Log.d("movement",""+params.topMargin);
 
 				view.setLayoutParams(params);
-//				container.addView(view, params);
-//				view.setVisibility(View.VISIBLE);
 				break;
 			case DragEvent.ACTION_DRAG_ENDED:
 				if(view.getDrawingTime() - time < 200){
@@ -423,7 +272,6 @@ public class BoardGraphics extends View implements GameListener{
 						view.setRotation(0);
 					}
 				}
-//				view.setVisibility(View.VISIBLE);
 
 				v.setBackgroundDrawable(normalShape);
 				Log.d("movement", "drag ended");

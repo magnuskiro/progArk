@@ -15,8 +15,12 @@ import android.widget.ImageView;
  */
 public class PlatformView extends ImageView{
 
+	Platform platform;
+	
+
 	public PlatformView(Context context, Platform plat, Resources res, float tileSize) {
 		super(context);
+		platform = plat;
 		switch(plat.getlength()){
 		case 2:
 			this.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship2_96),
@@ -37,6 +41,14 @@ public class PlatformView extends ImageView{
 		
 			
 		}
+		
+	}
+
+	/**
+	 * 	 * @return the platform this view is representing
+	 */
+	public Platform getPlatform(){
+		return platform;
 	}
 
 }
