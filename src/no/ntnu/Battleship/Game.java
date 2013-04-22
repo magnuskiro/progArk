@@ -24,6 +24,8 @@ public class Game extends Activity implements OnClickListener {
 	public static final int SIZE_SMALL = 0;
 	public static final int SIZE_MEDIUM = 1;
 	public static final int SIZE_LARGE = 2;
+	
+	private int size;
 
 	Board player1Board;
 	Board player2Board;
@@ -31,6 +33,7 @@ public class Game extends Activity implements OnClickListener {
 	int p2Shots;
 	boolean p1Turn;
 	private boolean[] placedPlatforms;
+	private PlatformFactory pFactory;
 
 	// ######################
 	PlatformFactory platformFactory = new PlatformFactory();
@@ -102,10 +105,6 @@ public class Game extends Activity implements OnClickListener {
 		 confirmPlacementButton.setOnClickListener(this);
 
 	}
-
-	public Game() {
-
-	};
 	
 	/**
 	 * this constructor is never called due to how android launches activities
@@ -114,19 +113,35 @@ public class Game extends Activity implements OnClickListener {
 	 * @param p1InitShots
 	 * @param p2InitShots
 	 */
-	public Game(Board p1, Board p2, int p1InitShots, int p2InitShots) {
-		this.player1Board = p1;
-		this.player2Board = p2;
-		p1Shots = p1InitShots;
-		p2Shots = p2InitShots;
+	public Game(int size) {
+		this.size = size;
+		this.pFactory = new PlatformFactory();
 		p1Turn = false;
-
-		// ######################
-		player1Board.populate(platformFactory.createPlatforms());
-		player2Board.populate(platformFactory.createPlatforms());
-		// ######################
+		
 	}
 
+	public ArrayList<Platform> getPlatforms() {
+		if(player1Board == null || player2Board == null) {
+			return pFactory.createPlatforms();
+		}
+		return null;
+	}
+	
+	public boolean setPlatforms(ArrayList<Platform> pforms) {
+		if(player1Board == null) {
+			player1Board = new Board(this, (10+5*this.size));
+			player1Board.populate(pforms);
+			p1Shots = player1Board.getShots();
+			return true;
+		} else if (player2Board == null) {
+			player2Board = new Board(this, (10+5*this.size));
+			player2Board.populate(pforms);
+			p2Shots = player2Board.getShots();
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Set the current player to the next turn and get the board.
 	 * 
