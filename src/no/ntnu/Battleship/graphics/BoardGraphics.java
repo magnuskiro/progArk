@@ -8,6 +8,7 @@ import no.ntnu.Battleship.GameListener;
 import no.ntnu.Battleship.Platform;
 import no.ntnu.Battleship.R;
 import no.ntnu.Battleship.TileNum;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -15,9 +16,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 public class BoardGraphics extends View implements GameListener{
 
@@ -48,8 +53,9 @@ public class BoardGraphics extends View implements GameListener{
 	Bitmap ship3;
 	Bitmap ship4;
 	Bitmap ship5;
-	
+
 	ArrayList<PlatformView> platformViews;
+	public long time;
 
 
 
@@ -95,13 +101,17 @@ public class BoardGraphics extends View implements GameListener{
 
 		p1Platforms = game.getPlatformFactory().createPlatforms();
 		p2Platforms = game.getPlatformFactory().createPlatforms();
-		
+
 		platformViews = new ArrayList<PlatformView>();
 		for (Platform plat:p1Platforms){
-			platformViews.add(new PlatformView(context, plat, res, tileSize));
-			
+			PlatformView pView = new PlatformView(context, plat, res, tileSize);
+			pView.setOnTouchListener(new MyTouchListener());
+			platformViews.add(pView);
+
 		}
 		
+		setOnDragListener(new MyDragListener());
+
 	}
 
 
@@ -253,10 +263,10 @@ public class BoardGraphics extends View implements GameListener{
 	@Override
 	protected void onDraw(Canvas canvas){
 		Log.d("drawing", "drawing");
-		
+
 		// Draw the board...
 		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
-		
+
 
 		// Draw the grid lines
 		for (int i = 0; i <= boardSize; i++) {
@@ -265,7 +275,7 @@ public class BoardGraphics extends View implements GameListener{
 		}
 
 		TileNum[][] tileNum = activeBoard.getTiles();
-		
+
 		// Draw the selection...
 		canvas.drawRect(selRect, selected);
 
@@ -293,13 +303,13 @@ public class BoardGraphics extends View implements GameListener{
 			//			TODO: display p2 patforms
 		}
 	}
-	
-	
+
+
 	private void getRect(int x, int y, Rect rect) {
 		rect.set((int) (x * tileSize), (int) (y * tileSize), 
 				(int) (x * tileSize + tileSize), (int) (y * tileSize + tileSize));
 	}
-	
+
 	private void select(int x, int y) {
 		invalidate(selRect);
 		selX = Math.min(Math.max(x, 0), boardSize - 1);
@@ -312,7 +322,7 @@ public class BoardGraphics extends View implements GameListener{
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() != MotionEvent.ACTION_DOWN)
 			return super.onTouchEvent(event);
-		
+
 		select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
 		return true;
 	}
@@ -325,5 +335,103 @@ public class BoardGraphics extends View implements GameListener{
 		setMeasuredDimension(screenWidth, screenWidth);
 	}
 
+	/**
+	 * @return list of platformViews for the active player.
+	 */
+	public ArrayList<PlatformView> getPlatformViews() {
+		return platformViews;
+	}
+
+	class MyTouchListener  implements OnTouchListener{
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				time = event.getDownTime();
+				ClipData data = ClipData.newPlainText("", "");
+				DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+				v.startDrag(data, shadowBuilder, v, 0);
+//				view.setVisibility(View.INVISIBLE);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+	}
+	
+	class MyDragListener implements OnDragListener {
+		Drawable enterShape = getResources().getDrawable(R.drawable.shape_droptarget);
+		Drawable normalShape = getResources().getDrawable(R.drawable.shape);
+
+		@Override
+		public boolean onDrag(View v, DragEvent event) {
+			int action = event.getAction();
+			View view = (View) event.getLocalState();
+			ViewGroup owner = (ViewGroup) view.getParent();
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)tileSize*3);
+//			RelativeLayout container = (RelativeLayout) v;
+			switch (action) {
+			case DragEvent.ACTION_DRAG_STARTED:
+				// Do nothing
+				break;
+			case DragEvent.ACTION_DRAG_ENTERED:
+				Log.d("movement", "drag entered");
+				v.setBackgroundDrawable(enterShape);
+				break;
+			case DragEvent.ACTION_DRAG_EXITED:
+				Log.d("movement", "drag exited");
+				v.setBackgroundDrawable(normalShape);
+//				owner.removeView(view);
+
+				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
+				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
+
+				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
+				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), 10*tileSize - view.getHeight());
+
+				Log.d("movement",""+params.leftMargin);
+				Log.d("movement",""+params.topMargin);
+
+				view.setLayoutParams(params);
+//				container.addView(view, params);
+//				view.setVisibility(View.VISIBLE);
+				break;
+			case DragEvent.ACTION_DROP:
+				// Dropped, reassign View to ViewGroup
+//				owner.removeView(view);
+
+				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
+				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
+
+				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
+				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), 10*tileSize - view.getHeight());
+
+				Log.d("movement",""+params.leftMargin);
+				Log.d("movement",""+params.topMargin);
+
+				view.setLayoutParams(params);
+//				container.addView(view, params);
+//				view.setVisibility(View.VISIBLE);
+				break;
+			case DragEvent.ACTION_DRAG_ENDED:
+				if(view.getDrawingTime() - time < 200){
+					Log.d("movement","eventtime minus drawingtime: " +(view.getDrawingTime() - time));
+					if(view.getRotation() == 0){
+						view.setRotation(90);
+					}else{
+						view.setRotation(0);
+					}
+				}
+//				view.setVisibility(View.VISIBLE);
+
+				v.setBackgroundDrawable(normalShape);
+				Log.d("movement", "drag ended");
+			default:
+				break;
+			}
+			return true;
+		}
+	}
 
 }

@@ -3,6 +3,7 @@ package no.ntnu.Battleship;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.graphics.BoardGraphics;
+import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class Game extends Activity {
 	private static final String TAG = "Battleship";
@@ -73,9 +75,16 @@ public class Game extends Activity {
 		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
 		
 		// Define a linearlayout and add boardViewer and buttons to it
+		RelativeLayout rLay = new RelativeLayout(this);
+		rLay.addView(boardViewer);
+		//gett PlatformViews from boardViewer 
+		ArrayList<PlatformView> plats = boardViewer.getPlatformViews();
+		for(PlatformView plat : plats){
+			rLay.addView(plat);
+		}
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.addView(boardViewer);
+		layout.addView(rLay);
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setGravity(Gravity.CENTER_HORIZONTAL);
