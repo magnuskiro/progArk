@@ -9,9 +9,9 @@ public class Board {
 	private boolean[][] isShot;
 	private Platform[][] platformGrid;
 	private ArrayList<Platform> platforms;
-	Game myGame;
+	GameController myGame;
 	
-	public Board(Game thisGame, int size) {
+	public Board(GameController thisGame, int size) {
 		boardSize = size;
 		isShot = new boolean[boardSize][boardSize];
 		platformGrid = new Platform[boardSize][boardSize];

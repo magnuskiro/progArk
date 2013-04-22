@@ -2,7 +2,7 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
-import no.ntnu.Battleship.graphics.BoardGraphics;
+import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class Game extends Activity implements OnClickListener {
+public class GameController extends Activity implements OnClickListener {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -42,7 +42,7 @@ public class Game extends Activity implements OnClickListener {
 
 	ArrayList<GameListener> listeners;
 	
-	BoardGraphics boardViewer;
+	GameViewer boardViewer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class Game extends Activity implements OnClickListener {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
-		boardViewer = new BoardGraphics(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
+		boardViewer = new GameViewer(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
 		
 		// Define a linearlayout and add boardViewer and buttons to it
 		RelativeLayout rLay = new RelativeLayout(this);
@@ -113,7 +113,7 @@ public class Game extends Activity implements OnClickListener {
 	 * @param p1InitShots
 	 * @param p2InitShots
 	 */
-	public Game(int size) {
+	public GameController(int size) {
 		this.size = size;
 		this.pFactory = new PlatformFactory();
 		p1Turn = false;

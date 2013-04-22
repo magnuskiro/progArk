@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.Board;
-import no.ntnu.Battleship.Game;
+import no.ntnu.Battleship.GameController;
 import no.ntnu.Battleship.GameListener;
 import no.ntnu.Battleship.Platform;
 import no.ntnu.Battleship.R;
@@ -25,7 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-public class BoardGraphics extends View implements GameListener{
+public class GameViewer extends View implements GameListener{
 
 	Resources res;
 	Paint background;
@@ -44,7 +44,7 @@ public class BoardGraphics extends View implements GameListener{
 	ArrayList<Platform> p2Platforms;
 
 	Board activeBoard;
-	Game game;
+	GameController game;
 	Bitmap miss;
 	Bitmap hit;
 	Bitmap destroyed;
@@ -58,7 +58,7 @@ public class BoardGraphics extends View implements GameListener{
 
 
 
-	public BoardGraphics(int boardSize, int screenWidth, int screenHeight, Context context, Game game) {
+	public GameViewer(int boardSize, int screenWidth, int screenHeight, Context context, GameController game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
 		this.boardSize = boardSize;
@@ -290,6 +290,9 @@ public class BoardGraphics extends View implements GameListener{
 
 					if(view.getRotation() == 0){
 						view.setRotation(90);
+						params.leftMargin = (int) Math.min(view.getLeft(), (boardSize*tileSize - platLength));
+						params.topMargin = (int) (view.getBottom() - tileSize); 
+						view.setLayoutParams(params);
 					}else{
 						view.setRotation(0);
 					}
