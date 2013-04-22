@@ -17,7 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class GameController extends Activity implements OnClickListener {
+public class GameController implements OnClickListener {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -44,67 +44,8 @@ public class GameController extends Activity implements OnClickListener {
 	
 	GameViewer boardViewer;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	
 
-		Log.d(TAG, "onCreate");
-
-		int size = 0;
-		switch (getIntent().getIntExtra(KEY_SIZE, SIZE_SMALL)) {
-		case 0:
-			size = 10;
-			break;
-		case 1:
-			size = 15;
-			break;
-		case 2:
-			size = 20;
-			break;
-		default:
-			break;
-		}
-
-		
-		
-		listeners = new ArrayList<GameListener>();
-
-		player1Board = new Board(this, size);
-		player2Board = new Board(this, size);
-		
-		placedPlatforms = new boolean[2];
-		
-		
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		
-		boardViewer = new GameViewer(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), this);
-		
-		// Define a linearlayout and add boardViewer and buttons to it
-		RelativeLayout rLay = new RelativeLayout(this);
-		rLay.addView(boardViewer);
-		//gett PlatformViews from boardViewer 
-		ArrayList<PlatformView> plats = boardViewer.getPlatformViews();
-		for(PlatformView plat : plats){
-			rLay.addView(plat);
-		}
-		LinearLayout layout = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.addView(rLay);
-		LinearLayout row = new LinearLayout(this);
-		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		row.setGravity(Gravity.CENTER_HORIZONTAL);
-		row.addView((LinearLayout) View.inflate(this, R.layout.placement_buttons, null));
-		layout.addView(row);
-
-		// TODO: activate a board viewer
-		 setContentView(layout);
-		 boardViewer.requestFocus();
-		 
-		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
-		 confirmPlacementButton.setOnClickListener(this);
-
-	}
 	
 	/**
 	 * this constructor is never called due to how android launches activities
@@ -114,6 +55,13 @@ public class GameController extends Activity implements OnClickListener {
 	 * @param p2InitShots
 	 */
 	public GameController(int size) {
+		listeners = new ArrayList<GameListener>();
+
+		player1Board = new Board(this, size);
+		player2Board = new Board(this, size);
+		
+		placedPlatforms = new boolean[2];
+		
 		this.size = size;
 		this.pFactory = new PlatformFactory();
 		p1Turn = false;
@@ -216,11 +164,12 @@ public class GameController extends Activity implements OnClickListener {
 		// Figure out which button was clicked
 		switch (v.getId()) {
 		case R.id.button_confirm_placement:
-			openConfirmDialog();
+//			openConfirmDialog();
 			break;
 		}
 	}
 	
+	/*
 	private void openConfirmDialog() {
 		new AlertDialog.Builder(this).setTitle(R.string.confirm_placement_title)
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
@@ -230,7 +179,7 @@ public class GameController extends Activity implements OnClickListener {
 		})
 		.show();
 	}
-	
+	*/
 	
 	
 	private void switchView() {
