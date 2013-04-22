@@ -38,4 +38,16 @@
     <!-- Game screen -->
     <string name="game_title">BattleShip</string>
     
+    <!--  Button texts -->
+    <string name="confirm_placement">Confirm</string>
+    
+    <!-- Confirmation dialog -->
+    <string name="confirm_placement_title">Confirm placement</string>
+    <string name="yes_place_label">Yes, my fleet is in position</string>
+    <string name="no_place_label">No, I need to make changes</string>
+    
+    <string name="Confirm_attack_title">Confirm targets</string>
+    <string name="yes_attack_label">Yes, fire at will!</string>
+    <string name="no_attack_label">No, hold your fire!</string>
+    
 </resources>

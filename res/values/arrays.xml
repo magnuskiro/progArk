@@ -5,4 +5,12 @@
         <item>@string/medium_label</item>
         <item>@string/large_label</item>
     </array>
+    <array name="confirm_placement" >
+        <item>@string/yes_place_label</item>
+        <item>@string/no_place_label</item>
+    </array>
+    <array name="confirm_attack" >
+        <item>@string/yes_attack_label</item>
+        <item>@string/no_attack_label</item>
+    </array>
 </resources>
