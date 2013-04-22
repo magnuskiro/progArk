@@ -1,5 +1,6 @@
 package no.ntnu.Battleship.graphics;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.Board;
@@ -14,8 +15,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.DragEvent;
@@ -213,7 +217,8 @@ public class BoardGraphics extends View implements GameListener{
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				time = event.getDownTime();
 				ClipData data = ClipData.newPlainText("", "");
-				DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+				DragShadowBuilder shadowBuilder = new MyDragShadowBuilder(v, tileSize);
+
 				v.startDrag(data, shadowBuilder, v, 0);
 				return true;
 			} else {
@@ -237,7 +242,8 @@ public class BoardGraphics extends View implements GameListener{
 			int action = event.getAction();
 			PlatformView view = (PlatformView) event.getLocalState();
 			ViewGroup owner = (ViewGroup) view.getParent();
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)tileSize*view.getPlatform().getlength());
+			float platLength = view.getPlatform().getlength() * tileSize;
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)platLength);
 
 			switch (action) {
 			case DragEvent.ACTION_DRAG_STARTED:
@@ -255,10 +261,10 @@ public class BoardGraphics extends View implements GameListener{
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
 				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - view.getHeight());
+				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - platLength);
 
-				Log.d("movement",""+params.leftMargin);
-				Log.d("movement",""+params.topMargin);
+				Log.d("movement","leftmarg: "+params.leftMargin);
+				Log.d("movement","topmarg: "+params.topMargin);
 
 				view.setLayoutParams(params);
 				break;
@@ -269,21 +275,22 @@ public class BoardGraphics extends View implements GameListener{
 
 				if (view.getRotation() == 0){
 					params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-					params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - view.getHeight());
-				} else{
-
+					params.topMargin = (int) Math.min((int)Math.max( event.getY() - (event.getY()%tileSize) - (platLength-tileSize), 0), boardSize*tileSize - platLength);
+				} else{//platform is rotated
+					params.leftMargin = (int) Math.min((int)( event.getX() - event.getX()%tileSize), boardSize*tileSize - platLength);
+					params.topMargin = (int) Math.min((int)( event.getY() - event.getY()%tileSize - (platLength-tileSize)), boardSize*tileSize - platLength);
+					Log.d("movement", "rotated y-pos: min(" + (event.getY() - event.getY()%tileSize - (platLength-tileSize))+ "," + (boardSize*tileSize-platLength) +")");
 				}
 
-				Log.d("movement",""+params.leftMargin);
-				Log.d("movement",""+params.topMargin);
+				Log.d("movement","leftmarg: "+params.leftMargin);
+				Log.d("movement","topmarg: "+params.topMargin);
 
 				view.setLayoutParams(params);
 				break;
 			case DragEvent.ACTION_DRAG_ENDED:
-				if(view.getDrawingTime() - time < 200){
-					Log.d("movement","eventtime minus drawingtime: " +(view.getDrawingTime() - time));
-
-
+				long timeDiff = view.getDrawingTime() - time; 
+				Log.d("movement","drawingtime minus eventtime: " +timeDiff);
+				if( timeDiff< 200){
 
 					if(view.getRotation() == 0){
 						view.setRotation(90);
@@ -299,6 +306,41 @@ public class BoardGraphics extends View implements GameListener{
 			}
 			return true;
 		}
+	}
+
+	static 	class MyDragShadowBuilder extends View.DragShadowBuilder{
+		private final WeakReference<View> mView;
+		private float tSize;
+
+		public MyDragShadowBuilder(View v, float tSize) {
+            mView = new WeakReference<View>(v);
+			this.tSize = tSize;
+		}
+
+		
+		@Override
+		public void onProvideShadowMetrics (Point size, Point touch){
+			final View view = mView.get();
+			if (view != null) {
+				size.set(view.getWidth(), view.getHeight());
+				touch.set(size.x / 2, (int) (size.y - (tSize/2)));
+			} else {
+				Log.e(View.VIEW_LOG_TAG, "Asked for drag thumb metrics but no view");
+			}
+		}
+		
+		
+		@Override
+		public void onDrawShadow(Canvas canvas) {
+            final View view = mView.get();
+            if (view != null) {
+                view.draw(canvas);
+            } else {
+                Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
+            }
+        }
+
+
 	}
 
 }
