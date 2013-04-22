@@ -110,6 +110,13 @@ public class BoardGraphics extends View implements GameListener{
 
 	}
 
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		float s = boardSize;
+		tileSize = w / s;
+		getRect(selX, selY, selRect);
+		super.onSizeChanged(w, h, oldw, oldh);
+	}
 
 	@Override
 	public void gameChanged() {
