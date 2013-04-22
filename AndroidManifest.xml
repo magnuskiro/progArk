@@ -55,7 +55,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".GameController"
+            android:name=".GameActivity"
             android:label="@string/game_title"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
             android:screenOrientation="portrait">

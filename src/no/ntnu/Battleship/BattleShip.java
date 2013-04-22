@@ -97,8 +97,8 @@ public class BattleShip extends Activity implements OnClickListener {
 	 */
 	private void startGame(int i) {
 		Log.d(TAG, "clicked on " + i);
-		Intent intent = new Intent(this, GameController.class);
-		intent.putExtra(GameController.KEY_SIZE, i);
+		Intent intent = new Intent(this, GameActivity.class);
+		intent.putExtra(GameActivity.KEY_SIZE, i);
 		startActivity(intent);
 	}
 }
