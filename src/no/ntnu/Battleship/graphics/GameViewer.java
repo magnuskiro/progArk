@@ -123,7 +123,15 @@ public class GameViewer extends View implements GameListener{
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
+		boolean[] placedplats = game.getPlacedPlatforms(); 
 
+		if  (!placedplats[0]){//player one has not placed
+			placePlatforms();
+		}else if(!placedplats[1]){//player two has not placed
+			
+		}else{//the game is on!
+			
+		}
 	}
 
 	@Override
@@ -211,6 +219,35 @@ public class GameViewer extends View implements GameListener{
 		return platformViews;
 	}
 
+	/**
+	 * tells the view to send the positions of the platforms to the gameController
+	 */
+	public void placePlatforms(){
+		int[] pos = new int[2];
+		boolean isHorizontal;
+		for(PlatformView platV:platformViews){
+			RelativeLayout.LayoutParams params = (LayoutParams) platV.getLayoutParams();
+			pos[0] = (int) (params.leftMargin /tileSize);
+			pos[1] = (int)(params.topMargin/tileSize + platV.getPlatform().getlength() -1); 
+			if(platV.getRotation() == 0){//upright
+				isHorizontal = false;
+			}else{
+				isHorizontal = true;
+			}
+			platV.getPlatform().setPosition(pos);
+			platV.getPlatform().setOrientation(isHorizontal);
+			
+			Log.d("positions", "positions, x: "+ pos[0] + " y: " + pos[1]);
+		}
+	}
+	
+	/**
+	 * tells the view to switchthe platforms the platformViews are representing
+	 */
+	public void switchPlatforms(){
+		
+	}
+	
 	class MyTouchListener  implements OnTouchListener{
 
 		@Override
