@@ -31,10 +31,10 @@ public class GameController extends Activity implements OnClickListener {
 	private boolean[] placedPlatforms;
 	private PlatformFactory pFactory;
 
-	// ######################
-	PlatformFactory platformFactory = new PlatformFactory();
-	DeviceFactory deviceFactory = new DeviceFactory();
-	// ######################
+//	// ######################
+//	PlatformFactory platformFactory = new PlatformFactory();
+//	DeviceFactory deviceFactory = new DeviceFactory();
+//	// ######################
 
 	ArrayList<GameListener> listeners;
 	
@@ -125,12 +125,12 @@ public class GameController extends Activity implements OnClickListener {
 	}
 
 	public  PlatformFactory  getPlatformFactory(){
-		return platformFactory;
+		return pFactory;
 	}
 	
-	public DeviceFactory getdDeviceFactory(){
+/*	public DeviceFactory getdDeviceFactory(){
 		return deviceFactory;
-	}
+	}*/
 	
 	public boolean isPlayer1turn(){
 		return p1Turn;
