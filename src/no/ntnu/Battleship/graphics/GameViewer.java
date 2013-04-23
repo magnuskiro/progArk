@@ -24,6 +24,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class GameViewer extends View implements GameListener{
 
@@ -275,7 +276,6 @@ public class GameViewer extends View implements GameListener{
 				} else{//platform is rotated
 					params.leftMargin = (int) Math.min((int)( event.getX() - event.getX()%tileSize), boardSize*tileSize - platLength);
 					params.topMargin = (int) Math.min((int)( event.getY() - event.getY()%tileSize - (platLength-tileSize)), boardSize*tileSize - platLength);
-					Log.d("movement", "rotated y-pos: min(" + (event.getY() - event.getY()%tileSize - (platLength-tileSize))+ "," + (boardSize*tileSize-platLength) +")");
 				}
 
 				Log.d("movement","leftmarg: "+params.leftMargin);
@@ -290,12 +290,14 @@ public class GameViewer extends View implements GameListener{
 
 					if(view.getRotation() == 0){
 						view.setRotation(90);
+						params = (LayoutParams) view.getLayoutParams();
 						params.leftMargin = (int) Math.min(view.getLeft(), (boardSize*tileSize - platLength));
-						params.topMargin = (int) (view.getBottom() - tileSize); 
-						view.setLayoutParams(params);
 					}else{
 						view.setRotation(0);
+						params = (LayoutParams) view.getLayoutParams();
+						params.topMargin = (int) Math.max(view.getTop(), 0);
 					}
+					view.setLayoutParams(params);
 				}
 
 				v.setBackground(normalShape);
