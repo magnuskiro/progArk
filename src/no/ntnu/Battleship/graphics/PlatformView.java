@@ -17,11 +17,30 @@ import android.widget.ImageView;
 public class PlatformView extends ImageView{
 
 	Platform platform;
+	float tileSize;
+	Resources res;
+	
 	
 
 	public PlatformView(Context context, Platform plat, Resources res, float tileSize) {
 		super(context);
+		this.tileSize = tileSize;
+		this.res	= res;
+		setPlatform(plat);
+		
+		Log.d("movement", "pivX: " + tileSize/2 + " pivY: " +  ((plat.getlength()*tileSize) -(tileSize/2)));
+	}
+
+	/**
+	 * 	 * @return the platform this view is representing
+	 */
+	public Platform getPlatform(){
+		return platform;
+	}
+	
+	public void setPlatform(Platform plat){
 		platform = plat;
+
 		switch(plat.getlength()){
 		case 2:
 			this.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship2_96),
@@ -42,14 +61,5 @@ public class PlatformView extends ImageView{
 		}
 		setPivotX(tileSize/2);
 		setPivotY(plat.getlength()*tileSize - tileSize/2);
-		Log.d("movement", "pivX: " + tileSize/2 + " pivY: " +  ((plat.getlength()*tileSize) -(tileSize/2)));
 	}
-
-	/**
-	 * 	 * @return the platform this view is representing
-	 */
-	public Platform getPlatform(){
-		return platform;
-	}
-
 }

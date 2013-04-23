@@ -124,6 +124,16 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
+		boolean[] placedplats = game.getPlacedPlatforms(); 
+
+		if  (!placedplats[0]){//player one has not placed
+			placePlatforms();
+		}else if(!placedplats[1]){//player two has not placed
+			
+		}else{//the game is on!
+			
+		}
+
 	}
 
 	@Override
@@ -142,13 +152,13 @@ public class GameViewer extends View implements GameListener{
 
 		TileNum[][] tileNum = activeBoard.getTiles();
 
-		// Draw the selection...
-		canvas.drawRect(selRect, selected);
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
-			Log.d("drawing", "both placed");
 			//only after both  players have placed their platforms
+			Log.d("drawing", "both placed");
+			// Draw the selection...
+			canvas.drawRect(selRect, selected);
 			//add bitmaps to tiles
 			for (int i = 0; i<tileNum.length; i++){
 				for (int j = 0; j<tileNum[i].length; j++){
@@ -190,7 +200,10 @@ public class GameViewer extends View implements GameListener{
 		if (event.getAction() != MotionEvent.ACTION_DOWN)
 			return super.onTouchEvent(event);
 
-		select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
+		boolean[] placedPlats = game.getPlacedPlatforms(); 
+		if(placedPlats[0] && placedPlats[1]){//no selecting tiles during platform placement
+			select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
+		}
 		return true;
 	}
 
@@ -209,6 +222,35 @@ public class GameViewer extends View implements GameListener{
 		return platformViews;
 	}
 
+	/**
+	 * tells the view to send the positions of the platforms to the gameController
+	 */
+	public void placePlatforms(){
+		int[] pos = new int[2];
+		boolean isHorizontal;
+		for(PlatformView platV:platformViews){
+			RelativeLayout.LayoutParams params = (LayoutParams) platV.getLayoutParams();
+			pos[0] = (int) (params.leftMargin /tileSize);
+			pos[1] = (int)(params.topMargin/tileSize + platV.getPlatform().getlength() -1); 
+			if(platV.getRotation() == 0){//upright
+				isHorizontal = false;
+			}else{
+				isHorizontal = true;
+			}
+			platV.getPlatform().setPosition(pos);
+			platV.getPlatform().setOrientation(isHorizontal);
+			
+			Log.d("positions", "positions, x: "+ pos[0] + " y: " + pos[1]);
+		}
+	}
+	
+	/**
+	 * tells the view to switchthe platforms the platformViews are representing
+	 */
+	public void switchPlatforms(){
+		
+	}
+	
 	class MyTouchListener  implements OnTouchListener{
 
 		@Override
@@ -315,11 +357,11 @@ public class GameViewer extends View implements GameListener{
 		private float tSize;
 
 		public MyDragShadowBuilder(View v, float tSize) {
-            mView = new WeakReference<View>(v);
+			mView = new WeakReference<View>(v);
 			this.tSize = tSize;
 		}
 
-		
+
 		@Override
 		public void onProvideShadowMetrics (Point size, Point touch){
 			final View view = mView.get();
@@ -330,17 +372,17 @@ public class GameViewer extends View implements GameListener{
 				Log.e(View.VIEW_LOG_TAG, "Asked for drag thumb metrics but no view");
 			}
 		}
-		
-		
+
+
 		@Override
 		public void onDrawShadow(Canvas canvas) {
-            final View view = mView.get();
-            if (view != null) {
-                view.draw(canvas);
-            } else {
-                Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
-            }
-        }
+			final View view = mView.get();
+			if (view != null) {
+				view.draw(canvas);
+			} else {
+				Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
+			}
+		}
 
 	}
 	
