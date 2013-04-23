@@ -234,7 +234,7 @@ public class GameViewer extends View implements GameListener{
 			pos[1] = (int)(params.topMargin/tileSize + platV.getPlatform().getlength() -1); 
 			if(platV.getRotation() == 0){//upright
 				isHorizontal = false;
-			}else{
+			}else{//horizontal
 				isHorizontal = true;
 			}
 			platV.getPlatform().setPosition(pos);
@@ -242,13 +242,28 @@ public class GameViewer extends View implements GameListener{
 			
 			Log.d("positions", "positions, x: "+ pos[0] + " y: " + pos[1]);
 		}
+		switchPlatforms();
 	}
 	
 	/**
-	 * tells the view to switchthe platforms the platformViews are representing
+	 * tells the view to switch the platforms the platformViews are representing
 	 */
 	public void switchPlatforms(){
 		
+		for(int i = 0; i < platformViews.size(); i++){
+			int platLength;
+			PlatformView platV = platformViews.get(i);
+			if(game.isPlayer1turn()){
+				platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
+				platV.setPlatform(p1Platforms.get(i));
+			}else{
+				platV.setPlatform(p2Platforms.get(i));
+				platLength = (int) (p2Platforms.get(i).getlength() * tileSize);
+			}
+			RelativeLayout.LayoutParams params = new LayoutParams((int)tileSize,(platLength));
+			platV.setLayoutParams(params);
+			platV.setRotation(0);
+		}
 	}
 	
 	class MyTouchListener  implements OnTouchListener{
