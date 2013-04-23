@@ -38,7 +38,7 @@ public class Board {
 		for(int i = 0; i<shots.length; i++) {
 			isShot[shots[i][0]][shots[i][1]] = true;
 			if(platformGrid[shots[i][0]][shots[i][1]] != null) {
-				platformGrid[shots[i][0]][shots[i][1]].attack(shots[i]);
+				platformGrid[shots[i][0]][shots[i][1]].hit(shots[i]);
 			}
 		}
 		myGame.updateShots(getShots());

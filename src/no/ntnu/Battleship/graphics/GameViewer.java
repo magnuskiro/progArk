@@ -31,6 +31,7 @@ public class GameViewer extends View implements GameListener{
 	Resources res;
 	Paint background;
 	Paint dark;
+	Paint bright;
 	Paint selected;
 
 	private float tileSize;
@@ -75,7 +76,9 @@ public class GameViewer extends View implements GameListener{
 		dark = new Paint();
 		dark.setColor(android.graphics.Color.BLACK);
 		selected = new Paint();
-		selected.setColor(getResources().getColor(R.color.square_selected));
+		selected.setColor(res.getColor(R.color.square_selected));
+		bright = new Paint();
+		bright.setColor(android.graphics.Color.WHITE);
 
 		//loading and scaling the bitmaps
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_miss_96),
@@ -124,6 +127,24 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
+		boolean win = true;
+		if (game.isPlayer1turn()) {
+			for(Platform p : p2Platforms) {
+				if (!p.isDestroyed()){
+					win = false;
+				}
+			}
+			if (win)
+				Log.d("GameViewer", "Player 1 won");
+		} else{
+			for(Platform p : p1Platforms) {
+				if(!p.isDestroyed()) {
+					win = false;
+				}
+			}
+			if(win)
+				Log.d("GameViewer", "Player 2 won");
+		}
 		activeBoard = game.getAndSwitchActive();
 		invalidate();
 
@@ -134,7 +155,7 @@ public class GameViewer extends View implements GameListener{
 		Log.d("drawing", "drawing");
 
 		// Draw the board...
-		canvas.drawRect(0, 0, getWidth(), getWidth(), background);
+		canvas.drawRect(0, 0, getWidth(), getWidth() + 50, background);
 
 
 		// Draw the grid lines
@@ -143,7 +164,11 @@ public class GameViewer extends View implements GameListener{
 			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
 		}
 
-
+		if(game.isPlayer1turn()){
+			canvas.drawText("Playerone", 0,getWidth() , bright);
+		}else{
+			canvas.drawText("Playertwo", 0,getWidth() , bright);
+		}
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
@@ -258,10 +283,12 @@ public class GameViewer extends View implements GameListener{
 			for(int i = 0; i < platformViews.size(); i++){
 				int platLength;
 				PlatformView platV = platformViews.get(i);
-				if(game.isPlayer1turn()){
+				if(!game.isPlayer1turn()){
+					Log.d("positions", "switching to p1 plats");
 					platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
 					platV.setPlatform(p1Platforms.get(i));
 				}else{
+					Log.d("positions", "switching to p2 plats");
 					platV.setPlatform(p2Platforms.get(i));
 					platLength = (int) (p2Platforms.get(i).getlength() * tileSize);
 				}
@@ -409,7 +436,7 @@ public class GameViewer extends View implements GameListener{
 
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);
-		int[][] selected = new int[2][2];
+		int[][] selected = new int[1][2];
 		selected[0][0] = selX;
 		selected[0][1] = selY;
 		return selected;
