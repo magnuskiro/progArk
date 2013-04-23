@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -33,7 +34,6 @@ public class GameActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
 		Log.d(TAG, "onCreate");
 
 		int size = 0;
@@ -55,6 +55,8 @@ public class GameActivity extends Activity{
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
 		gameController = new GameController(size);
+		gameController.myActivity = this;
+		
 		
 		gameViewer = new GameViewer(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), gameController);
 		
@@ -80,6 +82,6 @@ public class GameActivity extends Activity{
 		 gameViewer.requestFocus();
 		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
-//		 confirmPlacementButton.setOnClickListener(this);
+		 confirmPlacementButton.setOnClickListener(gameController);
 	}
 }

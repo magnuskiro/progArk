@@ -3,21 +3,15 @@ package no.ntnu.Battleship;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.graphics.GameViewer;
-import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-public class GameController implements OnClickListener {
+public class GameController extends Activity implements OnClickListener {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -25,8 +19,10 @@ public class GameController implements OnClickListener {
 	public static final int SIZE_MEDIUM = 1;
 	public static final int SIZE_LARGE = 2;
 	
+	Activity myActivity;
+	
 	private int size;
-
+	
 	Board player1Board;
 	Board player2Board;
 	int p1Shots;
@@ -45,7 +41,6 @@ public class GameController implements OnClickListener {
 	GameViewer boardViewer;
 
 	
-
 	
 	/**
 	 * this constructor is never called due to how android launches activities
@@ -56,7 +51,6 @@ public class GameController implements OnClickListener {
 	 */
 	public GameController(int size) {
 		listeners = new ArrayList<GameListener>();
-
 		player1Board = new Board(this, size);
 		player2Board = new Board(this, size);
 		
@@ -164,26 +158,24 @@ public class GameController implements OnClickListener {
 		// Figure out which button was clicked
 		switch (v.getId()) {
 		case R.id.button_confirm_placement:
-//			openConfirmDialog();
+			openConfirmDialog();
 			break;
 		}
 	}
 	
-	/*
+	
 	private void openConfirmDialog() {
-		new AlertDialog.Builder(this).setTitle(R.string.confirm_placement_title)
+		new AlertDialog.Builder(myActivity).setTitle(R.string.confirm_placement_title)
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialoginterface, int i) {
+				if (i == 0) 
+					fireGameChanged();
+				else
+					return;
 				return;
 			}
 		})
 		.show();
 	}
-	*/
-	
-	
-	private void switchView() {
-		Board switchTo = getAndSwitchActive();
-//		boardViewer.setActivateBoard(switchTo);
-	}
+
 }
