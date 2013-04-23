@@ -31,10 +31,6 @@ public class GameController extends Activity implements OnClickListener {
 	private boolean[] placedPlatforms;
 	private PlatformFactory pFactory;
 
-//	// ######################
-//	PlatformFactory platformFactory = new PlatformFactory();
-//	DeviceFactory deviceFactory = new DeviceFactory();
-//	// ######################
 
 	ArrayList<GameListener> listeners;
 	
@@ -51,8 +47,6 @@ public class GameController extends Activity implements OnClickListener {
 	 */
 	public GameController(int size) {
 		listeners = new ArrayList<GameListener>();
-		player1Board = new Board(this, size);
-		player2Board = new Board(this, size);
 		
 		placedPlatforms = new boolean[2];
 		
@@ -74,11 +68,13 @@ public class GameController extends Activity implements OnClickListener {
 			player1Board = new Board(this, (10+5*this.size));
 			player1Board.populate(pforms);
 			p1Shots = player1Board.getShots();
+			placedPlatforms[0] = true;
 			return true;
 		} else if (player2Board == null) {
 			player2Board = new Board(this, (10+5*this.size));
 			player2Board.populate(pforms);
 			p2Shots = player2Board.getShots();
+			placedPlatforms[1] = true;
 			return true;
 		}
 		return false;
@@ -124,13 +120,6 @@ public class GameController extends Activity implements OnClickListener {
 		}
 	}
 
-	public  PlatformFactory  getPlatformFactory(){
-		return pFactory;
-	}
-	
-/*	public DeviceFactory getdDeviceFactory(){
-		return deviceFactory;
-	}*/
 	
 	public boolean isPlayer1turn(){
 		return p1Turn;
@@ -169,7 +158,16 @@ public class GameController extends Activity implements OnClickListener {
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialoginterface, int i) {
 				if (i == 0) {
-					return;
+					if(player1Board== null || player2Board == null){
+						boardViewer.placePlatforms();
+					}else{
+						//kaboom?
+						if (p1Turn) {
+							player2Board.attack(boardViewer.getSelected());
+						} else {
+							player1Board.attack(boardViewer.getSelected());
+						}
+					}
 				}
 				return;
 			}

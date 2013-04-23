@@ -180,6 +180,7 @@ public class Platform {
 			if(!hits[i]){
 				d = false;
 			}
+			Log.d("hits", this + " status of index " + i + ": " + hits[i]);
 		}
 
 		return d;

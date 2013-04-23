@@ -97,8 +97,8 @@ public class GameViewer extends View implements GameListener{
 
 		activeBoard = game.getAndSwitchActive();
 
-		p1Platforms = game.getPlatformFactory().createPlatforms();
-		p2Platforms = game.getPlatformFactory().createPlatforms();
+		p1Platforms = game.getPlatforms();
+		p2Platforms = game.getPlatforms();
 
 		platformViews = new ArrayList<PlatformView>();
 		for (Platform plat:p1Platforms){
@@ -124,15 +124,8 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
-		boolean[] placedplats = game.getPlacedPlatforms(); 
-
-		if  (!placedplats[0]){//player one has not placed
-			placePlatforms();
-		}else if(!placedplats[1]){//player two has not placed
-			
-		}else{//the game is on!
-			
-		}
+		activeBoard = game.getAndSwitchActive();
+		invalidate();
 
 	}
 
@@ -150,11 +143,11 @@ public class GameViewer extends View implements GameListener{
 			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
 		}
 
-		TileNum[][] tileNum = activeBoard.getTiles();
 
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
+			TileNum[][] tileNum = activeBoard.getTiles();
 			//only after both  players have placed their platforms
 			Log.d("drawing", "both placed");
 			// Draw the selection...
@@ -239,33 +232,46 @@ public class GameViewer extends View implements GameListener{
 			}
 			platV.getPlatform().setPosition(pos);
 			platV.getPlatform().setOrientation(isHorizontal);
-			
+
 			Log.d("positions", "positions, x: "+ pos[0] + " y: " + pos[1]);
+		}
+		boolean[] placedplats = game.getPlacedPlatforms(); 
+		if(!placedplats[0]){
+			game.setPlatforms(p1Platforms);			
+		}else if (!placedplats[1]){
+			game.setPlatforms(p2Platforms);
 		}
 		switchPlatforms();
 	}
-	
+
 	/**
 	 * tells the view to switch the platforms the platformViews are representing
 	 */
 	public void switchPlatforms(){
-		
-		for(int i = 0; i < platformViews.size(); i++){
-			int platLength;
-			PlatformView platV = platformViews.get(i);
-			if(game.isPlayer1turn()){
-				platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
-				platV.setPlatform(p1Platforms.get(i));
-			}else{
-				platV.setPlatform(p2Platforms.get(i));
-				platLength = (int) (p2Platforms.get(i).getlength() * tileSize);
+		boolean[] placedplats = game.getPlacedPlatforms(); 
+		if(placedplats[0] && placedplats[1]){
+			for(PlatformView platV:platformViews){
+				platV.setVisibility(INVISIBLE);
 			}
-			RelativeLayout.LayoutParams params = new LayoutParams((int)tileSize,(platLength));
-			platV.setLayoutParams(params);
-			platV.setRotation(0);
+			activeBoard = game.getAndSwitchActive();
+		}else{
+			for(int i = 0; i < platformViews.size(); i++){
+				int platLength;
+				PlatformView platV = platformViews.get(i);
+				if(game.isPlayer1turn()){
+					platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
+					platV.setPlatform(p1Platforms.get(i));
+				}else{
+					platV.setPlatform(p2Platforms.get(i));
+					platLength = (int) (p2Platforms.get(i).getlength() * tileSize);
+				}
+				RelativeLayout.LayoutParams params = new LayoutParams((int)tileSize,(platLength));
+				platV.setLayoutParams(params);
+				platV.setRotation(0);
+			}
 		}
 	}
-	
+
 	class MyTouchListener  implements OnTouchListener{
 
 		@Override
@@ -400,7 +406,7 @@ public class GameViewer extends View implements GameListener{
 		}
 
 	}
-	
+
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);
 		int[][] selected = new int[2][2];
