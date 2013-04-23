@@ -37,8 +37,8 @@ public class GameViewer extends View implements GameListener{
 	private int boardSize;
 	private int screenWidth;
 	private int screenHeight;
-	private int selX;		// X index of selected square
-	private int selY;		// Y index of selected square
+	public static int selX;		// X index of selected square
+	public static int selY;		// Y index of selected square
 	private final Rect selRect = new Rect();
 
 	ArrayList<Platform> p1Platforms;
@@ -123,7 +123,7 @@ public class GameViewer extends View implements GameListener{
 	@Override
 	public void gameChanged() {
 		// TODO react to changes
-
+		Log.d("GameViewer", "gameChanged");
 	}
 
 	@Override
@@ -181,6 +181,7 @@ public class GameViewer extends View implements GameListener{
 		selX = Math.min(Math.max(x, 0), boardSize - 1);
 		selY = Math.min(Math.max(y, 0), boardSize - 1);
 		getRect(selX, selY, selRect);
+		Log.d("GameViewer", "Selected rectangle " + selX + " " + selY);
 		invalidate(selRect);
 	}
 
@@ -341,7 +342,14 @@ public class GameViewer extends View implements GameListener{
             }
         }
 
-
+	}
+	
+	public int[][] getSelected() {
+		Log.d("GameViewer", "getSelected " + selX + " " + selY);
+		int[][] selected = new int[2][2];
+		selected[0][0] = selX;
+		selected[0][1] = selY;
+		return selected;
 	}
 
 }

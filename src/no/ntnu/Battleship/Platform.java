@@ -1,5 +1,7 @@
 package no.ntnu.Battleship;
 
+import android.util.Log;
+
 /**
  * Each unit on the board is represented by a platform. Each platform has one or more devices,
  * depending on its size. 
@@ -30,6 +32,7 @@ public class Platform {
 	 */
 	public void attack(int[] coordinates){
 		//TODO
+		Log.d("Platform", "attack");
 	}
 
 	/**

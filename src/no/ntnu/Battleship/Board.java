@@ -2,6 +2,8 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 public class Board {
 	
 	private final int boardSize;
@@ -32,6 +34,7 @@ public class Board {
 	}
 	
 	public void attack(int[][] shots) {
+		Log.d("Board", "attack at " + shots[0][0] + " " + shots[0][1]);
 		for(int i = 0; i<shots.length; i++) {
 			isShot[shots[i][0]][shots[i][1]] = true;
 			if(platformGrid[shots[i][0]][shots[i][1]] != null) {

@@ -168,14 +168,21 @@ public class GameController extends Activity implements OnClickListener {
 		new AlertDialog.Builder(myActivity).setTitle(R.string.confirm_placement_title)
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialoginterface, int i) {
-				if (i == 0) 
-					fireGameChanged();
-				else
-					return;
+				if (i == 0) {
+					attack();
+				}
 				return;
 			}
 		})
 		.show();
+	}
+	
+	private void attack() {
+		if (p1Turn) {
+			player1Board.attack(this.boardViewer.getSelected());
+		} else {
+			player2Board.attack(this.boardViewer.getSelected());
+		}
 	}
 
 }

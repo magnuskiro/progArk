@@ -59,6 +59,7 @@ public class GameActivity extends Activity{
 		
 		
 		gameViewer = new GameViewer(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), gameController);
+		gameController.boardViewer = gameViewer;
 		
 		// Define a linearlayout and add boardViewer and buttons to it
 		RelativeLayout rLay = new RelativeLayout(this);
