@@ -80,6 +80,8 @@ public class GameActivity extends Activity{
 		// TODO: activate a board viewer
 		 setContentView(layout);
 		 gameViewer.requestFocus();
+
+		 
 		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
 		 confirmPlacementButton.setOnClickListener(gameController);

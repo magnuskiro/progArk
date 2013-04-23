@@ -142,13 +142,13 @@ public class GameViewer extends View implements GameListener{
 
 		TileNum[][] tileNum = activeBoard.getTiles();
 
-		// Draw the selection...
-		canvas.drawRect(selRect, selected);
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
-			Log.d("drawing", "both placed");
 			//only after both  players have placed their platforms
+			Log.d("drawing", "both placed");
+			// Draw the selection...
+			canvas.drawRect(selRect, selected);
 			//add bitmaps to tiles
 			for (int i = 0; i<tileNum.length; i++){
 				for (int j = 0; j<tileNum[i].length; j++){
@@ -189,7 +189,10 @@ public class GameViewer extends View implements GameListener{
 		if (event.getAction() != MotionEvent.ACTION_DOWN)
 			return super.onTouchEvent(event);
 
-		select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
+		boolean[] placedPlats = game.getPlacedPlatforms(); 
+		if(placedPlats[0] && placedPlats[1]){//no selecting tiles during platform placement
+			select((int) (event.getX() / tileSize), (int) (event.getY() / tileSize));
+		}
 		return true;
 	}
 
@@ -314,11 +317,11 @@ public class GameViewer extends View implements GameListener{
 		private float tSize;
 
 		public MyDragShadowBuilder(View v, float tSize) {
-            mView = new WeakReference<View>(v);
+			mView = new WeakReference<View>(v);
 			this.tSize = tSize;
 		}
 
-		
+
 		@Override
 		public void onProvideShadowMetrics (Point size, Point touch){
 			final View view = mView.get();
@@ -329,17 +332,17 @@ public class GameViewer extends View implements GameListener{
 				Log.e(View.VIEW_LOG_TAG, "Asked for drag thumb metrics but no view");
 			}
 		}
-		
-		
+
+
 		@Override
 		public void onDrawShadow(Canvas canvas) {
-            final View view = mView.get();
-            if (view != null) {
-                view.draw(canvas);
-            } else {
-                Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
-            }
-        }
+			final View view = mView.get();
+			if (view != null) {
+				view.draw(canvas);
+			} else {
+				Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
+			}
+		}
 
 
 	}
