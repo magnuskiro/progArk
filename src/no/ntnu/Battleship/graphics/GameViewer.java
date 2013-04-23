@@ -41,6 +41,7 @@ public class GameViewer extends View implements GameListener{
 	public static int selX;		// X index of selected square
 	public static int selY;		// Y index of selected square
 	private final Rect selRect = new Rect();
+	private static final String TAG = "GameViewer";
 
 	ArrayList<Platform> p1Platforms;
 	ArrayList<Platform> p2Platforms;
@@ -98,7 +99,6 @@ public class GameViewer extends View implements GameListener{
 
 
 
-		activeBoard = game.getAndSwitchActive();
 
 		p1Platforms = game.getPlatforms();
 		p2Platforms = game.getPlatforms();
@@ -278,7 +278,9 @@ public class GameViewer extends View implements GameListener{
 			for(PlatformView platV:platformViews){
 				platV.setVisibility(INVISIBLE);
 			}
+			Log.d(TAG, "getAndSwitchActive");
 			activeBoard = game.getAndSwitchActive();
+			invalidate();
 		}else{
 			for(int i = 0; i < platformViews.size(); i++){
 				int platLength;
