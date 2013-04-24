@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -58,13 +57,13 @@ public class GameActivity extends Activity{
 		gameController.myActivity = this;
 		
 		
-		gameViewer = new GameViewer(size, dm.widthPixels, dm.heightPixels, getApplicationContext(), gameController);
+		gameViewer = new GameViewer(size, dm.widthPixels, getApplicationContext(), gameController);
 		gameController.boardViewer = gameViewer;
 		
 		// Define a linearlayout and add boardViewer and buttons to it
 		RelativeLayout rLay = new RelativeLayout(this);
 		rLay.addView(gameViewer);
-		//gett PlatformViews from boardViewer 
+		//get PlatformViews from boardViewer 
 		ArrayList<PlatformView> plats = gameViewer.getPlatformViews();
 		for(PlatformView plat : plats){
 			rLay.addView(plat);

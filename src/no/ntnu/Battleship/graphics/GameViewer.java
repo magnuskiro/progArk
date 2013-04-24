@@ -37,7 +37,6 @@ public class GameViewer extends View implements GameListener{
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
-	private int screenHeight;
 	public static int selX;		// X index of selected square
 	public static int selY;		// Y index of selected square
 	private final Rect selRect = new Rect();
@@ -61,12 +60,11 @@ public class GameViewer extends View implements GameListener{
 
 
 
-	public GameViewer(int boardSize, int screenWidth, int screenHeight, Context context, GameController game) {
+	public GameViewer(int boardSize, int screenWidth, Context context, GameController game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
 		this.boardSize = boardSize;
 		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
 		this.game = game;
 		this.res = getResources();
 
