@@ -1,6 +1,5 @@
 package no.ntnu.Battleship.graphics;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.Board;
@@ -16,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -33,11 +31,11 @@ public class GameViewer extends View implements GameListener{
 	Paint dark;
 	Paint bright;
 	Paint selected;
+	Paint win;
 
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
-	private int screenHeight;
 	public static int selX;		// X index of selected square
 	public static int selY;		// Y index of selected square
 	private final Rect selRect = new Rect();
@@ -61,12 +59,11 @@ public class GameViewer extends View implements GameListener{
 
 
 
-	public GameViewer(int boardSize, int screenWidth, int screenHeight, Context context, GameController game) {
+	public GameViewer(int boardSize, int screenWidth, Context context, GameController game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
 		this.boardSize = boardSize;
 		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
 		this.game = game;
 		this.res = getResources();
 
@@ -80,6 +77,9 @@ public class GameViewer extends View implements GameListener{
 		selected.setColor(res.getColor(R.color.square_selected));
 		bright = new Paint();
 		bright.setColor(android.graphics.Color.WHITE);
+		win = new Paint();
+		win.setColor(android.graphics.Color.WHITE);
+		win.setTextSize(50);
 
 		//loading and scaling the bitmaps
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_miss_96),
@@ -127,24 +127,7 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
-		boolean win = true;
-		if (game.isPlayer1turn()) {
-			for(Platform p : p2Platforms) {
-				if (!p.isDestroyed()){
-					win = false;
-				}
-			}
-			if (win)
-				Log.d("GameViewer", "Player 1 won");
-		} else{
-			for(Platform p : p1Platforms) {
-				if(!p.isDestroyed()) {
-					win = false;
-				}
-			}
-			if(win)
-				Log.d("GameViewer", "Player 2 won");
-		}
+		
 		activeBoard = game.getAndSwitchActive();
 		invalidate();
 
@@ -164,7 +147,13 @@ public class GameViewer extends View implements GameListener{
 			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
 		}
 
-		if(game.isPlayer1turn()){
+		boolean[] winState = game.getWinState();
+		
+		if(winState[0]){
+			canvas.drawText("Player one Wins!", 0, getWidth()/2 , win);
+		}else if(winState[1]){
+			canvas.drawText("Player Two Wins!", 0,getWidth()/2 , win);
+		}else if(game.isPlayer1turn()){
 			canvas.drawText("Playerone", 0,getWidth() , bright);
 		}else{
 			canvas.drawText("Playertwo", 0,getWidth() , bright);
@@ -262,8 +251,10 @@ public class GameViewer extends View implements GameListener{
 		}
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(!placedplats[0]){
+			Log.d("positions",  "p1 was placed");
 			game.setPlatforms(p1Platforms);			
 		}else if (!placedplats[1]){
+			Log.d("positions",  "p2 was placed");
 			game.setPlatforms(p2Platforms);
 		}
 		switchPlatforms();
@@ -285,7 +276,7 @@ public class GameViewer extends View implements GameListener{
 			for(int i = 0; i < platformViews.size(); i++){
 				int platLength;
 				PlatformView platV = platformViews.get(i);
-				if(!game.isPlayer1turn()){
+				if(game.isPlayer1turn()){
 					Log.d("positions", "switching to p1 plats");
 					platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
 					platV.setPlatform(p1Platforms.get(i));
@@ -308,7 +299,7 @@ public class GameViewer extends View implements GameListener{
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				time = event.getDownTime();
 				ClipData data = ClipData.newPlainText("", "");
-				DragShadowBuilder shadowBuilder = new MyDragShadowBuilder(v, tileSize);
+				DragShadowBuilder shadowBuilder = new PlatformShadowBuilder(v, tileSize);
 
 				v.startDrag(data, shadowBuilder, v, 0);
 				return true;
@@ -335,6 +326,9 @@ public class GameViewer extends View implements GameListener{
 			float platLength = view.getPlatform().getlength() * tileSize;
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)platLength);
 
+			int x = (int) (event.getX() - event.getX()%tileSize);
+			int y = (int) (event.getY() - event.getY()%tileSize);
+
 			switch (action) {
 			case DragEvent.ACTION_DRAG_STARTED:
 				// Do nothing
@@ -350,8 +344,8 @@ public class GameViewer extends View implements GameListener{
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
-				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - platLength);
+				params.leftMargin = Math.max(x, 0);
+				params.topMargin = (int) Math.min(Math.max( y, 0), boardSize*tileSize - platLength);
 
 				Log.d("movement","leftmarg: "+params.leftMargin);
 				Log.d("movement","topmarg: "+params.topMargin);
@@ -364,11 +358,11 @@ public class GameViewer extends View implements GameListener{
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
 				if (view.getRotation() == 0){
-					params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-					params.topMargin = (int) Math.min((int)Math.max( event.getY() - (event.getY()%tileSize) - (platLength-tileSize), 0), boardSize*tileSize - platLength);
+					params.leftMargin = Math.max(x, 0);
+					params.topMargin = (int) Math.min((int)Math.max( y - (platLength-tileSize), 0), boardSize*tileSize - platLength);
 				} else{//platform is rotated
-					params.leftMargin = (int) Math.min((int)( event.getX() - event.getX()%tileSize), boardSize*tileSize - platLength);
-					params.topMargin = (int) Math.min((int)( event.getY() - event.getY()%tileSize - (platLength-tileSize)), boardSize*tileSize - platLength);
+					params.leftMargin = (int) Math.min( x, boardSize*tileSize - platLength);
+					params.topMargin = (int) Math.min((int)( y - (platLength-tileSize)), boardSize*tileSize - platLength);
 				}
 
 				Log.d("movement","leftmarg: "+params.leftMargin);
@@ -402,39 +396,7 @@ public class GameViewer extends View implements GameListener{
 		}
 	}
 
-	static 	class MyDragShadowBuilder extends View.DragShadowBuilder{
-		private final WeakReference<View> mView;
-		private float tSize;
-
-		public MyDragShadowBuilder(View v, float tSize) {
-			mView = new WeakReference<View>(v);
-			this.tSize = tSize;
-		}
-
-
-		@Override
-		public void onProvideShadowMetrics (Point size, Point touch){
-			final View view = mView.get();
-			if (view != null) {
-				size.set(view.getWidth(), view.getHeight());
-				touch.set(size.x / 2, (int) (size.y - (tSize/2)));
-			} else {
-				Log.e(View.VIEW_LOG_TAG, "Asked for drag thumb metrics but no view");
-			}
-		}
-
-
-		@Override
-		public void onDrawShadow(Canvas canvas) {
-			final View view = mView.get();
-			if (view != null) {
-				view.draw(canvas);
-			} else {
-				Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
-			}
-		}
-
-	}
+	
 
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);

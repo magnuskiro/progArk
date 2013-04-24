@@ -77,5 +77,20 @@ public class Board {
 		return boardSize;
 	}
 	
+	/**
+	 * @return whether or not all platforms on this board are destroyed.
+	 */
+	public boolean isAllDestroyed(){
+	boolean d = true;
+	
+	for(Platform p : platforms) {
+		if (!p.isDestroyed()){
+			d = false;
+		}
+	}
+	
+	return d;
+	}
+	
 }
 
