@@ -262,8 +262,10 @@ public class GameViewer extends View implements GameListener{
 		}
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(!placedplats[0]){
+			Log.d("positions",  "p1 was placed");
 			game.setPlatforms(p1Platforms);			
 		}else if (!placedplats[1]){
+			Log.d("positions",  "p2 was placed");
 			game.setPlatforms(p2Platforms);
 		}
 		switchPlatforms();
@@ -285,7 +287,7 @@ public class GameViewer extends View implements GameListener{
 			for(int i = 0; i < platformViews.size(); i++){
 				int platLength;
 				PlatformView platV = platformViews.get(i);
-				if(!game.isPlayer1turn()){
+				if(game.isPlayer1turn()){
 					Log.d("positions", "switching to p1 plats");
 					platLength = (int) (p1Platforms.get(i).getlength() * tileSize);
 					platV.setPlatform(p1Platforms.get(i));
