@@ -27,8 +27,6 @@ public class BattleShip extends Activity implements OnClickListener {
         setContentView(R.layout.main);
         
         // Set up click listeners for all the buttons
-        View continueButton = findViewById(R.id.continue_button);
-        continueButton.setOnClickListener(this);
         View newGameButton = findViewById(R.id.new_game_button);
         newGameButton.setOnClickListener(this);
         View aboutButton = findViewById(R.id.about_button);
