@@ -6,6 +6,7 @@ import no.ntnu.Battleship.graphics.GameViewer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -16,11 +17,11 @@ public class GameController extends Activity implements OnClickListener {
 	public static final int SIZE_SMALL = 0;
 	public static final int SIZE_MEDIUM = 1;
 	public static final int SIZE_LARGE = 2;
-	
+
 	Activity myActivity;
-	
+
 	private int size;
-	
+
 	Board player1Board;
 	Board player2Board;
 	int p1Shots;
@@ -31,11 +32,15 @@ public class GameController extends Activity implements OnClickListener {
 
 
 	ArrayList<GameListener> listeners;
-	
+
 	GameViewer boardViewer;
 
-	
-	
+	protected boolean p1Won;
+
+	protected boolean p2Won;
+
+
+
 	/**
 	 * this constructor is never called due to how android launches activities
 	 * @param p1
@@ -45,13 +50,14 @@ public class GameController extends Activity implements OnClickListener {
 	 */
 	public GameController(int size) {
 		listeners = new ArrayList<GameListener>();
-		
+
 		placedPlatforms = new boolean[2];
-		
+
 		this.size = size;
 		this.pFactory = new PlatformFactory();
 		p1Turn = false;
-		
+		p1Won = false;
+		p2Won = false;
 	}
 
 	public ArrayList<Platform> getPlatforms() {
@@ -60,7 +66,7 @@ public class GameController extends Activity implements OnClickListener {
 		}
 		return null;
 	}
-	
+
 	public boolean setPlatforms(ArrayList<Platform> pforms) {
 		if(player1Board == null) {
 			player1Board = new Board(this, (10+5*this.size));
@@ -77,7 +83,7 @@ public class GameController extends Activity implements OnClickListener {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Set the current player to the next turn and get the board.
 	 * 
@@ -118,12 +124,12 @@ public class GameController extends Activity implements OnClickListener {
 		}
 	}
 
-	
+
 	public boolean isPlayer1turn(){
 		return p1Turn;
 	}
-	
-	
+
+
 	/**
 	 * get which players have placed their platforms
 	 * @return the placedPlatforms index 0:p1, 1:p2
@@ -149,8 +155,8 @@ public class GameController extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	
-	
+
+
 	private void openConfirmDialog() {
 		new AlertDialog.Builder(myActivity).setTitle(R.string.confirm_placement_title)
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
@@ -158,19 +164,37 @@ public class GameController extends Activity implements OnClickListener {
 				if (i == 0) {
 					if(player1Board== null || player2Board == null){
 						boardViewer.placePlatforms();
-					}else{
+					}else if (!p1Won && !p2Won){
 						//kaboom?
 						if (p1Turn) {
 							player2Board.attack(boardViewer.getSelected());
 						} else {
 							player1Board.attack(boardViewer.getSelected());
 						}
+						refreshWinState();
+					}
+					else{//notify viewer about winning
+						
 					}
 				}
 				return;
 			}
 		})
 		.show();
+	}
+
+	/**
+	 * checks if one of the players has destroyed the opponent's platforms, and sets
+	 * the appropriate win-state
+	 */
+	protected void refreshWinState() {
+		p1Won = player2Board.isAllDestroyed();
+
+		if (p1Won)
+			Log.d("GameViewer", "Player 1 won");
+		p2Won = player1Board.isAllDestroyed();
+		if(p2Won)
+			Log.d("GameViewer", "Player 2 won");
 	}
 
 }

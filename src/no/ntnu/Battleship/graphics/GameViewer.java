@@ -124,23 +124,7 @@ public class GameViewer extends View implements GameListener{
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
 		boolean win = true;
-		if (game.isPlayer1turn()) {
-			for(Platform p : p2Platforms) {
-				if (!p.isDestroyed()){
-					win = false;
-				}
-			}
-			if (win)
-				Log.d("GameViewer", "Player 1 won");
-		} else{
-			for(Platform p : p1Platforms) {
-				if(!p.isDestroyed()) {
-					win = false;
-				}
-			}
-			if(win)
-				Log.d("GameViewer", "Player 2 won");
-		}
+		
 		activeBoard = game.getAndSwitchActive();
 		invalidate();
 
