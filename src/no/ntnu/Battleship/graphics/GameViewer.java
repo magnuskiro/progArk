@@ -31,6 +31,7 @@ public class GameViewer extends View implements GameListener{
 	Paint dark;
 	Paint bright;
 	Paint selected;
+	Paint win;
 
 	private float tileSize;
 	private int boardSize;
@@ -76,6 +77,9 @@ public class GameViewer extends View implements GameListener{
 		selected.setColor(res.getColor(R.color.square_selected));
 		bright = new Paint();
 		bright.setColor(android.graphics.Color.WHITE);
+		win = new Paint();
+		win.setColor(android.graphics.Color.WHITE);
+		win.setTextSize(50);
 
 		//loading and scaling the bitmaps
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_miss_96),
@@ -123,7 +127,6 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
-		boolean win = true;
 		
 		activeBoard = game.getAndSwitchActive();
 		invalidate();
@@ -144,7 +147,13 @@ public class GameViewer extends View implements GameListener{
 			canvas.drawLine((float)( i * tileSize), 0f, (float)( i * tileSize), (float)getWidth(), dark);
 		}
 
-		if(game.isPlayer1turn()){
+		boolean[] winState = game.getWinState();
+		
+		if(winState[0]){
+			canvas.drawText("Player one Wins!", 0, getWidth()/2 , win);
+		}else if(winState[1]){
+			canvas.drawText("Player Two Wins!", 0,getWidth()/2 , win);
+		}else if(game.isPlayer1turn()){
 			canvas.drawText("Playerone", 0,getWidth() , bright);
 		}else{
 			canvas.drawText("Playertwo", 0,getWidth() , bright);

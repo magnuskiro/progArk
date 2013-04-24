@@ -35,9 +35,7 @@ public class GameController extends Activity implements OnClickListener {
 
 	GameViewer boardViewer;
 
-	protected boolean p1Won;
-
-	protected boolean p2Won;
+	private boolean[] winState;
 
 
 
@@ -56,8 +54,7 @@ public class GameController extends Activity implements OnClickListener {
 		this.size = size;
 		this.pFactory = new PlatformFactory();
 		p1Turn = false;
-		p1Won = false;
-		p2Won = false;
+		winState = new boolean []{false, false};
 	}
 
 	public ArrayList<Platform> getPlatforms() {
@@ -164,7 +161,7 @@ public class GameController extends Activity implements OnClickListener {
 				if (i == 0) {
 					if(player1Board== null || player2Board == null){
 						boardViewer.placePlatforms();
-					}else if (!p1Won && !p2Won){
+					}else if (!getWinState()[0] && !getWinState()[1]){
 						//kaboom?
 						if (p1Turn) {
 							player2Board.attack(boardViewer.getSelected());
@@ -188,13 +185,21 @@ public class GameController extends Activity implements OnClickListener {
 	 * the appropriate win-state
 	 */
 	protected void refreshWinState() {
-		p1Won = player2Board.isAllDestroyed();
+		getWinState()[0] = player2Board.isAllDestroyed();
 
-		if (p1Won)
+		if (getWinState()[0])
 			Log.d("GameViewer", "Player 1 won");
-		p2Won = player1Board.isAllDestroyed();
-		if(p2Won)
+		getWinState()[1] = player1Board.isAllDestroyed();
+		if(getWinState()[1])
 			Log.d("GameViewer", "Player 2 won");
 	}
+
+	/**
+	 * @return the winState
+	 */
+	public boolean[] getWinState() {
+		return winState;
+	}
+
 
 }
