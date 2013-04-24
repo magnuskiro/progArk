@@ -18,7 +18,7 @@ public class GameController extends Activity implements OnClickListener {
 	public static final int SIZE_MEDIUM = 1;
 	public static final int SIZE_LARGE = 2;
 
-	Activity myActivity;
+	public GameActivity myActivity;
 
 	private int size;
 
@@ -149,6 +149,14 @@ public class GameController extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.button_confirm_placement:
 			openConfirmDialog();
+			break;
+		case R.id.button_confirm_attack:
+			if (p1Turn) {
+				player2Board.attack(boardViewer.getSelected());
+			} else {
+				player1Board.attack(boardViewer.getSelected());
+			}
+			refreshWinState();
 			break;
 		}
 	}

@@ -32,6 +32,7 @@ public class GameViewer extends View implements GameListener{
 	Paint bright;
 	Paint selected;
 	Paint win;
+	Paint transparent;
 
 	private float tileSize;
 	private int boardSize;
@@ -53,6 +54,8 @@ public class GameViewer extends View implements GameListener{
 	Bitmap ship3;
 	Bitmap ship4;
 	Bitmap ship5;
+	Bitmap player1;
+	Bitmap player2;
 
 	ArrayList<PlatformView> platformViews;
 	public long time;
@@ -66,7 +69,6 @@ public class GameViewer extends View implements GameListener{
 		this.screenWidth = screenWidth;
 		this.game = game;
 		this.res = getResources();
-
 		game.addListener(this);
 
 		background = new Paint();
@@ -80,6 +82,8 @@ public class GameViewer extends View implements GameListener{
 		win = new Paint();
 		win.setColor(android.graphics.Color.WHITE);
 		win.setTextSize(50);
+		transparent = new Paint();
+		transparent.setAlpha(60);
 
 		//loading and scaling the bitmaps
 		miss = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship_miss_96),
@@ -96,6 +100,10 @@ public class GameViewer extends View implements GameListener{
 				(int)tileSize, (int)tileSize * 4, false);
 		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship5_96),
 				(int)tileSize, (int)tileSize * 5, false);
+		player1 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.one), 
+				(int)tileSize * 3, (int)tileSize * 5, false);
+		player2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.two), 
+				(int)tileSize * 3, (int)tileSize * 5, false);
 
 
 
@@ -154,9 +162,11 @@ public class GameViewer extends View implements GameListener{
 		}else if(winState[1]){
 			canvas.drawText("Player Two Wins!", 0,getWidth()/2 , win);
 		}else if(game.isPlayer1turn()){
-			canvas.drawText("Playerone", 0,getWidth() , bright);
+//			canvas.drawText("Playerone", 0,getWidth() , bright);
+			canvas.drawBitmap(player1, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
 		}else{
-			canvas.drawText("Playertwo", 0,getWidth() , bright);
+//			canvas.drawText("Playertwo", 0,getWidth() , bright);
+			canvas.drawBitmap(player2, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
 		}
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
@@ -272,6 +282,7 @@ public class GameViewer extends View implements GameListener{
 			Log.d(TAG, "getAndSwitchActive");
 			activeBoard = game.getAndSwitchActive();
 			invalidate();
+			game.myActivity.refreshView();
 		}else{
 			for(int i = 0; i < platformViews.size(); i++){
 				int platLength;
