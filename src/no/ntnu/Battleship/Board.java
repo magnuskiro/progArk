@@ -7,6 +7,9 @@ import android.util.Log;
 public class Board {
 	
 	private final int boardSize;
+	private int DESTROYED = 1;
+	private int MISS = 2;
+	private int HIT = 3;
 	
 	private boolean[][] isShot;
 	private Platform[][] platformGrid;
@@ -39,6 +42,13 @@ public class Board {
 			isShot[shots[i][0]][shots[i][1]] = true;
 			if(platformGrid[shots[i][0]][shots[i][1]] != null) {
 				platformGrid[shots[i][0]][shots[i][1]].hit(shots[i]);
+				if (platformGrid[shots[i][0]][shots[i][1]].isDestroyed()) {
+					myGame.playSound(DESTROYED);
+				} else {
+					myGame.playSound(HIT);
+				}
+			} else {
+				myGame.playSound(MISS);
 			}
 		}
 		myGame.updateShots(getShots());

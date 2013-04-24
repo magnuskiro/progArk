@@ -1,10 +1,14 @@
 package no.ntnu.Battleship;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -25,6 +29,14 @@ public class GameActivity extends Activity{
 	GameViewer gameViewer;
 	GameController gameController;
 	LinearLayout layout;
+	MediaPlayer hitSound;
+	MediaPlayer missSound;
+	MediaPlayer destroyedSound;
+	SoundPool sp;
+	HashMap<Integer, Integer> soundsMap;
+    int DESTROYED = 1;
+    int MISS = 2;
+    int HIT = 3;
 	
 	public GameActivity(){
 		
@@ -50,11 +62,21 @@ public class GameActivity extends Activity{
 		default:
 			break;
 		}
+//		hitSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
+//		hitSound.
+//		missSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
+//		destroyedSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
+		
+        sp = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
+        soundsMap = new HashMap<Integer, Integer>();
+        soundsMap.put(DESTROYED, sp.load(this, R.raw.destroyed, 1));
+        soundsMap.put(MISS, sp.load(this, R.raw.miss, 1));
+        soundsMap.put(HIT, sp.load(this, R.raw.hit, 1));
 		
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
-		gameController = new GameController(size);
+		gameController = new GameController(size, sp, soundsMap);
 		gameController.myActivity = this;
 		
 		

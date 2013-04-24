@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -35,6 +36,7 @@ public class GameViewer extends View implements GameListener{
 	Paint transparent;
 	Canvas canvas;
 
+	MediaPlayer mPlayer;
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
@@ -57,6 +59,8 @@ public class GameViewer extends View implements GameListener{
 	Bitmap ship5;
 	Bitmap player1;
 	Bitmap player2;
+	Bitmap p1wins;
+	Bitmap p2wins;
 
 	ArrayList<PlatformView> platformViews;
 	public long time;
@@ -71,6 +75,7 @@ public class GameViewer extends View implements GameListener{
 		this.game = game;
 		this.res = getResources();
 		game.addListener(this);
+		mPlayer = MediaPlayer.create(context, R.raw.birds);
 
 		background = new Paint();
 		background.setColor(res.getColor(R.color.ocean_blue));
@@ -105,6 +110,10 @@ public class GameViewer extends View implements GameListener{
 				(int)tileSize * 3, (int)tileSize * 5, false);
 		player2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.two), 
 				(int)tileSize * 3, (int)tileSize * 5, false);
+		p1wins = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.p1wins), 
+				screenWidth, (int)(screenWidth * 0.422), false);
+		p2wins = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.p2wins), 
+				screenWidth, (int)(screenWidth * 0.422), false);
 
 
 
@@ -157,17 +166,6 @@ public class GameViewer extends View implements GameListener{
 
 		boolean[] winState = game.getWinState();
 		
-		if(winState[0]){
-			canvas.drawText("Player one Wins!", 0, getWidth()/2 , win);
-		}else if(winState[1]){
-			canvas.drawText("Player Two Wins!", 0,getWidth()/2 , win);
-		}else if(game.isPlayer1turn()){
-//			canvas.drawText("Playerone", 0,getWidth() , bright);
-			canvas.drawBitmap(player1, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
-		}else{
-//			canvas.drawText("Playertwo", 0,getWidth() , bright);
-			canvas.drawBitmap(player2, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
-		}
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
@@ -190,11 +188,18 @@ public class GameViewer extends View implements GameListener{
 					}
 				}
 			}
-		}else if(!placedplats[0]){//player one placing mode
-			//			TODO: display p1 platforms
-		}else{//player two placing mode
-			//			TODO: display p2 patforms
-		}
+			if(winState[0]){
+				canvas.drawBitmap(p1wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
+			}else if(winState[1]){
+				canvas.drawBitmap(p2wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
+			}else if(game.isPlayer1turn()){
+//			canvas.drawText("Playerone", 0,getWidth() , bright);
+				canvas.drawBitmap(player1, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
+			}else{
+//			canvas.drawText("Playertwo", 0,getWidth() , bright);
+				canvas.drawBitmap(player2, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
+			}
+		}	
 	}
 
 

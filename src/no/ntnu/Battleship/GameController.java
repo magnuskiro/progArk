@@ -1,11 +1,16 @@
 package no.ntnu.Battleship;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import no.ntnu.Battleship.graphics.GameViewer;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +24,9 @@ public class GameController extends Activity implements OnClickListener {
 	public static final int SIZE_LARGE = 2;
 
 	public GameActivity myActivity;
-
+	MediaPlayer mPlayer;
+	SoundPool sp;
+	HashMap<Integer, Integer> soundsMap;
 	private int size;
 
 	Board player1Board;
@@ -46,15 +53,17 @@ public class GameController extends Activity implements OnClickListener {
 	 * @param p1InitShots
 	 * @param p2InitShots
 	 */
-	public GameController(int size) {
+	public GameController(int size, SoundPool sp, HashMap hm) {
 		listeners = new ArrayList<GameListener>();
-
+		this.sp = sp;
+		this.soundsMap = hm;
+		this.mPlayer = mPlayer;
 		placedPlatforms = new boolean[2];
-
 		this.size = size;
 		this.pFactory = new PlatformFactory();
 		p1Turn = true;
 		winState = new boolean []{false, false};
+
 	}
 
 	public ArrayList<Platform> getPlatforms() {
@@ -153,12 +162,15 @@ public class GameController extends Activity implements OnClickListener {
 			openConfirmDialog();
 			break;
 		case R.id.button_confirm_attack:
-			if (p1Turn) {
-				player2Board.attack(boardViewer.getSelected());
-			} else {
-				player1Board.attack(boardViewer.getSelected());
+			if (!getWinState()[0] && !getWinState()[1]){
+				//kaboom?
+				if (p1Turn) {
+					player2Board.attack(boardViewer.getSelected());
+				} else {
+					player1Board.attack(boardViewer.getSelected());
+				}
+				refreshWinState();
 			}
-			refreshWinState();
 			break;
 		}
 	}
@@ -171,17 +183,6 @@ public class GameController extends Activity implements OnClickListener {
 				if (i == 0) {
 					if(player1Board== null || player2Board == null){
 						boardViewer.placePlatforms();
-					}else if (!getWinState()[0] && !getWinState()[1]){
-						//kaboom?
-						if (p1Turn) {
-							player2Board.attack(boardViewer.getSelected());
-						} else {
-							player1Board.attack(boardViewer.getSelected());
-						}
-						refreshWinState();
-					}
-					else{//notify viewer about winning
-						
 					}
 				}
 				return;
@@ -211,5 +212,8 @@ public class GameController extends Activity implements OnClickListener {
 		return winState;
 	}
 
+	public void playSound(int sound) {
+		sp.play(soundsMap.get(sound), 1, 1, 1, 0, 1);
+	}
 
 }
