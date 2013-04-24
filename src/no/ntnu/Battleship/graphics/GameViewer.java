@@ -335,6 +335,9 @@ public class GameViewer extends View implements GameListener{
 			float platLength = view.getPlatform().getlength() * tileSize;
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)tileSize,(int)platLength);
 
+			int x = (int) (event.getX() - event.getX()%tileSize);
+			int y = (int) (event.getY() - event.getY()%tileSize);
+
 			switch (action) {
 			case DragEvent.ACTION_DRAG_STARTED:
 				// Do nothing
@@ -350,8 +353,8 @@ public class GameViewer extends View implements GameListener{
 				Log.d("movement","event x: " + event.getX() + " y: " + event.getY());
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
-				params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-				params.topMargin = (int) Math.min(Math.max((int)( event.getY() - event.getY()%tileSize), 0), boardSize*tileSize - platLength);
+				params.leftMargin = Math.max(x, 0);
+				params.topMargin = (int) Math.min(Math.max( y, 0), boardSize*tileSize - platLength);
 
 				Log.d("movement","leftmarg: "+params.leftMargin);
 				Log.d("movement","topmarg: "+params.topMargin);
@@ -364,11 +367,11 @@ public class GameViewer extends View implements GameListener{
 				Log.d("movement","event grid x: " + (int)event.getX()/tileSize + " y: " + (int)event.getY()/tileSize);
 
 				if (view.getRotation() == 0){
-					params.leftMargin = Math.max((int)( event.getX() - event.getX()%tileSize), 0);
-					params.topMargin = (int) Math.min((int)Math.max( event.getY() - (event.getY()%tileSize) - (platLength-tileSize), 0), boardSize*tileSize - platLength);
+					params.leftMargin = Math.max(x, 0);
+					params.topMargin = (int) Math.min((int)Math.max( y - (platLength-tileSize), 0), boardSize*tileSize - platLength);
 				} else{//platform is rotated
-					params.leftMargin = (int) Math.min((int)( event.getX() - event.getX()%tileSize), boardSize*tileSize - platLength);
-					params.topMargin = (int) Math.min((int)( event.getY() - event.getY()%tileSize - (platLength-tileSize)), boardSize*tileSize - platLength);
+					params.leftMargin = (int) Math.min( x, boardSize*tileSize - platLength);
+					params.topMargin = (int) Math.min((int)( y - (platLength-tileSize)), boardSize*tileSize - platLength);
 				}
 
 				Log.d("movement","leftmarg: "+params.leftMargin);
