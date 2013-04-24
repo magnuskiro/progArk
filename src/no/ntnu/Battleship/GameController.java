@@ -53,7 +53,7 @@ public class GameController extends Activity implements OnClickListener {
 
 		this.size = size;
 		this.pFactory = new PlatformFactory();
-		p1Turn = false;
+		p1Turn = true;
 		winState = new boolean []{false, false};
 	}
 
@@ -65,11 +65,13 @@ public class GameController extends Activity implements OnClickListener {
 	}
 
 	public boolean setPlatforms(ArrayList<Platform> pforms) {
+		Log.d("p1turn", "" + p1Turn);
 		if(player1Board == null) {
 			player1Board = new Board(this, (10+5*this.size));
 			player1Board.populate(pforms);
 			p1Shots = player1Board.getShots();
 			placedPlatforms[0] = true;
+			p1Turn = !p1Turn;
 			return true;
 		} else if (player2Board == null) {
 			player2Board = new Board(this, (10+5*this.size));

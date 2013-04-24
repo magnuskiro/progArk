@@ -281,7 +281,6 @@ public class GameViewer extends View implements GameListener{
 			}
 			Log.d(TAG, "getAndSwitchActive");
 			activeBoard = game.getAndSwitchActive();
-			invalidate();
 			game.myActivity.refreshView();
 		}else{
 			for(int i = 0; i < platformViews.size(); i++){
@@ -301,6 +300,7 @@ public class GameViewer extends View implements GameListener{
 				platV.setRotation(0);
 			}
 		}
+		invalidate();
 	}
 
 	class MyTouchListener  implements OnTouchListener{
