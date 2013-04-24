@@ -1,6 +1,5 @@
 package no.ntnu.Battleship.graphics;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import no.ntnu.Battleship.Board;
@@ -16,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -308,7 +306,7 @@ public class GameViewer extends View implements GameListener{
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				time = event.getDownTime();
 				ClipData data = ClipData.newPlainText("", "");
-				DragShadowBuilder shadowBuilder = new MyDragShadowBuilder(v, tileSize);
+				DragShadowBuilder shadowBuilder = new PlatformShadowBuilder(v, tileSize);
 
 				v.startDrag(data, shadowBuilder, v, 0);
 				return true;
@@ -405,39 +403,7 @@ public class GameViewer extends View implements GameListener{
 		}
 	}
 
-	static 	class MyDragShadowBuilder extends View.DragShadowBuilder{
-		private final WeakReference<View> mView;
-		private float tSize;
-
-		public MyDragShadowBuilder(View v, float tSize) {
-			mView = new WeakReference<View>(v);
-			this.tSize = tSize;
-		}
-
-
-		@Override
-		public void onProvideShadowMetrics (Point size, Point touch){
-			final View view = mView.get();
-			if (view != null) {
-				size.set(view.getWidth(), view.getHeight());
-				touch.set(size.x / 2, (int) (size.y - (tSize/2)));
-			} else {
-				Log.e(View.VIEW_LOG_TAG, "Asked for drag thumb metrics but no view");
-			}
-		}
-
-
-		@Override
-		public void onDrawShadow(Canvas canvas) {
-			final View view = mView.get();
-			if (view != null) {
-				view.draw(canvas);
-			} else {
-				Log.e(View.VIEW_LOG_TAG, "Asked to draw drag shadow but no view");
-			}
-		}
-
-	}
+	
 
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);
