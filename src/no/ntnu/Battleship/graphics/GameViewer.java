@@ -33,6 +33,7 @@ public class GameViewer extends View implements GameListener{
 	Paint selected;
 	Paint win;
 	Paint transparent;
+	Canvas canvas;
 
 	private float tileSize;
 	private int boardSize;
@@ -135,14 +136,13 @@ public class GameViewer extends View implements GameListener{
 	public void gameChanged() {
 		// TODO react to changes
 		Log.d("GameViewer", "gameChanged");
-		
 		activeBoard = game.getAndSwitchActive();
 		invalidate();
-
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas){
+		this.canvas = canvas;
 		Log.d("drawing", "drawing");
 
 		// Draw the board...

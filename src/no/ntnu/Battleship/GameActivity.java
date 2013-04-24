@@ -93,7 +93,7 @@ public class GameActivity extends Activity{
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 //		row.setGravity(Gravity.CENTER_HORIZONTAL);
-		row.addView((LinearLayout) View.inflate(this, R.layout.fire_buttons, null));
+		row.addView((RelativeLayout) View.inflate(this, R.layout.fire_buttons, null));
 		layout.addView(row);
 
 		// TODO: activate a board viewer
