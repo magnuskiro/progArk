@@ -25,6 +25,7 @@ public class GameActivity extends Activity{
 	
 	GameViewer gameViewer;
 	GameController gameController;
+	LinearLayout layout;
 	
 	public GameActivity(){
 		
@@ -69,7 +70,7 @@ public class GameActivity extends Activity{
 		for(PlatformView plat : plats){
 			rLay.addView(plat);
 		}
-		LinearLayout layout = new LinearLayout(this);
+		layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.addView(rLay);
 		LinearLayout row = new LinearLayout(this);
@@ -85,6 +86,24 @@ public class GameActivity extends Activity{
 		 
 		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
+		 confirmPlacementButton.setOnClickListener(gameController);
+	}
+	
+	public void refreshView() {
+		layout.removeViewAt(1);
+		LinearLayout row = new LinearLayout(this);
+		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//		row.setGravity(Gravity.CENTER_HORIZONTAL);
+		row.addView((LinearLayout) View.inflate(this, R.layout.fire_buttons, null));
+		layout.addView(row);
+
+		// TODO: activate a board viewer
+		 setContentView(layout);
+		 gameViewer.requestFocus();
+
+		 
+		 
+		 View confirmPlacementButton = findViewById(R.id.button_confirm_attack);
 		 confirmPlacementButton.setOnClickListener(gameController);
 	}
 }
