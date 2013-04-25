@@ -6,6 +6,7 @@ import java.util.HashMap;
 import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -13,12 +14,15 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class GameActivity extends Activity{
+public class GameActivity extends Activity {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -29,9 +33,7 @@ public class GameActivity extends Activity{
 	GameViewer gameViewer;
 	GameController gameController;
 	LinearLayout layout;
-	MediaPlayer hitSound;
-	MediaPlayer missSound;
-	MediaPlayer destroyedSound;
+	MediaPlayer mPlayer;
 	SoundPool sp;
 	HashMap<Integer, Integer> soundsMap;
     int DESTROYED = 1;
@@ -62,10 +64,8 @@ public class GameActivity extends Activity{
 		default:
 			break;
 		}
-//		hitSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
-//		hitSound.
-//		missSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
-//		destroyedSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
+		
+		mPlayer = MediaPlayer.create(this, R.raw.background2);
 		
         sp = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
         soundsMap = new HashMap<Integer, Integer>();
@@ -86,6 +86,7 @@ public class GameActivity extends Activity{
 		// Define a linearlayout and add boardViewer and buttons to it
 		RelativeLayout rLay = new RelativeLayout(this);
 		rLay.addView(gameViewer);
+		
 		//get PlatformViews from boardViewer 
 		ArrayList<PlatformView> plats = gameViewer.getPlatformViews();
 		for(PlatformView plat : plats){
@@ -100,31 +101,58 @@ public class GameActivity extends Activity{
 		row.addView((LinearLayout) View.inflate(this, R.layout.placement_buttons, null));
 		layout.addView(row);
 
-		// TODO: activate a board viewer
 		 setContentView(layout);
 		 gameViewer.requestFocus();
 
-		 
-		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_placement);
 		 confirmPlacementButton.setOnClickListener(gameController);
 	}
 	
+	
+	/**
+	 *Called when all users have placed their platforms, in order to display the new
+	 *gameplay graphics
+	 */
 	public void refreshView() {
 		layout.removeViewAt(1);
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-//		row.setGravity(Gravity.CENTER_HORIZONTAL);
 		row.addView((RelativeLayout) View.inflate(this, R.layout.fire_buttons, null));
 		layout.addView(row);
 
-		// TODO: activate a board viewer
 		 setContentView(layout);
 		 gameViewer.requestFocus();
 
-		 
-		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_attack);
 		 confirmPlacementButton.setOnClickListener(gameController);
 	}
+		
+	
+    /**
+     * Creates the menu which is displayed when the user 
+     * presses the menu button 
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	super.onCreateOptionsMenu(menu);
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.menu, menu);
+    	return true;
+    }
+    
+    /**
+     * Figures out which option in the menu the user selected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case R.id.settings:
+    		startActivity(new Intent(this, Prefs.class));
+    		return true;
+    	// More items here if any
+    	}
+    	return false;
+    }
+    
+
 }

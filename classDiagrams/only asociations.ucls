@@ -1,334 +1,310 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="false" 
   realizations="false" associations="true" dependencies="false" nesting-relationships="false">  
-  <class id="1" language="java" name="no.ntnu.Battleship.GameSetup" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/GameSetup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="163" x="401" y="273"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="no.ntnu.Battleship.Prefs" project="Splash" 
+  <class id="1" language="java" name="no.ntnu.Battleship.Prefs" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/Prefs.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="134" x="604" y="273"/>    
+    <position height="-1" width="-1" x="77" y="-9"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="no.ntnu.Battleship.PlatformFactory" project="Splash" 
+  <class id="2" language="java" name="no.ntnu.Battleship.PlatformFactory" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/PlatformFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="209" x="1982" y="1073"/>    
+    <position height="-1" width="-1" x="1353" y="650"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="no.ntnu.Battleship.graphics.GameViewer" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="657" width="254" x="1688" y="1073"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="no.ntnu.Battleship.GameController" project="Splash" 
+  <class id="3" language="java" name="no.ntnu.Battleship.GameController" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/GameController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="513" width="231" x="2378" y="520"/>    
+    <position height="639" width="231" x="1105" y="-72"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="no.ntnu.Battleship.Board" project="Splash" 
+  <class id="4" language="java" name="no.ntnu.Battleship.Board" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/Board.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="194" x="2378" y="1770"/>    
+    <position height="-1" width="-1" x="806" y="882"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="no.ntnu.Battleship.Platform" project="Splash" 
+  <class id="5" language="java" name="no.ntnu.Battleship.Platform" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/Platform.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="423" width="177" x="1709" y="2071"/>    
+    <position height="-1" width="-1" x="541" y="918"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyDragListener" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="188" x="778" y="273"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <enumeration id="9" language="java" name="no.ntnu.Battleship.TileNum" project="Splash" 
+  <enumeration id="6" language="java" name="no.ntnu.Battleship.TileNum" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/TileNum.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="131" x="1006" y="273"/>    
+    <position height="-1" width="-1" x="64" y="269"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </enumeration>  
-  <class id="10" language="java" name="no.ntnu.Battleship.About" project="Splash" 
+  <class id="7" language="java" name="no.ntnu.Battleship.About" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/About.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="201" x="1177" y="273"/>    
+    <position height="117" width="201" x="864" y="-72"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="no.ntnu.Battleship.graphics.PlatformView" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="258" x="1409" y="1770"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="12" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyDragShadowBuilder" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="230" x="1418" y="273"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="13" language="java" name="no.ntnu.Battleship.Device" project="Splash" 
+  <class id="8" language="java" name="no.ntnu.Battleship.Device" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/Device.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="121" x="1709" y="2534"/>    
+    <position height="-1" width="-1" x="756" y="1157"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="no.ntnu.Battleship.Splash" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/Splash.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="153" x="1862" y="273"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <interface id="15" language="java" name="no.ntnu.Battleship.GameListener" project="Splash" 
+  <interface id="9" language="java" name="no.ntnu.Battleship.GameListener" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/GameListener.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="126" x="2231" y="1073"/>    
+    <position height="-1" width="-1" x="1110" y="682"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="no.ntnu.Battleship.DeviceFactory" project="Splash" 
+  <class id="10" language="java" name="no.ntnu.Battleship.Splash" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Splash.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="76" y="113"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="no.ntnu.Battleship.DeviceFactory" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/DeviceFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="173" x="2055" y="273"/>    
+    <position height="-1" width="-1" x="554" y="-6"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyTouchListener" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="202" x="2538" y="273"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="18" language="java" name="no.ntnu.Battleship.BattleShip" project="Splash" 
+  <class id="12" language="java" name="no.ntnu.Battleship.BattleShip" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/BattleShip.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="230" x="2268" y="273"/>    
+    <position height="63" width="87" x="737" y="-72"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="no.ntnu.Battleship.graphics.PlatformAddingGraphics" project="Splash" 
-    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformAddingGraphics.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="289" x="1080" y="1770"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="20" language="java" name="no.ntnu.Battleship.GameActivity" project="Splash" 
+  <class id="13" language="java" name="no.ntnu.Battleship.GameActivity" project="Splash" 
     file="/Splash/src/no/ntnu/Battleship/GameActivity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="134" x="1688" y="273"/>    
+    <position height="-1" width="-1" x="773" y="514"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="21">    
-    <bendpoint x="2429" y="1073"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="22" name="myGame"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
+  <class id="14" language="java" name="no.ntnu.Battleship.graphics.PlatformView" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="258" x="152" y="764"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyTouchListener" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="542" y="166"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="no.ntnu.Battleship.graphics.GameViewer" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="783" width="245" x="152" y="-59"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="no.ntnu.Battleship.graphics.PlatformShadowBuilder" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformShadowBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="782" y="165"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyDragListener" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1003" y="169"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="19">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="20" name="platformViews"/>      
+      <multiplicity id="21" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="24">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="25" name="platform"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="27">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="28" name="platformGrid"/>      
-      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="30">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="31" name="game"/>      
-      <multiplicity id="32" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="33">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="34" name="boardViewer"/>      
-      <multiplicity id="35" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="36">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="37" name="listeners"/>      
-      <multiplicity id="38" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="39">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="40" name="platforms"/>      
-      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="42">    
-    <bendpoint x="2408" y="1073"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="43" name="player1Board"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="45">    
-    <bendpoint x="1697" y="520"/>    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="46" name="gameViewer"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="49" name="gameController"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="52" name="platformViews"/>      
-      <multiplicity id="53" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="55" name="devices"/>      
-      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="58" name="pFactory"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
+  <association id="22">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="23" name="game"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="61" name="platforms"/>      
-      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+  <association id="25">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="26" name="player2Board"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="63">    
-    <bendpoint x="1718" y="1770"/>    
+  <association id="28">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="29" name="pFactory"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="64" name="p2Platforms"/>      
-      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
+      <attribute id="32" name="platformGrid"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="66">    
-    <bendpoint x="1697" y="1770"/>    
+  <association id="34">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="35" name="boardViewer"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="38" name="player1Board"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="41" name="platform"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="44" name="p2Platforms"/>      
+      <multiplicity id="45" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="47" name="gameViewer"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="50" name="p1Platforms"/>      
+      <multiplicity id="51" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="53" name="listeners"/>      
+      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="67" name="p1Platforms"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
+      <attribute id="56" name="platforms"/>      
+      <multiplicity id="57" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="69">    
-    <bendpoint x="2387" y="1073"/>    
+  <association id="58">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="59" name="myActivity"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="62" name="gameController"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="70" name="player2Board"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
+      <attribute id="65" name="devices"/>      
+      <multiplicity id="66" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="72">    
+  <association id="67">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="73" name="activeBoard"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
+      <attribute id="68" name="myGame"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="71" name="activeBoard"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

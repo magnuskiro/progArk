@@ -17,7 +17,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -25,6 +24,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+/**
+ * Graphical representation of a {@link GameController}, will connect to a provided controller
+ * and pass user interactions to it, and react to the changes.
+ * @author Håvard
+ *
+ */
 public class GameViewer extends View implements GameListener{
 
 	Resources res;
@@ -36,7 +41,6 @@ public class GameViewer extends View implements GameListener{
 	Paint transparent;
 	Canvas canvas;
 
-	MediaPlayer mPlayer;
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
@@ -53,10 +57,6 @@ public class GameViewer extends View implements GameListener{
 	Bitmap miss;
 	Bitmap hit;
 	Bitmap destroyed;
-	Bitmap ship2;
-	Bitmap ship3;
-	Bitmap ship4;
-	Bitmap ship5;
 	Bitmap player1;
 	Bitmap player2;
 	Bitmap p1wins;
@@ -66,7 +66,13 @@ public class GameViewer extends View implements GameListener{
 	public long time;
 
 
-
+	/**
+	 * Main constructor
+	 * @param boardSize - the number of tiles along one side of the board
+	 * @param screenWidth - the width of the device screen in pixels
+	 * @param context - the application {@link Context}
+	 * @param game - the {@link GameController} this view connects to
+	 */
 	public GameViewer(int boardSize, int screenWidth, Context context, GameController game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
@@ -75,7 +81,6 @@ public class GameViewer extends View implements GameListener{
 		this.game = game;
 		this.res = getResources();
 		game.addListener(this);
-		mPlayer = MediaPlayer.create(context, R.raw.birds);
 
 		background = new Paint();
 		background.setColor(res.getColor(R.color.ocean_blue));
@@ -98,14 +103,6 @@ public class GameViewer extends View implements GameListener{
 				(int)tileSize, (int)tileSize, false);
 		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.wreck_96),
 				(int)tileSize, (int)tileSize, false);
-		ship2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship2_96),
-				(int)tileSize, (int)tileSize * 2, false);
-		ship3 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship3_96),
-				(int)tileSize, (int)tileSize * 3, false);
-		ship4 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship4_96),
-				(int)tileSize, (int)tileSize * 4, false);
-		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship5_96),
-				(int)tileSize, (int)tileSize * 5, false);
 		player1 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.one), 
 				(int)tileSize * 3, (int)tileSize * 5, false);
 		player2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.two), 
@@ -114,8 +111,6 @@ public class GameViewer extends View implements GameListener{
 				screenWidth, (int)(screenWidth * 0.422), false);
 		p2wins = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.p2wins), 
 				screenWidth, (int)(screenWidth * 0.422), false);
-
-
 
 
 		p1Platforms = game.getPlatforms();
@@ -202,12 +197,23 @@ public class GameViewer extends View implements GameListener{
 		}
 	}
 
-
+	/**
+	 * Helper method to set the selection rectangle at the desired position
+	 * @param x - position along the x-axis
+	 * @param y - position along the y-axis
+	 * @param rect - the rectangle
+	 */
 	private void getRect(int x, int y, Rect rect) {
 		rect.set((int) (x * tileSize), (int) (y * tileSize), 
 				(int) (x * tileSize + tileSize), (int) (y * tileSize + tileSize));
 	}
 
+	
+	/**
+	 * Moves the selected rectangle to the desired position, and triggers a redraw
+	 * @param x - position along the x-axis
+	 * @param y - position along the y-axis
+	 */
 	private void select(int x, int y) {
 		invalidate(selRect);
 		selX = Math.min(Math.max(x, 0), boardSize - 1);
@@ -238,14 +244,14 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * @return list of platformViews for the active player.
+	 * @return an {@link ArrayList} of {@link PlatformView}s for the active player.
 	 */
 	public ArrayList<PlatformView> getPlatformViews() {
 		return platformViews;
 	}
 
 	/**
-	 * tells the view to send the positions of the platforms to the gameController
+	 * Tells the {@link GameViewer} to send the positions of the platforms to the {@link GameController}
 	 */
 	public void placePlatforms(){
 		int[] pos = new int[2];
@@ -283,7 +289,8 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * tells the view to switch the platforms the platformViews are representing
+	 * tells the {@link GameViewer} to switch the platforms the {@link PlatformView}s are representing,
+	 * if both players have placed their platforms, the PlatformViews will be hiddn, as they are no longer needed
 	 */
 	public void switchPlatforms(){
 		boolean[] placedplats = game.getPlacedPlatforms(); 
@@ -315,6 +322,12 @@ public class GameViewer extends View implements GameListener{
 		invalidate();
 	}
 
+	/**
+	 * Custom listener applied to the {@link PlatformView}-children of the {@link GameViewer}.
+	 * Assigns a custom drawshadowBuilder to those views, and triggers a drag event.
+	 * @author Håvard
+	 *
+	 */
 	class MyTouchListener  implements OnTouchListener{
 
 		@Override
@@ -334,7 +347,8 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * only add this listener to views that only have  platformviews as children.
+	 * only add this listener to views that only have {@link PlatformView} as children.
+	 * (A cast makes sure that it will crash otherwise)
 	 * @author Håvard
 	 *
 	 */
@@ -420,7 +434,9 @@ public class GameViewer extends View implements GameListener{
 	}
 
 
-
+	/**
+	 * @return the coordinates of the selected square on the board
+	 */
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);
 		int[][] selected = new int[1][2];

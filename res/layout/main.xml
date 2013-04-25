@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/black"
+    android:background="@drawable/splash"
     android:gravity="center_vertical"
     android:padding="30dp">
     
