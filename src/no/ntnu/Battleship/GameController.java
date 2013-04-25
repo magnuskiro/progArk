@@ -77,17 +77,25 @@ public class GameController extends Activity implements OnClickListener {
 		Log.d("p1turn", "" + p1Turn);
 		if(player1Board == null) {
 			player1Board = new Board(this, (10+5*this.size));
-			player1Board.populate(pforms);
-			p1Shots = player1Board.getShots();
-			placedPlatforms[0] = true;
-			p1Turn = !p1Turn;
-			return true;
+			if(player1Board.populate(pforms)){
+				p1Shots = player1Board.getShots();
+				placedPlatforms[0] = true;
+				p1Turn = !p1Turn;
+				return true;
+			}else{
+				player1Board = null;
+				return false;
+			}
 		} else if (player2Board == null) {
 			player2Board = new Board(this, (10+5*this.size));
-			player2Board.populate(pforms);
-			p2Shots = player2Board.getShots();
-			placedPlatforms[1] = true;
-			return true;
+			if(player2Board.populate(pforms)){
+				p2Shots = player2Board.getShots();
+				placedPlatforms[1] = true;
+				return true;
+			}else{
+				player2Board = null;
+				return false;
+			}
 		}
 		return false;
 	}

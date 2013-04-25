@@ -165,7 +165,7 @@ public class GameViewer extends View implements GameListener{
 		}
 
 		boolean[] winState = game.getWinState();
-		
+
 
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(placedplats[0] && placedplats[1]){
@@ -188,18 +188,18 @@ public class GameViewer extends View implements GameListener{
 					}
 				}
 			}
-			if(winState[0]){
-				canvas.drawBitmap(p1wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
-			}else if(winState[1]){
-				canvas.drawBitmap(p2wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
-			}else if(game.isPlayer1turn()){
-//			canvas.drawText("Playerone", 0,getWidth() , bright);
-				canvas.drawBitmap(player1, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
-			}else{
-//			canvas.drawText("Playertwo", 0,getWidth() , bright);
-				canvas.drawBitmap(player2, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
-			}
 		}	
+		if(winState[0]){
+			canvas.drawBitmap(p1wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
+		}else if(winState[1]){
+			canvas.drawBitmap(p2wins, 0, ((getWidth() / 2) - screenWidth * 0.422f), null);
+		}else if(game.isPlayer1turn()){
+			//			canvas.drawText("Playerone", 0,getWidth() , bright);
+			canvas.drawBitmap(player1, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
+		}else{
+			//			canvas.drawText("Playertwo", 0,getWidth() , bright);
+			canvas.drawBitmap(player2, (screenWidth - (int)tileSize * 3) / 2, (screenWidth - (int)tileSize * 5) / 2, transparent);
+		}
 	}
 
 
@@ -266,13 +266,20 @@ public class GameViewer extends View implements GameListener{
 		}
 		boolean[] placedplats = game.getPlacedPlatforms(); 
 		if(!placedplats[0]){
-			Log.d("positions",  "p1 was placed");
-			game.setPlatforms(p1Platforms);			
+			if(game.setPlatforms(p1Platforms)){
+				Log.d("positions",  "p1 was placed");
+				switchPlatforms();
+			}else{
+				Log.d("positions", "p1 has misplaced his platforms");
+			}
 		}else if (!placedplats[1]){
-			Log.d("positions",  "p2 was placed");
-			game.setPlatforms(p2Platforms);
+			if(game.setPlatforms(p2Platforms)){
+				switchPlatforms();
+				Log.d("positions",  "p2 was placed");
+			}else{
+				Log.d("positions", "p2 has misplaced his platforms");
+			}
 		}
-		switchPlatforms();
 	}
 
 	/**
@@ -412,7 +419,7 @@ public class GameViewer extends View implements GameListener{
 		}
 	}
 
-	
+
 
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);

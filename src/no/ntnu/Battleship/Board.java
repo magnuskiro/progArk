@@ -24,16 +24,24 @@ public class Board {
 		this.myGame = thisGame;
 	}
 	
-	public void populate(ArrayList<Platform> newPlatforms) {
+	public boolean populate(ArrayList<Platform> newPlatforms) {
 		//populate platformGrid!
+		boolean sucess = true;
 		int[][] loc;
 		for(Platform plat:newPlatforms) {
 			loc = plat.getPosition();
 			for(int i = 0; i<loc.length; i++) {
+				if(platformGrid[loc[i][0]][loc[i][1]] == null){
 				platformGrid[loc[i][0]][loc[i][1]] = plat;
+				}else{
+					sucess = false;
+					break;
+				}
 			}
 		}
 		this.platforms = newPlatforms;
+		
+		return sucess;
 	}
 	
 	public void attack(int[][] shots) {
