@@ -17,7 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class GameController extends Activity implements OnClickListener, OnSharedPreferenceChangeListener{
+public class GameController extends Activity implements OnClickListener {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -26,7 +26,6 @@ public class GameController extends Activity implements OnClickListener, OnShare
 	public static final int SIZE_LARGE = 2;
 
 	public GameActivity myActivity;
-	MediaPlayer mPlayer;
 	SoundPool sp;
 	HashMap<Integer, Integer> soundsMap;
 	private int size;
@@ -59,7 +58,6 @@ public class GameController extends Activity implements OnClickListener, OnShare
 		listeners = new ArrayList<GameListener>();
 		this.sp = sp;
 		this.soundsMap = hm;
-		this.mPlayer = mPlayer;
 		placedPlatforms = new boolean[2];
 		this.size = size;
 		this.pFactory = new PlatformFactory();
@@ -225,17 +223,6 @@ public class GameController extends Activity implements OnClickListener, OnShare
 	public void playSound(int sound) {
 		if(Prefs.getSFX(myActivity))
 			sp.play(soundsMap.get(sound), 1, 1, 1, 0, 1);
-	}
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-		if(!Prefs.getMusic(myActivity) && mPlayer.isPlaying()) {
-			mPlayer.stop();
-		} else if(Prefs.getMusic(myActivity) && !mPlayer.isPlaying()) {
-			mPlayer.start();
-		}
-		
 	}
 
 }

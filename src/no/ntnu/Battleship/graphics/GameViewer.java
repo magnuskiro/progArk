@@ -36,7 +36,6 @@ public class GameViewer extends View implements GameListener{
 	Paint transparent;
 	Canvas canvas;
 
-	MediaPlayer mPlayer;
 	private float tileSize;
 	private int boardSize;
 	private int screenWidth;
@@ -75,7 +74,6 @@ public class GameViewer extends View implements GameListener{
 		this.game = game;
 		this.res = getResources();
 		game.addListener(this);
-		mPlayer = MediaPlayer.create(context, R.raw.birds);
 
 		background = new Paint();
 		background.setColor(res.getColor(R.color.ocean_blue));
