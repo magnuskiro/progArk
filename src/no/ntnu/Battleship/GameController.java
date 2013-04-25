@@ -43,11 +43,10 @@ public class GameController extends Activity implements OnClickListener {
 
 
 	/**
-	 * this constructor is never called due to how android launches activities
-	 * @param p1
-	 * @param p2
-	 * @param p1InitShots
-	 * @param p2InitShots
+	 * Create a new GameController
+	 * @param size the dimensions of the board (10x10, 15x15 or 20x20)
+	 * @param sp SoundPool for playing sound effects
+	 * @param hm list of sounds that can be played by the SoundPool
 	 */
 	public GameController(int size, SoundPool sp, HashMap hm) {
 		listeners = new ArrayList<GameListener>();
@@ -61,6 +60,10 @@ public class GameController extends Activity implements OnClickListener {
 
 	}
 
+	/**
+	 * Retrieves the platforms to be created from the platform factory
+	 * @return an array list of platforms
+	 */
 	public ArrayList<Platform> getPlatforms() {
 		if(player1Board == null || player2Board == null) {
 			return pFactory.createPlatforms();
@@ -68,6 +71,12 @@ public class GameController extends Activity implements OnClickListener {
 		return null;
 	}
 
+	/**
+	 * Receives a list of platforms from GameViewer and passes them on to
+	 * the first board which is not populated by platforms
+	 * @param pforms list of platforms to be placed on board
+	 * @return if placement is successful or not
+	 */
 	public boolean setPlatforms(ArrayList<Platform> pforms) {
 		Log.d("p1turn", "" + p1Turn);
 		if(player1Board == null) {
@@ -97,8 +106,7 @@ public class GameController extends Activity implements OnClickListener {
 
 	/**
 	 * Set the current player to the next turn and get the board.
-	 * 
-	 * @return
+	 * @return the new active board
 	 */
 	public Board getAndSwitchActive() {
 		p1Turn = !p1Turn;
@@ -107,12 +115,22 @@ public class GameController extends Activity implements OnClickListener {
 		return player1Board;
 	}
 
+	/**
+	 * Get players remaining shots this round
+	 * Not in use ATM
+	 * @return number of shots available
+	 */
 	public int getShots() {
 		if (p1Turn)
 			return p1Shots;
 		return p2Shots;
 	}
 
+	/**
+	 * Update the players shot count
+	 * Not in use ATM
+	 * @param newCount updated number of remaining shots
+	 */
 	public void updateShots(int newCount) {
 		if (p1Turn) {
 			p2Shots = newCount;
@@ -121,14 +139,25 @@ public class GameController extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * Add a new listener
+	 * @param listener
+	 */
 	public void addListener(GameListener listener) {
 		this.listeners.add(listener);
 	}
 
+	/**
+	 * Remove specified listener
+	 * @param listener
+	 */
 	public void removeListener(GameListener listener) {
 		this.listeners.remove(listener);
 	}
 
+	/**
+	 * Something in the game has changed, notify listeners
+	 */
 	public void fireGameChanged() {
 		for (GameListener listener : listeners) {
 			listener.gameChanged();
@@ -136,6 +165,10 @@ public class GameController extends Activity implements OnClickListener {
 	}
 
 
+	/**
+	 * Checks to see if player 1 is the active player
+	 * @return true if player 1 is active, false if not
+	 */
 	public boolean isPlayer1turn(){
 		return p1Turn;
 	}
@@ -157,6 +190,9 @@ public class GameController extends Activity implements OnClickListener {
 		this.placedPlatforms = placedPlatforms;
 	}
 
+	/**
+	 * Figure out which button was pressed
+	 */
 	@Override
 	public void onClick(View v) {
 		// Figure out which button was clicked
@@ -179,6 +215,9 @@ public class GameController extends Activity implements OnClickListener {
 	}
 
 
+	/**
+	 * Opens a dialog that asks the user if he wants to confirm the placement of his platforms
+	 */
 	private void openConfirmDialog() {
 		new AlertDialog.Builder(myActivity).setTitle(R.string.confirm_placement_title)
 		.setItems(R.array.confirm_placement, new DialogInterface.OnClickListener() {
@@ -215,6 +254,11 @@ public class GameController extends Activity implements OnClickListener {
 		return winState;
 	}
 
+	
+	/**
+	 * Play sound effect if sound effects is enabled in settings
+	 * @param sound the index of the sound to be played
+	 */
 	public void playSound(int sound) {
 		if(Prefs.getSFX(myActivity))
 			sp.play(soundsMap.get(sound), 1, 1, 1, 0, 1);

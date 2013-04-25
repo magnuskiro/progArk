@@ -36,7 +36,10 @@ public class BattleShip extends Activity implements OnClickListener {
         
     }
 
-    // Create the settings menu
+    /**
+     * Creates the menu which is displayed when the user 
+     * presses the menu button 
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	super.onCreateOptionsMenu(menu);
@@ -45,6 +48,9 @@ public class BattleShip extends Activity implements OnClickListener {
     	return true;
     }
     
+    /**
+     * Figures out which option in the menu the user selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
@@ -56,6 +62,9 @@ public class BattleShip extends Activity implements OnClickListener {
     	return false;
     }
     
+    /**
+     * Finds out which button on the main screen the user pressed
+     */
 	@Override
 	public void onClick(View v) {
 		// Figure out which button was clicked
@@ -75,7 +84,7 @@ public class BattleShip extends Activity implements OnClickListener {
 	}
 	
 	
-	/*
+	/**
 	 * Creates a new dialog with the elements of the size-array and adds
 	 * OnClickListeners to them, allowing the user to choose board size
 	 */
@@ -90,7 +99,7 @@ public class BattleShip extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 
+	 * Starts a new game with the selected board size
 	 * @param i the index of the board size selected from the list
 	 */
 	private void startGame(int i) {
