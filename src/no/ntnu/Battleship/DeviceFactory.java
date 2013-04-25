@@ -12,6 +12,11 @@ public class DeviceFactory {
 		//TODO: fetch settings  from somewhere
 	}
 	
+	/**
+	 * Creates a set of devices 
+	 * @param devTypes - set of devicetypes. Length of this set determines number of devices. 
+	 * @return
+	 */
 	public Device[] createDeviceSet(int[] devTypes){
 		Device[] devs = new Device[devTypes.length];
 		

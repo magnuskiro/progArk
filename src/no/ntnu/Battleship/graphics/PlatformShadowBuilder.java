@@ -5,7 +5,14 @@ import java.lang.ref.WeakReference;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.View;
+import android.view.View.DragShadowBuilder;
 
+/**
+ * Custom {@link DragShadowBuilder} for moving {@link PlatformView}. Shadows are
+ * positioned with the bottom tile under the dragpoint.
+ * @author Håvard
+ *
+ */
 class PlatformShadowBuilder extends View.DragShadowBuilder{
 	private final WeakReference<View> mView;
 	private float tSize;

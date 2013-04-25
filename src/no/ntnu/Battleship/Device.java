@@ -53,6 +53,10 @@ public class Device {
 		return spreadType;
 	}
 	
+	/**
+	 * 
+	 * @return the type of device
+	 */
 	public int getType(){
 		return type;
 	}

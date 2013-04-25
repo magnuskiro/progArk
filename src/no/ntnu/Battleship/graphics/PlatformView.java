@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 /**
- * view that one day will be draganddroppable, showing the user where his platforms will be placed
+ * View that shows the user where one of his platforms will be placed
  * @author Håvard
  *
  */
@@ -19,15 +19,21 @@ public class PlatformView extends ImageView{
 	Platform platform;
 	float tileSize;
 	Resources res;
-	
-	
 
+
+	/**
+	 * main constructor
+	 * @param context - the application context
+	 * @param plat - the platform to represent
+	 * @param res - resources enabling loading of appropriate image
+	 * @param tileSize - size of a single square of the board in pixels
+	 */
 	public PlatformView(Context context, Platform plat, Resources res, float tileSize) {
 		super(context);
 		this.tileSize = tileSize;
 		this.res	= res;
 		setPlatform(plat);
-		
+
 		Log.d("movement", "pivX: " + tileSize/2 + " pivY: " +  ((plat.getlength()*tileSize) -(tileSize/2)));
 	}
 
@@ -37,7 +43,11 @@ public class PlatformView extends ImageView{
 	public Platform getPlatform(){
 		return platform;
 	}
-	
+
+	/**
+	 * Set a new platform to represent 
+	 * @param plat
+	 */
 	public void setPlatform(Platform plat){
 		platform = plat;
 
