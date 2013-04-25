@@ -7,7 +7,7 @@
     <uses-sdk android:minSdkVersion="16" />
 
     <application
-        android:debuggable="true"
+        android:debuggable="false"
         android:icon="@drawable/icon_v1"
         android:label="@string/app_name" >
         <!-- android:name="no.ntnu.Battleship.graphics.GameActivity" -->

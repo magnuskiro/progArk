@@ -93,16 +93,16 @@ description of the inconsistencies between architecture and implementation, in
 addition to a listing of the problems and issues we ran into.
 
 \section{User Manual}
-The game can be run from the code delivered.  
+In order to run the game, you should unpack the zip file battleship.zip, and import it as an Android Project into the development environment of your choosing, and run it on an Android Virtual Device with API-level 17. We used the official Android ADT bundle, which you can get at \url{developer.android.com}
 
 \subsection{Tutorial}
 Sound can be disabled at any time by clicking on menu, then disabling from
 settings.
 
-Following we have a set of figures showing our user interface and with it a
+Following, we have a set of figures showing our user interface and with it a
 tutorial of how to play the game. 
 
-First the application have to be launched. Use the icon \ref{fig:starticon} to do
+First the application has to be launched. Use the icon \ref{fig:starticon} to do
 that. 
 
 Then we have a menu \ref{fig:newgame} where we choose to play a new game. 
@@ -117,7 +117,7 @@ Then confirm \ref{fig:confirmplacement} the ship placement.
 
 Fire \ref{fig:fire} is the next action to take. Destroy your opponent!
 
-After firing you can see the impact \ref{fig:impact} of your shot. 
+If sound effects are enabled, after firing you can hear if you hit your opponent or if it was a miss. You will not get visual feedback on your attack until it's your turn again.\ref{fig:impact} of your shot. 
 
 % starticon
 \begin{figure}[h!]
@@ -235,6 +235,7 @@ things were in place.
 \subsection{Class diagram}
 See the class diagram: \ref{fig:classdiagram}
 
+\subsubsection*{Short description of classes}
 \paragraph{About} ~\\
 	The dialogbox that pops up when clicking the "About" button in the main menu.
 
