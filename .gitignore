@@ -38,3 +38,6 @@ adt-bundle-linux-x86_64-20130219/
 ant.properties
 proguard-project.txt
 out/
+
+# no need for pdf
+*.pdf
