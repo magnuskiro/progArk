@@ -2,7 +2,6 @@ package no.ntnu.Battleship;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.MotionEvent;
 
 public class About extends Activity {

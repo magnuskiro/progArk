@@ -17,7 +17,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -52,10 +51,6 @@ public class GameViewer extends View implements GameListener{
 	Bitmap miss;
 	Bitmap hit;
 	Bitmap destroyed;
-	Bitmap ship2;
-	Bitmap ship3;
-	Bitmap ship4;
-	Bitmap ship5;
 	Bitmap player1;
 	Bitmap player2;
 	Bitmap p1wins;
@@ -96,14 +91,6 @@ public class GameViewer extends View implements GameListener{
 				(int)tileSize, (int)tileSize, false);
 		destroyed = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.wreck_96),
 				(int)tileSize, (int)tileSize, false);
-		ship2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship2_96),
-				(int)tileSize, (int)tileSize * 2, false);
-		ship3 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship3_96),
-				(int)tileSize, (int)tileSize * 3, false);
-		ship4 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship4_96),
-				(int)tileSize, (int)tileSize * 4, false);
-		ship5 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.ship5_96),
-				(int)tileSize, (int)tileSize * 5, false);
 		player1 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.one), 
 				(int)tileSize * 3, (int)tileSize * 5, false);
 		player2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.two), 
@@ -112,8 +99,6 @@ public class GameViewer extends View implements GameListener{
 				screenWidth, (int)(screenWidth * 0.422), false);
 		p2wins = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(res, R.drawable.p2wins), 
 				screenWidth, (int)(screenWidth * 0.422), false);
-
-
 
 
 		p1Platforms = game.getPlatforms();

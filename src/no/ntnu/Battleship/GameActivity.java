@@ -1,6 +1,5 @@
 package no.ntnu.Battleship;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,13 +7,10 @@ import no.ntnu.Battleship.graphics.GameViewer;
 import no.ntnu.Battleship.graphics.PlatformView;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,7 +22,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class GameActivity extends Activity implements OnSharedPreferenceChangeListener {
+public class GameActivity extends Activity {
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -68,7 +64,6 @@ public class GameActivity extends Activity implements OnSharedPreferenceChangeLi
 		default:
 			break;
 		}
-	    PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 		mPlayer = MediaPlayer.create(this, R.raw.background2);
 //		hitSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
 //		hitSound.
@@ -130,8 +125,6 @@ public class GameActivity extends Activity implements OnSharedPreferenceChangeLi
 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_attack);
 		 confirmPlacementButton.setOnClickListener(gameController);
-		 if(Prefs.getMusic(this))
-			 mPlayer.start();
 	}
 	
 //	@Override
@@ -161,31 +154,6 @@ public class GameActivity extends Activity implements OnSharedPreferenceChangeLi
     	}
     	return false;
     }
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-		Log.d(TAG, "Preference " + key + " changed");
-		try {
-			mPlayer.prepare();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(key.equals("music")) {
-			if(mPlayer.isPlaying()) {
-				mPlayer.stop();
-				Log.d(TAG, "Music playing: " + mPlayer.isPlaying());
-			}
-			else {
-				mPlayer.start();
-				Log.d(TAG, "Music playing: " + mPlayer.isPlaying());
-			}
-		}
-	}
     
 
 }
