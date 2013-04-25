@@ -29,9 +29,7 @@ public class GameActivity extends Activity{
 	GameViewer gameViewer;
 	GameController gameController;
 	LinearLayout layout;
-	MediaPlayer hitSound;
-	MediaPlayer missSound;
-	MediaPlayer destroyedSound;
+	MediaPlayer mPlayer;
 	SoundPool sp;
 	HashMap<Integer, Integer> soundsMap;
     int DESTROYED = 1;
@@ -62,6 +60,7 @@ public class GameActivity extends Activity{
 		default:
 			break;
 		}
+		mPlayer = MediaPlayer.create(this, R.raw.background2);
 //		hitSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
 //		hitSound.
 //		missSound = MediaPlayer.create(GameActivity.this, R.raw.birds);
@@ -122,9 +121,14 @@ public class GameActivity extends Activity{
 		 setContentView(layout);
 		 gameViewer.requestFocus();
 
-		 
-		 
 		 View confirmPlacementButton = findViewById(R.id.button_confirm_attack);
 		 confirmPlacementButton.setOnClickListener(gameController);
+		 mPlayer.start();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mPlayer.stop();
 	}
 }

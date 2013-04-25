@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -15,7 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class GameController extends Activity implements OnClickListener {
+public class GameController extends Activity implements OnClickListener, OnSharedPreferenceChangeListener{
 	private static final String TAG = "Battleship";
 
 	public static final String KEY_SIZE = "no.ntnu.Battleship.size";
@@ -221,7 +223,19 @@ public class GameController extends Activity implements OnClickListener {
 	}
 
 	public void playSound(int sound) {
-		sp.play(soundsMap.get(sound), 1, 1, 1, 0, 1);
+		if(Prefs.getSFX(myActivity))
+			sp.play(soundsMap.get(sound), 1, 1, 1, 0, 1);
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		if(!Prefs.getMusic(myActivity) && mPlayer.isPlaying()) {
+			mPlayer.stop();
+		} else if(Prefs.getMusic(myActivity) && !mPlayer.isPlaying()) {
+			mPlayer.start();
+		}
+		
 	}
 
 }
