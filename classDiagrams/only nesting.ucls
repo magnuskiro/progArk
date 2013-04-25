@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="false" 
+  realizations="false" associations="false" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="no.ntnu.Battleship.GameSetup" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/GameSetup.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="163" x="263" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="no.ntnu.Battleship.Prefs" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Prefs.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="134" x="466" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="no.ntnu.Battleship.PlatformFactory" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/PlatformFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="209" x="640" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="no.ntnu.Battleship.graphics.GameViewer" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="747" width="254" x="2648" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="no.ntnu.Battleship.GameController" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/GameController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="603" width="231" x="889" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="no.ntnu.Battleship.Board" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Board.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="194" x="1160" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="no.ntnu.Battleship.Platform" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Platform.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="177" x="1394" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyDragListener" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="188" x="2420" y="682"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="9" language="java" name="no.ntnu.Battleship.TileNum" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/TileNum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="131" x="1611" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="10" language="java" name="no.ntnu.Battleship.About" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/About.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="201" x="1782" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="no.ntnu.Battleship.graphics.PlatformView" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="258" x="2023" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyDragShadowBuilder" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="230" x="2648" y="682"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="no.ntnu.Battleship.Device" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Device.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="121" x="2321" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="no.ntnu.Battleship.Splash" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/Splash.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="153" x="2942" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="15" language="java" name="no.ntnu.Battleship.GameListener" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/GameListener.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="126" x="2482" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="16" language="java" name="no.ntnu.Battleship.DeviceFactory" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/DeviceFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="173" x="3135" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="no.ntnu.Battleship.graphics.GameViewer.MyTouchListener" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/GameViewer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="202" x="2918" y="682"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="no.ntnu.Battleship.BattleShip" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/BattleShip.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="230" x="3348" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="no.ntnu.Battleship.graphics.PlatformAddingGraphics" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/graphics/PlatformAddingGraphics.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="289" x="3836" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="no.ntnu.Battleship.GameActivity" project="Splash" 
+    file="/Splash/src/no/ntnu/Battleship/GameActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="178" x="3618" y="-105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <nesting id="21">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <nesting id="22">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <nesting id="23">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

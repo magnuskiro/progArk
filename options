@@ -1,0 +1,19 @@
+-d C:/Users/Håkon/Documents/GitHub/progArk/documentation
+-source 1.5
+-sourcepath doc
+-breakiterator
+-author
+-umlautogen
+-generic
+-docletpath C:/"Program Files (x86)"/yworks-uml-doclet-3.0_02-jdk1.5/lib/ydoc.jar;C:/"Program Files (x86)"/yworks-uml-doclet-3.0_02-jdk1.5/resources;C:/Users/Håkon/Documents/GitHub/progArk/src;C:/Users/Håkon/Documents/GitHub/progArk/bin/classes
+-doclet ydoc.doclets.YStandard
+-filterpath C:/"Program Files (x86)"/yworks-uml-doclet-3.0_02-jdk1.5/lib/ydoc.jar
+-filter ydoc.filters.ExcludeFilter
+-tag y.precondition
+-tag y.postcondition
+-tag y.complexity
+-tag param
+-tag return
+-tag see
+-tag y.uml
+-subpackages examples
