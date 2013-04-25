@@ -2,8 +2,15 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
+import android.R.plurals;
 import android.util.Log;
 
+/**
+ * Class representing one player's half of the complete game board.
+ * Can have various sizes, but is always a square
+ * @author Stig Tore
+ *
+ */
 public class Board {
 	
 	private final int boardSize;
@@ -16,6 +23,11 @@ public class Board {
 	private ArrayList<Platform> platforms;
 	GameController myGame;
 	
+	/**
+	 * Main constructor
+	 * @param thisGame - the {@link GameController} that  manages this board
+	 * @param size - the size of this board
+	 */
 	public Board(GameController thisGame, int size) {
 		boardSize = size;
 		isShot = new boolean[boardSize][boardSize];
@@ -24,6 +36,11 @@ public class Board {
 		this.myGame = thisGame;
 	}
 	
+	/**
+	 * Attempts to populate this board with an {@link ArrayList} of {@link Platform}s
+	 * @param newPlatforms - list of the {@link Platform}s to populate the board
+	 * @return - whether or not the populating was successful
+	 */
 	public boolean populate(ArrayList<Platform> newPlatforms) {
 		//populate platformGrid!
 		boolean sucess = true;
@@ -44,6 +61,12 @@ public class Board {
 		return sucess;
 	}
 	
+	/**
+	 * Tells the board that it has been shot at the provided coordinates.
+	 * Will check those coordinates for platforms, and if there is one, tells it
+	 * thatis has been hit.
+	 * @param shots - the coordinates of the shots
+	 */
 	public void attack(int[][] shots) {
 		Log.d("Board", "attack at " + shots[0][0] + " " + shots[0][1]);
 		for(int i = 0; i<shots.length; i++) {
@@ -63,6 +86,11 @@ public class Board {
 		myGame.fireGameChanged();
 	}
 	
+	/**
+	 * If the number of shots available per turn is determined by the number of
+	 * {@link Platform}s on the board that are not destroyed, returns that number.
+	 * @return - the number of shots this board can deliver in one turn 
+	 */
 	public int getShots() {
 		int countShots = 0;
 		for(Platform plat:platforms) {
@@ -71,6 +99,11 @@ public class Board {
 		return countShots;
 	}
 	
+	/**
+	 * 
+	 * @return an enumerated array, representing the status of the board, as it would be seen
+	 * by the opponent
+	 */
 	public TileNum[][] getTiles() {
 		TileNum[][] ret = new TileNum[boardSize][boardSize];
 		for (int i = 0; i<boardSize; i++) {
@@ -91,6 +124,10 @@ public class Board {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 * @return the size of this board, in squares along one side
+	 */
 	public int getBoardSize() {
 		return boardSize;
 	}

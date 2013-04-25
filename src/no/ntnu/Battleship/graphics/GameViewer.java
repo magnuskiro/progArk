@@ -24,6 +24,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+/**
+ * Graphical representation of a {@link GameController}, will connect to a provided controller
+ * and pass user interactions to it, and react to the changes.
+ * @author Håvard
+ *
+ */
 public class GameViewer extends View implements GameListener{
 
 	Resources res;
@@ -60,7 +66,13 @@ public class GameViewer extends View implements GameListener{
 	public long time;
 
 
-
+	/**
+	 * Main constructor
+	 * @param boardSize - the number of tiles along one side of the board
+	 * @param screenWidth - the width of the device screen in pixels
+	 * @param context - the application {@link Context}
+	 * @param game - the {@link GameController} this view connects to
+	 */
 	public GameViewer(int boardSize, int screenWidth, Context context, GameController game) {
 		super(context);
 		this.tileSize = screenWidth / boardSize;
@@ -185,12 +197,23 @@ public class GameViewer extends View implements GameListener{
 		}
 	}
 
-
+	/**
+	 * Helper method to set the selection rectangle at the desired position
+	 * @param x - position along the x-axis
+	 * @param y - position along the y-axis
+	 * @param rect - the rectangle
+	 */
 	private void getRect(int x, int y, Rect rect) {
 		rect.set((int) (x * tileSize), (int) (y * tileSize), 
 				(int) (x * tileSize + tileSize), (int) (y * tileSize + tileSize));
 	}
 
+	
+	/**
+	 * Moves the selected rectangle to the desired position, and triggers a redraw
+	 * @param x - position along the x-axis
+	 * @param y - position along the y-axis
+	 */
 	private void select(int x, int y) {
 		invalidate(selRect);
 		selX = Math.min(Math.max(x, 0), boardSize - 1);
@@ -221,14 +244,14 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * @return list of platformViews for the active player.
+	 * @return an {@link ArrayList} of {@link PlatformView}s for the active player.
 	 */
 	public ArrayList<PlatformView> getPlatformViews() {
 		return platformViews;
 	}
 
 	/**
-	 * tells the view to send the positions of the platforms to the gameController
+	 * Tells the {@link GameViewer} to send the positions of the platforms to the {@link GameController}
 	 */
 	public void placePlatforms(){
 		int[] pos = new int[2];
@@ -266,7 +289,8 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * tells the view to switch the platforms the platformViews are representing
+	 * tells the {@link GameViewer} to switch the platforms the {@link PlatformView}s are representing,
+	 * if both players have placed their platforms, the PlatformViews will be hiddn, as they are no longer needed
 	 */
 	public void switchPlatforms(){
 		boolean[] placedplats = game.getPlacedPlatforms(); 
@@ -298,6 +322,12 @@ public class GameViewer extends View implements GameListener{
 		invalidate();
 	}
 
+	/**
+	 * Custom listener applied to the {@link PlatformView}-children of the {@link GameViewer}.
+	 * Assigns a custom drawshadowBuilder to those views, and triggers a drag event.
+	 * @author Håvard
+	 *
+	 */
 	class MyTouchListener  implements OnTouchListener{
 
 		@Override
@@ -317,7 +347,8 @@ public class GameViewer extends View implements GameListener{
 	}
 
 	/**
-	 * only add this listener to views that only have  platformviews as children.
+	 * only add this listener to views that only have {@link PlatformView} as children.
+	 * (A cast makes sure that it will crash otherwise)
 	 * @author Håvard
 	 *
 	 */
@@ -403,7 +434,9 @@ public class GameViewer extends View implements GameListener{
 	}
 
 
-
+	/**
+	 * @return the coordinates of the selected square on the board
+	 */
 	public int[][] getSelected() {
 		Log.d("GameViewer", "getSelected " + selX + " " + selY);
 		int[][] selected = new int[1][2];
