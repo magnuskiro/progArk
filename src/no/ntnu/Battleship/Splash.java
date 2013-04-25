@@ -7,15 +7,18 @@ import android.os.Bundle;
 
 import no.ntnu.Battleship.R;
 
+/**
+ * Displays a splash screen when the app is started
+ * @author Simon
+ *
+ */
 public class Splash extends Activity {
 
-	// Bruker fuglekvitring som temporary lyd for å se at ting funker
 	MediaPlayer splashSound;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Displays the splascreen layout
 		setContentView(R.layout.splash);
 
 		// Get the soundfile and start playing

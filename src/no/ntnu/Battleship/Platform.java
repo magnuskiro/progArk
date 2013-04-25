@@ -17,7 +17,10 @@ public class Platform {
 	private Device[]	devices; //what weapon is at what position (index)
 	private boolean[]	hits; //which parts of the ship has been hit, true=hit
 
-
+	/**
+	 * Main constructor
+	 * @param length - length of this platform, in number of squares
+	 */
 	public Platform(int length){
 		this.length = length;
 		coordinates = new int[length][2];
@@ -127,14 +130,14 @@ public class Platform {
 
 
 	/**
-	 * @return
+	 * @return whether or not this platform has a horizontal orientation
 	 */
 	public boolean isHorizontal() {
 		return isHorizontal;
 	}
 
 	/**
-	 * @param isHorizontal
+	 * @param isHorizontal - whether or not this platform should be horizontal
 	 */
 	public void setOrientation(boolean isHorizontal) {
 		this.isHorizontal = isHorizontal;

@@ -12,6 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * The main screen of the app. From here the user can start a new game, view the 
+ * about dialog or exit the game without experiencing all the wonderful joys it can offer
+ * @author alex
+ *
+ */
 public class BattleShip extends Activity implements OnClickListener {
 
 	private static final String TAG = "BattleShip"; // used for logging

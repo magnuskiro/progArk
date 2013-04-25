@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.MotionEvent;
 
+/**
+ * Diplays information about the game
+ * @author Jan Alexander Stormark Bremnes
+ *
+ */
 public class About extends Activity {
 
 	@Override

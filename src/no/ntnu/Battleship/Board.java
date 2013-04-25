@@ -2,7 +2,6 @@ package no.ntnu.Battleship;
 
 import java.util.ArrayList;
 
-import android.R.plurals;
 import android.util.Log;
 
 /**
