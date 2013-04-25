@@ -22,6 +22,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+/**
+ * This class creates the gameplay screen
+ * @author Jan Alexander Stormark Bremnes
+ *
+ */
 public class GameActivity extends Activity {
 	private static final String TAG = "Battleship";
 
